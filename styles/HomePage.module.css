@@ -20,7 +20,7 @@
   text-wrap: balance;
 }
 
-.heroSection p {
+.heroSection h2 {
   font-size: 1.125rem;
   color: #666;
   font-family: var(--font-sans);

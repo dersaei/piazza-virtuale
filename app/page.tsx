@@ -6,7 +6,10 @@ export default function HomePage() {
     <div className={styles.homePage}>
       <section className={styles.heroSection}>
         <h1>Benvenuto a Piazza Virtuale</h1>
-        <p>Scopri i migliori prodotti artigianali italiani</p>
+        <h2>
+          Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e
+          bevande
+        </h2>
       </section>
 
       <section className={styles.contentSection}>

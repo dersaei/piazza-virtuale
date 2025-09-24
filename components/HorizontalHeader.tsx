@@ -34,6 +34,7 @@ export default function HorizontalHeader() {
         <div className={styles.navContainer}>
           {PRODUCT_CATEGORIES.map((category) => (
             <button
+              type="button"
               key={category.id}
               className={`${styles.categoryButton} ${
                 activeCategory === category.id ? styles.active : ""

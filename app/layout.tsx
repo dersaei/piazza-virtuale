@@ -7,7 +7,8 @@ import HorizontalHeader from "@/components/HorizontalHeader";
 
 export const metadata: Metadata = {
   title: "Piazza Virtuale",
-  description: "Italian artisanal products marketplace",
+  description:
+    "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande",
 };
 
 export default function RootLayout({
