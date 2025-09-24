@@ -1,0 +1,82 @@
+/* styles/HorizontalHeader.module.css */
+
+.horizontalHeader {
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: var(--vertical-header-width);
+  height: var(--horizontal-header-height);
+  background-color: var(--horizontal-header-bg);
+  z-index: 999;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav {
+  height: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1vh 0;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100%;
+  padding: 0 var(--space-md);
+  gap: var(--space-xs);
+  min-width: -webkit-fill-available;
+  min-width: fit-content;
+}
+
+/* Minimal button styles (from your design) */
+.categoryButton {
+  background: white;
+  border: 1.5px solid var(--vertical-header-bg);
+  padding: var(--space-sm) var(--space-md);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.categoryText {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--vertical-header-bg);
+  text-transform: uppercase;
+  font-family: var(--font-futura);
+}
+
+.categoryButton:hover,
+.categoryButton.active {
+  background: var(--vertical-header-bg);
+}
+
+.categoryButton:hover .categoryText,
+.categoryButton.active .categoryText {
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navContainer {
+    padding: 0 var(--space-sm);
+  }
+
+  .categoryButton {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .categoryText {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .categoryText {
+    font-size: 0.75rem;
+  }
+}

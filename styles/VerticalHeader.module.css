@@ -1,0 +1,142 @@
+/* styles/VerticalHeader.module.css */
+
+.verticalHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--vertical-header-width);
+  height: 100vh;
+  background-color: var(--vertical-header-bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+}
+
+/* Refined button styles (from your design) */
+.navButton {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    var(--refined-bg-primary) 0%,
+    var(--refined-bg-secondary) 100%
+  );
+  padding: var(--space-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  width: 100%;
+}
+
+.navButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    var(--refined-highlight) 50%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.buttonFrame {
+  border: 1.5px solid var(--refined-border-primary);
+  padding: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+}
+
+.buttonInnerFrame {
+  border: 1px solid var(--refined-border-secondary);
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.buttonInnerFrame::before,
+.buttonInnerFrame::after {
+  content: "";
+  position: absolute;
+  background: var(--refined-accent-gold);
+  opacity: 0.3;
+}
+
+.buttonInnerFrame::before {
+  top: var(--space-xs);
+  left: var(--space-sm);
+  right: var(--space-sm);
+  height: 0.5px;
+}
+
+.buttonInnerFrame::after {
+  bottom: var(--space-xs);
+  left: var(--space-sm);
+  right: var(--space-sm);
+  height: 0.5px;
+}
+
+.buttonText {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--refined-text-primary);
+  text-transform: uppercase;
+  text-align: center;
+  font-family: var(--font-sans);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navButton:hover,
+.navButton.active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:hover .buttonInnerFrame::before,
+.navButton:hover .buttonInnerFrame::after,
+.navButton.active .buttonInnerFrame::before,
+.navButton.active .buttonInnerFrame::after {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .buttonText {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .nav {
+    padding: var(--space-sm);
+  }
+}

@@ -1,0 +1,77 @@
+/* styles/HomePage.module.css */
+
+.homePage {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heroSection {
+  text-align: center;
+  padding: 0;
+  margin-bottom: var(--space-xl);
+}
+
+.heroSection h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--refined-text-primary);
+  font-family: var(--font-serif);
+  margin-bottom: var(--space-md);
+  text-wrap: balance;
+}
+
+.heroSection p {
+  font-size: 1.125rem;
+  color: #666;
+  font-family: var(--font-sans);
+  text-wrap: balance;
+}
+
+.contentSection {
+  margin-top: var(--space-xl);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.contentCard {
+  background: #f9f9f9;
+  padding: var(--space-lg);
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contentCard h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--refined-text-primary);
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-sans);
+}
+
+.contentCard p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #666;
+  font-family: var(--font-sans);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroSection h1 {
+    font-size: 2rem;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}

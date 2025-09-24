@@ -1,0 +1,65 @@
+/* styles/globals.css */
+
+:root {
+  /* Color palette */
+  --vertical-header-bg: #b6c0ba;
+  --horizontal-header-bg: #fdfbf7;
+  --content-bg: #ffffff;
+
+  /* Refined button colors (vertical header) */
+  --refined-bg-primary: #7a8471;
+  --refined-bg-secondary: #6b7362;
+  --refined-accent-gold: #b8a281;
+  --refined-border-primary: #4a4f45;
+  --refined-border-secondary: #5d6358;
+  --refined-text-primary: #2c2f2a;
+  --refined-highlight: rgba(255, 253, 248, 0.08);
+
+  /* Layout dimensions */
+  --vertical-header-width: 250px;
+  --horizontal-header-height: auto;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.75rem;
+  --space-xl: 2.5rem;
+
+  /* Typography */
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: "Helvetica Neue", "Arial", sans-serif;
+  --font-futura: "Futura", "Helvetica Neue", sans-serif;
+}
+
+/* Layout Structure */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+}
+
+.main-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--vertical-header-width);
+}
+
+/* Main Content Styles */
+.main-content {
+  margin-top: var(--horizontal-header-height);
+  padding: var(--space-xl);
+  background-color: var(--content-bg);
+  min-height: calc(100vh - var(--horizontal-header-height));
+}
+
+@media (max-width: 768px) {
+  :root {
+    --vertical-header-width: 200px;
+  }
+
+  .main-content {
+    padding: var(--space-lg);
+  }
+}
