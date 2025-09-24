@@ -1,7 +1,8 @@
 // components/HorizontalHeader.tsx
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "@/styles/HorizontalHeader.module.css";
 
 const PRODUCT_CATEGORIES = [
@@ -26,23 +27,22 @@ const PRODUCT_CATEGORIES = [
 ];
 
 export default function HorizontalHeader() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const pathname = usePathname();
 
   return (
     <header className={styles.horizontalHeader}>
       <nav className={styles.nav}>
         <div className={styles.navContainer}>
           {PRODUCT_CATEGORIES.map((category) => (
-            <button
-              type="button"
+            <Link
               key={category.id}
+              href={category.href}
               className={`${styles.categoryButton} ${
-                activeCategory === category.id ? styles.active : ""
+                pathname === category.href ? styles.active : ""
               }`}
-              onClick={() => setActiveCategory(category.id)}
             >
               <span className={styles.categoryText}>{category.label}</span>
-            </button>
+            </Link>
           ))}
         </div>
       </nav>
