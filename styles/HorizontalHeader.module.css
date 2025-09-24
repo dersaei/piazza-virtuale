@@ -34,6 +34,7 @@
 .categoryButton {
   display: block;
   text-align: center;
+  text-decoration: none;
   background: white;
   border: 1.5px solid var(--vertical-header-bg);
   padding: var(--space-sm) var(--space-md);

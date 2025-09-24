@@ -4,7 +4,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
+  visibility: visible;
+  opacity: 1;
 }
 
 *,
@@ -89,7 +90,6 @@ video {
   outline: 0;
   font-size: 100%;
   vertical-align: baseline;
-  background: transparent;
 }
 
 /* HTML5 display-role reset */
@@ -109,9 +109,9 @@ section {
 
 /* Body defaults */
 body {
-  line-height: 1;
-  color: #000;
-  background: #fff;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* List styles */
@@ -142,11 +142,14 @@ a {
   vertical-align: baseline;
   background: transparent;
   text-decoration: none;
-  color: inherit;
 }
 
 a:hover,
 a:focus {
+  outline: none;
+}
+
+a[data-nextjs-scroll-focus-boundary] {
   outline: none;
 }
 
@@ -228,14 +231,17 @@ h4,
 h5,
 h6,
 p {
-  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 /* Image optimization */
 img {
   max-width: 100%;
   height: auto;
-  display: block;
+}
+
+img[style*="object-fit"] {
+  object-fit: var(--object-fit);
 }
 
 /* Utility classes */

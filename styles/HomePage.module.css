@@ -22,7 +22,7 @@
 
 .heroSection h2 {
   font-size: 1.125rem;
-  color: #666;
+  color: var(--text-secondary);
   font-family: var(--font-sans);
   text-wrap: balance;
 }
@@ -38,10 +38,10 @@
 }
 
 .contentCard {
-  background: #f9f9f9;
+  background: var(--card-bg);
   padding: var(--space-lg);
   border-radius: 8px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--border-light);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
