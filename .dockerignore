@@ -12,12 +12,6 @@ dist
 .env.development
 .env.test
 
-# Development files
-docker-compose.dev.yml
-docker-compose.override.yml
-
-# Git history (but NOT .gitignore)
-.git
 
 # IDE files
 .vscode
