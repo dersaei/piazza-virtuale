@@ -1,0 +1,26 @@
+name: Deploy to VPS
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 185.238.72.187
+          port: 2222
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/piazza-virtuale
+            if [ ! -d "nextjs" ]; then
+              git clone https://github.com/dersaei/piazza-virtuale.git nextjs
+            else
+              cd nextjs
+              git pull origin main
+              cd ..
+            fi
+            doppler run -- docker compose up --build -d
