@@ -1,0 +1,42 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Build outputs
+.next
+out
+dist
+
+# Environment files
+.env*.local
+.env.development
+.env.test
+
+# Development files
+docker-compose.dev.yml
+docker-compose.override.yml
+
+# Git history (but NOT .gitignore)
+.git
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs
+
+# Testing
+coverage
+.nyc_output
+
+# Temporary files
+.tmp
+temp
