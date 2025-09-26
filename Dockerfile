@@ -1,11 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:20-alpine AS base
-
-# Install Doppler CLI
-RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.key' -O /etc/apk/keys/cli@doppler-8004D9FF50437357.rsa.pub && \
-    echo 'https://packages.doppler.com/public/cli/alpine/any-version/main' | tee -a /etc/apk/repositories && \
-    apk add doppler
+FROM node:22.22.0-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -58,5 +53,4 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Use Doppler to run the application
-CMD ["doppler", "run", "--", "node", "server.js"]
+CMD ["node", "server.js"]

@@ -1,11 +1,14 @@
 name: Deploy to VPS
+
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
@@ -16,11 +19,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/piazza-virtuale
-            if [ ! -d "nextjs" ]; then
-              git clone https://github.com/dersaei/piazza-virtuale.git nextjs
-            else
-              cd nextjs
-              git pull origin main
-              cd ..
-            fi
-            doppler run -- docker compose up --build -d
+            git pull origin main
