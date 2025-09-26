@@ -18,5 +18,12 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            if [ ! -d ~/piazza-virtuale/.git ]; then
+              rm -rf ~/piazza-virtuale
+              git clone https://github.com/dersaei/piazza-virtuale.git ~/piazza-virtuale
+            else
+              cd ~/piazza-virtuale
+              git pull origin main
+            fi
+
             cd ~/piazza-virtuale
-            git pull origin main
