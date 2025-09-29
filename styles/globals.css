@@ -27,9 +27,9 @@
   --space-xl: 2.5rem;
 
   /* Typography */
-  --font-serif: "Georgia", "Times New Roman", serif;
-  --font-sans: "Helvetica Neue", "Arial", sans-serif;
-  --font-futura: "Futura", "Helvetica Neue", sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'Helvetica Neue', 'Arial', sans-serif;
+  --font-futura: 'Futura', 'Helvetica Neue', sans-serif;
 
   /* różne */
   --text-secondary: #666;
