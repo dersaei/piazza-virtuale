@@ -5,26 +5,169 @@
   margin: 0 auto;
 }
 
-.heroSection {
+.heroVersion2 {
   text-align: center;
-  padding: 0;
-  margin-bottom: var(--space-xl);
+  padding: 60px 20px;
+  margin-bottom: 40px;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
-.heroSection h1 {
-  font-size: 2.5rem;
+/* Decorative corner elements */
+.heroVersion2::before,
+.heroVersion2::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #b8a281;
+  opacity: 0.3;
+}
+
+.heroVersion2::before {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.heroVersion2::after {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+.heroVersion2 h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 300;
-  color: var(--refined-text-primary);
-  font-family: var(--font-serif);
-  margin-bottom: var(--space-md);
-  text-wrap: balance;
+  color: #7a8471;
+  font-family: Georgia, 'Times New Roman', serif;
+  margin-bottom: 32px;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  position: relative;
+  display: inline-block;
 }
 
-.heroSection h2 {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  text-wrap: balance;
+/* Elegant underline animation */
+.heroVersion2 h1::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b8a281 20%,
+    #b8a281 80%,
+    transparent
+  );
+  opacity: 0.6;
+}
+.heroVersion2 h2 {
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  margin-bottom: var(--space-xs);
+}
+
+.heroVersion2 h3 {
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  color: #666;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 740px;
+  margin: 0 auto;
+  letter-spacing: 0.03em;
+  padding: 0 30px;
+}
+
+/* Subtle accent marks */
+.heroVersion2 .accentWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.heroVersion2 .accentWrapper::before,
+.heroVersion2 .accentWrapper::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #b8a281;
+  border-radius: 50%;
+  opacity: 0.3;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.heroVersion2 .accentWrapper::before {
+  left: -20px;
+}
+
+.heroVersion2 .accentWrapper::after {
+  right: -20px;
+}
+.keyWord {
+  color: var(--refined-bg-primary);
+  font-style: italic;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+/* Static background - always visible */
+.keyWord::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(184, 162, 129, 0.15) 0%,
+    rgba(184, 162, 129, 0.08) 100%
+  );
+  z-index: -1;
+  border-radius: 2px;
+}
+
+.keyWord2 {
+  color: var(--refined-bg-primary);
+  font-style: italic;
+  font-weight: 400;
+  position: relative;
+}
+
+/* Optional: add a very subtle underline on hover for interactive feel */
+.keyWord2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--refined-accent-gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.accentWrapper:hover .keyWord2::after {
+  opacity: 0.3;
 }
 
 .contentSection {
@@ -69,10 +212,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .heroSection h1 {
-    font-size: 2rem;
-  }
-
   .contentGrid {
     grid-template-columns: 1fr;
   }

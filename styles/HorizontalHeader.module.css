@@ -27,7 +27,7 @@
   padding: 0 var(--space-md);
   gap: var(--space-xs);
   min-width: -webkit-fill-available;
-  min-width: fit-content;
+  min-width: available;
 }
 
 /* Minimal button styles (from your design) */
