@@ -23,7 +23,7 @@ const PRODUCT_CATEGORIES = [
   { id: 'cereali', label: 'Cereali', href: '/cereali' },
   { id: 'pescare', label: 'Pescare', href: '/pescare' },
   { id: 'salumi', label: 'Salumi', href: '/salumi' },
-  { id: 'caffe', label: 'Caffè', href: '/caffe' },
+  { id: 'caffe', label: 'Caffe', href: '/caffe' },
 ];
 
 export default function HorizontalHeader() {
