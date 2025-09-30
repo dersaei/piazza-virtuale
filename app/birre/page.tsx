@@ -25,7 +25,7 @@ interface PageProps {
 
 export default async function BirrePage({ searchParams }: PageProps) {
   // Parallel data fetching for optimal performance
-  const [shops, regions, products] = await Promise.all([
+  const [shops] = await Promise.all([
     getShopsByCategory('birre', {
       region: searchParams.region,
       product: searchParams.product,
@@ -37,27 +37,8 @@ export default async function BirrePage({ searchParams }: PageProps) {
 
   return (
     <div className='category-page'>
-      <header className='category-header'>
-        <h1>Birrifici Artigianali Italiani</h1>
-        <p>
-          Scopri i birrifici che producono e vendono direttamente online. Dalla
-          tradizione birraia del Nord alle nuove craft brewery del Sud.
-        </p>
-      </header>
-
       <Suspense fallback={<ShopGridSkeleton count={6} />}>
-        <CategoryPageClient
-          initialShops={shops}
-          regions={regions}
-          products={products}
-          category='birre'
-          categoryLabel='Birre'
-          initialFilters={{
-            region: searchParams.region,
-            product: searchParams.product,
-            search: searchParams.q,
-          }}
-        />
+        <CategoryPageClient initialShops={shops} categoryLabel='Birre' />
       </Suspense>
     </div>
   );
