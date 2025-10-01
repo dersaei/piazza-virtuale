@@ -77,12 +77,12 @@
   opacity: 0.6;
 }
 .heroVersion2 h2 {
-  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   margin-bottom: var(--space-xs);
 }
 
 .heroVersion2 h3 {
-  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
   color: #666;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;

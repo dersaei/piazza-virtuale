@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang='it'>
       <body>
-        <div className='app-layout'>
+        <div>
           <VerticalHeader />
           <div className='main-content-area'>
             <HorizontalHeader />

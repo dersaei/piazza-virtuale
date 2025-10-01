@@ -37,13 +37,6 @@
   --border-light: #e5e5e5;
 }
 
-/* Layout Structure */
-.app-layout {
-  display: flex;
-  min-height: 100vh;
-  font-family: var(--font-sans);
-}
-
 .main-content-area {
   flex: 1;
   display: flex;
