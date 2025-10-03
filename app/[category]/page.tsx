@@ -1,8 +1,9 @@
 // app/[category]/page.tsx
-import CategoryHeader from '@/components/category/CategoryHeader';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CATEGORIES, getCategoryBySlug } from '@/lib/constants/categories';
+import ProducerCard from '@/components/ProducerCard';
+import styles from '@/styles/CategoryPage.module.css';
 
 // Generate metadata dynamically for each category
 export async function generateMetadata({
@@ -26,7 +27,7 @@ export async function generateMetadata({
   };
 }
 
-// Tell Next.js which routes to generate at build time (for static export)
+// Tell Next.js which routes to generate at build time
 export async function generateStaticParams() {
   return Object.keys(CATEGORIES).map(category => ({
     category,
@@ -41,15 +42,48 @@ export default async function CategoryPage({
   const { category: categorySlug } = await params;
   const categoryData = getCategoryBySlug(categorySlug);
 
-  // Show 404 page if category doesn't exist
   if (!categoryData) {
     notFound();
   }
 
+  // Demo data - will be replaced with Directus
+  const demoProducers = [
+    {
+      id: '1',
+      categoryName: categoryData.label,
+      producerName: 'CANTINA ERRANTE',
+      regionName: 'Toscana',
+      shopUrl: 'https://example.com',
+    },
+    {
+      id: '2',
+      categoryName: categoryData.label,
+      producerName: 'BIRRIFICIO ARTIGIANALE',
+      regionName: 'Piemonte',
+      shopUrl: 'https://example.com',
+    },
+    {
+      id: '3',
+      categoryName: categoryData.label,
+      producerName: 'FATTORIA BIOLOGICA',
+      regionName: 'Umbria',
+      shopUrl: 'https://example.com',
+    },
+  ];
+
   return (
-    <section>
-      <CategoryHeader categoryName={categoryData.label} />
-      {/* Shop content will go here later */}
+    <section className={styles.categorySection}>
+      <div className={styles.shopsGrid}>
+        {demoProducers.map(producer => (
+          <ProducerCard
+            key={producer.id}
+            categoryName={producer.categoryName}
+            producerName={producer.producerName}
+            regionName={producer.regionName}
+            shopUrl={producer.shopUrl}
+          />
+        ))}
+      </div>
     </section>
   );
 }

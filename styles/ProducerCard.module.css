@@ -1,0 +1,180 @@
+.shopCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xl) var(--space-lg);
+  position: relative;
+
+  /* Hero version background */
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+
+  /* Make it taller than wide */
+  min-height: 400px;
+  aspect-ratio: 3 / 4;
+}
+
+/* Decorative corner elements (matching homepage) */
+.shopCard::before,
+.shopCard::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid #b8a281;
+  opacity: 0.3;
+}
+
+.shopCard::before {
+  top: 15px;
+  left: 15px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.shopCard::after {
+  bottom: 15px;
+  right: 15px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Category Name */
+.categoryName {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+/* Producer Name */
+.producerName {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin-bottom: calc(var(--space-lg) + 12px);
+}
+
+/* Elegant underline (matching homepage h1) */
+.producerName::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b8a281 20%,
+    #b8a281 80%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* Region Name */
+.regionName {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 400;
+  color: #666;
+  font-family: var(--font-sans);
+  letter-spacing: 0.02em;
+  font-style: italic;
+  margin-bottom: auto;
+  padding-bottom: var(--space-lg);
+}
+
+/* CTA Button (magazineDark style) */
+.ctaButton {
+  width: 100%;
+  background: linear-gradient(135deg, #2c2f2a 0%, #1a1c19 100%);
+  border: 1px solid var(--refined-accent-gold);
+  padding: var(--space-xs);
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.ctaButton::after {
+  content: '';
+  position: absolute;
+  inset: var(--space-sm);
+  border: 0.5px solid var(--refined-accent-gold);
+  opacity: 0.3;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ctaButton:hover::after {
+  opacity: 0.5;
+}
+
+.buttonInner {
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(184, 162, 129, 0.05) 50%,
+    transparent
+  );
+}
+
+.buttonText {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.45em;
+  color: var(--refined-accent-gold);
+  text-transform: uppercase;
+  font-family: 'Didot', var(--font-serif);
+  text-align: center;
+}
+
+/* Hover effect */
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(184, 162, 129, 0.25);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shopCard {
+    min-height: 350px;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .shopCard::before,
+  .shopCard::after {
+    width: 25px;
+    height: 25px;
+  }
+
+  .producerName {
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  .buttonText {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+  }
+}
