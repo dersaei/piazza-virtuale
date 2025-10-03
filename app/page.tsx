@@ -4,7 +4,7 @@ import styles from '@/styles/HomePage.module.css';
 export default function HomePage() {
   return (
     <div className={styles.homePage}>
-      <section className={styles.heroVersion2}>
+      <section className={styles.heroVersion}>
         <h1>Benvenuto a Piazza Virtuale</h1>
         <h2 className={styles.keyWord}>
           Catalogo di e-shop aziendali, produttori italiani di alimenti e
@@ -28,21 +28,6 @@ export default function HomePage() {
             Made in Italy.
           </span>
         </h3>
-      </section>
-
-      <section className={styles.contentSection}>
-        <div className={styles.contentGrid}>
-          {/* Demo content */}
-          {Array.from({ length: 20 }, (_, i) => (
-            <div key={i} className={styles.contentCard}>
-              <h3>Prodotto {i + 1}</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-          ))}
-        </div>
       </section>
     </div>
   );

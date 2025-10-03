@@ -5,7 +5,7 @@
   margin: 0 auto;
 }
 
-.heroVersion2 {
+.heroVersion {
   text-align: center;
   padding: 60px 20px;
   margin-bottom: 40px;
@@ -22,8 +22,8 @@
 }
 
 /* Decorative corner elements */
-.heroVersion2::before,
-.heroVersion2::after {
+.heroVersion::before,
+.heroVersion::after {
   content: '';
   position: absolute;
   width: 40px;
@@ -32,21 +32,21 @@
   opacity: 0.3;
 }
 
-.heroVersion2::before {
+.heroVersion::before {
   top: 20px;
   left: 20px;
   border-right: none;
   border-bottom: none;
 }
 
-.heroVersion2::after {
+.heroVersion::after {
   bottom: 20px;
   right: 20px;
   border-left: none;
   border-top: none;
 }
 
-.heroVersion2 h1 {
+.heroVersion h1 {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 300;
   color: #7a8471;
@@ -59,7 +59,7 @@
 }
 
 /* Elegant underline animation */
-.heroVersion2 h1::after {
+.heroVersion h1::after {
   content: '';
   position: absolute;
   bottom: -12px;
@@ -76,12 +76,12 @@
   );
   opacity: 0.6;
 }
-.heroVersion2 h2 {
+.heroVersion h2 {
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   margin-bottom: var(--space-xs);
 }
 
-.heroVersion2 h3 {
+.heroVersion h3 {
   font-size: clamp(1rem, 1.8vw, 1.35rem);
   color: #666;
   font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -94,13 +94,13 @@
 }
 
 /* Subtle accent marks */
-.heroVersion2 .accentWrapper {
+.heroVersion .accentWrapper {
   position: relative;
   display: inline-block;
 }
 
-.heroVersion2 .accentWrapper::before,
-.heroVersion2 .accentWrapper::after {
+.heroVersion .accentWrapper::before,
+.heroVersion .accentWrapper::after {
   content: '';
   position: absolute;
   width: 6px;
@@ -112,11 +112,11 @@
   transform: translateY(-50%);
 }
 
-.heroVersion2 .accentWrapper::before {
+.heroVersion .accentWrapper::before {
   left: -20px;
 }
 
-.heroVersion2 .accentWrapper::after {
+.heroVersion .accentWrapper::after {
   right: -20px;
 }
 .keyWord {
@@ -168,51 +168,4 @@
 
 .accentWrapper:hover .keyWord2::after {
   opacity: 0.3;
-}
-
-.contentSection {
-  margin-top: var(--space-xl);
-}
-
-.contentGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-lg);
-}
-
-.contentCard {
-  background: var(--card-bg);
-  padding: var(--space-lg);
-  border-radius: 8px;
-  border: 1px solid var(--border-light);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.contentCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.contentCard h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--refined-text-primary);
-  margin-bottom: var(--space-sm);
-  font-family: var(--font-sans);
-}
-
-.contentCard p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #666;
-  font-family: var(--font-sans);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contentGrid {
-    grid-template-columns: 1fr;
-  }
 }
