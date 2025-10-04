@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
 };
 
 export default function RootLayout({
@@ -24,6 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='it'>
+      <head>
+        <meta charSet='utf-8' />
+      </head>
       <body>
         <div>
           <VerticalHeader />
