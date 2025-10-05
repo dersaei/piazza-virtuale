@@ -5,9 +5,9 @@ import { readItems } from '@directus/sdk';
 export interface Producer {
   id: string;
   name: string;
-  slug: string;
   category: string;
   region: string;
+  logo?: string;
   shop_url: string;
   status: string;
 }
@@ -22,7 +22,7 @@ export async function getProducersByCategory(
           category: { _eq: categorySlug },
           status: { _eq: 'published' },
         },
-        fields: ['id', 'name', 'slug', 'category', 'region', 'shop_url'],
+        fields: ['id', 'name', 'category', 'region', 'logo', 'shop_url'],
         sort: ['name'],
         limit: -1,
       })

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from '@/styles/ProducerCard.module.css';
 
 interface ShopCardProps {
@@ -6,6 +7,7 @@ interface ShopCardProps {
   producerName: string;
   regionName: string;
   shopUrl: string;
+  logoPath?: string;
 }
 
 export default function ShopCard({
@@ -13,19 +15,30 @@ export default function ShopCard({
   producerName,
   regionName,
   shopUrl,
+  logoPath,
 }: ShopCardProps) {
   return (
     <article className={styles.shopCard}>
-      {/* Category Name */}
       <p className={styles.categoryName}>{categoryName}</p>
 
-      {/* Producer Name with Underline */}
-      <h2 className={styles.producerName}>{producerName}</h2>
+      <h2
+        className={styles.producerName}
+        dangerouslySetInnerHTML={{ __html: producerName }}
+      />
 
-      {/* Region Name */}
       <p className={styles.regionName}>{regionName}</p>
 
-      {/* CTA Button */}
+      {logoPath && (
+        <div className={styles.logoContainer}>
+          <Image
+            src={`/${logoPath}`}
+            alt={`${producerName} logo`}
+            fill={true}
+            className={styles.logo}
+          />
+        </div>
+      )}
+
       <Link
         href={shopUrl}
         target='_blank'

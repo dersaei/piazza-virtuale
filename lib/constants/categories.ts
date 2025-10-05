@@ -130,7 +130,7 @@ export const CATEGORIES = {
   },
   caffe: {
     id: 'caffe',
-    label: 'Caffè',
+    label: 'Caffè&Tè',
     slug: 'caffe',
     title: 'Torrefazioni',
     href: '/caffe',

@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { CATEGORIES, getCategoryBySlug } from '@/lib/constants/categories';
 import ProducerCard from '@/components/ProducerCard';
 import styles from '@/styles/CategoryPage.module.css';
+import { getProducersByCategory } from '@/lib/api/producers';
 
 // Generate metadata dynamically for each category
 export async function generateMetadata({
@@ -46,43 +47,28 @@ export default async function CategoryPage({
     notFound();
   }
 
-  // Demo data - will be replaced with Directus
-  const demoProducers = [
-    {
-      id: '1',
-      categoryName: categoryData.label,
-      producerName: 'CANTINA ERRANTE',
-      regionName: 'Toscana',
-      shopUrl: 'https://example.com',
-    },
-    {
-      id: '2',
-      categoryName: categoryData.label,
-      producerName: 'BIRRIFICIO ARTIGIANALE',
-      regionName: 'Piemonte',
-      shopUrl: 'https://example.com',
-    },
-    {
-      id: '3',
-      categoryName: categoryData.label,
-      producerName: 'FATTORIA BIOLOGICA',
-      regionName: 'Umbria',
-      shopUrl: 'https://example.com',
-    },
-  ];
+  // Fetch real producers from Directus instead of demo data
+  const producers = await getProducersByCategory(categorySlug);
 
   return (
     <section className={styles.categorySection}>
       <div className={styles.shopsGrid}>
-        {demoProducers.map(producer => (
-          <ProducerCard
-            key={producer.id}
-            categoryName={producer.categoryName}
-            producerName={producer.producerName}
-            regionName={producer.regionName}
-            shopUrl={producer.shopUrl}
-          />
-        ))}
+        {producers.length > 0 ? (
+          producers.map(producer => (
+            <ProducerCard
+              key={producer.id}
+              categoryName={categoryData.label}
+              producerName={producer.name}
+              regionName={producer.region}
+              logoPath={producer.logo}
+              shopUrl={producer.shop_url}
+            />
+          ))
+        ) : (
+          <p className={styles.nessunTrovato}>
+            Nessun produttore trovato in questa categoria.
+          </p>
+        )}
       </div>
     </section>
   );
