@@ -1,5 +1,13 @@
 // app/page.tsx
+import type { Metadata } from 'next';
 import styles from '@/styles/HomePage.module.css';
+
+export const metadata: Metadata = {
+  title:
+    'Piazza Virtuale - Il catalogo degli e-shop ufficiali dei produttori italiani',
+  description:
+    'Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori. Eccellenze, specialità regionali e prodotti tradizionali del Made in Italy.',
+};
 
 export default function HomePage() {
   return (

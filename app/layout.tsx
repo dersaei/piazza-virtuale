@@ -4,6 +4,7 @@ import '@/styles/reset.css';
 import '@/styles/globals.css';
 import VerticalHeader from '@/components/VerticalHeader';
 import HorizontalHeader from '@/components/HorizontalHeader';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export const metadata: Metadata = {
   title: 'Piazza Virtuale',
@@ -24,13 +25,15 @@ export default function RootLayout({
   return (
     <html lang='it'>
       <body>
-        <div>
-          <VerticalHeader />
-          <div className='main-content-area'>
-            <HorizontalHeader />
-            <main className='main-content'>{children}</main>
+        <SmoothScroll>
+          <div>
+            <VerticalHeader />
+            <div className='main-content-area'>
+              <HorizontalHeader />
+              <main className='main-content'>{children}</main>
+            </div>
           </div>
-        </div>
+        </SmoothScroll>
       </body>
     </html>
   );
