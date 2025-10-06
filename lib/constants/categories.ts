@@ -30,19 +30,12 @@ export const CATEGORIES = {
     title: 'Produttori di Condimenti',
     href: '/condimenti',
   },
-  'conserve-dolci': {
-    id: 'conserve-dolci',
-    label: 'Conserve dolci',
-    slug: 'conserve-dolci',
-    title: 'Conserve Dolci',
-    href: '/conserve-dolci',
-  },
-  'conserve-salate': {
-    id: 'conserve-salate',
-    label: 'Conserve salate',
-    slug: 'conserve-salate',
-    title: 'Conserve Salate',
-    href: '/conserve-salate',
+  conserve: {
+    id: 'conserve',
+    label: 'Conserve',
+    slug: 'conserve',
+    title: 'Conserve',
+    href: '/conserve',
   },
   miele: {
     id: 'miele',
@@ -134,6 +127,13 @@ export const CATEGORIES = {
     slug: 'caffe',
     title: 'Torrefazioni',
     href: '/caffe',
+  },
+  bevande: {
+    id: 'bevande',
+    label: 'Bevande',
+    slug: 'bevande',
+    title: 'Bevande',
+    href: '/bevande',
   },
 } as const;
 
