@@ -59,6 +59,7 @@ export default async function CategoryPage({
               key={producer.id}
               categoryName={categoryData.label}
               producerName={producer.name}
+              producerNameAlt={producer.name_alt}
               regionName={producer.region}
               logoPath={producer.logo}
               shopUrl={producer.shop_url}

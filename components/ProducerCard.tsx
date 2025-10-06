@@ -5,6 +5,7 @@ import styles from '@/styles/ProducerCard.module.css';
 interface ShopCardProps {
   categoryName: string;
   producerName: string;
+  producerNameAlt: string;
   regionName: string;
   shopUrl: string;
   logoPath?: string;
@@ -13,6 +14,7 @@ interface ShopCardProps {
 export default function ShopCard({
   categoryName,
   producerName,
+  producerNameAlt,
   regionName,
   shopUrl,
   logoPath,
@@ -32,7 +34,7 @@ export default function ShopCard({
         <div className={styles.logoContainer}>
           <Image
             src={`/${logoPath}`}
-            alt={`${producerName} logo`}
+            alt={producerNameAlt}
             fill={true}
             className={styles.logo}
           />
