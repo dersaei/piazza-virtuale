@@ -51,12 +51,12 @@ export const CATEGORIES = {
     title: 'Produttori di Legumi',
     href: '/legumi',
   },
-  distillati: {
-    id: 'distillati',
-    label: 'Distillati',
-    slug: 'distillati',
+  'distillati-e-liquori': {
+    id: 'distillati-e-liquori',
+    label: 'Distillati e liquori',
+    slug: 'distillati-e-liquori',
     title: 'Distillerie',
-    href: '/distillati',
+    href: '/distillati-e-liquori',
   },
   dolci: {
     id: 'dolci',
@@ -123,17 +123,17 @@ export const CATEGORIES = {
   },
   caffe: {
     id: 'caffe',
-    label: 'Caffè&Tè',
+    label: 'Caffè e Tè',
     slug: 'caffe',
     title: 'Torrefazioni',
     href: '/caffe',
   },
-  bevande: {
-    id: 'bevande',
-    label: 'Bevande',
-    slug: 'bevande',
+  'succhi-e-infusi': {
+    id: 'succhi-e-infusi',
+    label: 'Succhi e Infusi',
+    slug: 'succhi-e-infusi',
     title: 'Bevande',
-    href: '/bevande',
+    href: '/succhi-e-infusi',
   },
 } as const;
 
