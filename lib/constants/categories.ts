@@ -6,22 +6,66 @@ export interface CategoryInfo {
   slug: string;
   title: string;
   href: string;
+  parent?: string;
+  subcategories?: string[];
 }
 
-export const CATEGORIES = {
-  birre: {
-    id: 'birre',
-    label: 'Birre',
-    slug: 'birre',
-    title: 'Birrifici Artigianali',
-    href: '/birre',
+export const CATEGORIES: Record<string, CategoryInfo> = {
+  bevande: {
+    id: 'bevande',
+    label: 'Bevande',
+    slug: 'bevande',
+    title: 'Produttori di Bevande',
+    href: '/bevande',
+    subcategories: [
+      'bevande-distillati',
+      'bevande-birre',
+      'bevande-vini',
+      'bevande-succhi',
+      'bevande-caffe',
+    ],
   },
-  vini: {
-    id: 'vini',
+
+  // Beverage subcategories
+  'bevande-birre': {
+    id: 'bevande-birre',
+    label: 'Birre',
+    slug: 'bevande-birre',
+    title: 'Birrifici Artigianali',
+    href: '/bevande/birre',
+    parent: 'bevande',
+  },
+  'bevande-vini': {
+    id: 'bevande-vini',
     label: 'Vini',
-    slug: 'vini',
+    slug: 'bevande-vini',
     title: 'Produttori di Vino',
-    href: '/vini',
+    href: '/bevande/vini',
+    parent: 'bevande',
+  },
+  'bevande-caffe': {
+    id: 'bevande-caffe',
+    label: 'Caffè e Tè',
+    slug: 'bevande-caffe',
+    title: 'Torrefazioni',
+    href: '/bevande/caffe',
+    parent: 'bevande',
+  },
+  'bevande-distillati': {
+    id: 'bevande-distillati',
+    label: 'Distillati e liquori',
+    slug: 'bevande-distillati',
+    title: 'Distillerie',
+    href: '/bevande/distillati',
+    parent: 'bevande',
+  },
+  'bevande-succhi': {
+    id: 'bevande-succhi',
+    label: 'Succhi e Infusi',
+    slug: 'bevande-succhi',
+    title: 'Produttori di Succhi e Infusi',
+    href: '/bevande/succhi',
+    parent: 'bevande',
   },
   condimenti: {
     id: 'condimenti',
@@ -51,12 +95,12 @@ export const CATEGORIES = {
     title: 'Produttori di Legumi',
     href: '/legumi',
   },
-  'distillati-e-liquori': {
-    id: 'distillati-e-liquori',
-    label: 'Distillati e liquori',
-    slug: 'distillati-e-liquori',
-    title: 'Distillerie',
-    href: '/distillati-e-liquori',
+  caseificio: {
+    id: 'caseificio',
+    label: 'Caseificio',
+    slug: 'caseificio',
+    title: 'Caseifici',
+    href: '/caseificio',
   },
   dolci: {
     id: 'dolci',
@@ -64,13 +108,6 @@ export const CATEGORIES = {
     slug: 'dolci',
     title: 'Produttori di Dolci',
     href: '/dolci',
-  },
-  caseificio: {
-    id: 'caseificio',
-    label: 'Caseificio',
-    slug: 'caseificio',
-    title: 'Caseifici',
-    href: '/caseificio',
   },
   olii: {
     id: 'olii',
@@ -121,23 +158,14 @@ export const CATEGORIES = {
     title: 'Produttori di Salumi',
     href: '/salumi',
   },
-  caffe: {
-    id: 'caffe',
-    label: 'Caffè e Tè',
-    slug: 'caffe',
-    title: 'Torrefazioni',
-    href: '/caffe',
-  },
-  'succhi-e-infusi': {
-    id: 'succhi-e-infusi',
-    label: 'Succhi e Infusi',
-    slug: 'succhi-e-infusi',
-    title: 'Bevande',
-    href: '/succhi-e-infusi',
-  },
-} as const;
+};
 
 export type CategorySlug = keyof typeof CATEGORIES;
+
+// Helper to get only main categories (no parent)
+export const MAIN_CATEGORY_LIST = Object.values(CATEGORIES).filter(
+  cat => !cat.parent
+);
 
 // Helper to get category array for iteration
 export const CATEGORY_LIST = Object.values(CATEGORIES);
@@ -153,4 +181,14 @@ export function getCategoryBySlug(slug: string): CategoryInfo | null {
     return CATEGORIES[slug];
   }
   return null;
+}
+
+// Helper to get subcategories
+export function getSubcategories(parentSlug: string): CategoryInfo[] {
+  const parent = getCategoryBySlug(parentSlug);
+  if (!parent?.subcategories) return [];
+
+  return parent.subcategories
+    .map(slug => getCategoryBySlug(slug))
+    .filter((cat): cat is CategoryInfo => cat !== null);
 }

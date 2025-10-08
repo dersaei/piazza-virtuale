@@ -1,51 +1,66 @@
-// app/[category]/page.tsx
+// app/bevande/[subcategory]/page.tsx
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { CATEGORIES, getCategoryBySlug } from '@/lib/constants/categories';
+import { getCategoryBySlug } from '@/lib/constants/categories';
 import ProducerCard from '@/components/ProducerCard';
 import styles from '@/styles/CategoryPage.module.css';
 import { getProducersByCategory } from '@/lib/api/producers';
 
+const VALID_SUBCATEGORIES = ['birre', 'vini', 'distillati', 'caffe', 'succhi'];
+
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string }>;
+  params: Promise<{ subcategory: string }>;
 }): Promise<Metadata> {
-  const { category: categorySlug } = await params;
-  const category = getCategoryBySlug(categorySlug);
+  const { subcategory } = await params;
+
+  if (!VALID_SUBCATEGORIES.includes(subcategory)) {
+    return {
+      title: 'Categoria non trovata | Piazza Virtuale',
+    };
+  }
+
+  const fullSlug = `bevande-${subcategory}`;
+  const category = getCategoryBySlug(fullSlug);
 
   if (!category) {
     return {
       title: 'Categoria non trovata | Piazza Virtuale',
-      description: 'La categoria richiesta non esiste.',
     };
   }
 
   return {
     title: `${category.label} - ${category.title} Italiani | Piazza Virtuale`,
-    description: `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori. Prodotti artigianali e tradizionali del Made in Italy.`,
+    description: `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori.`,
   };
 }
 
 export async function generateStaticParams() {
-  return Object.keys(CATEGORIES).map(category => ({
-    category,
+  return VALID_SUBCATEGORIES.map(subcategory => ({
+    subcategory,
   }));
 }
 
-export default async function CategoryPage({
+export default async function BevandaSubcategoryPage({
   params,
 }: {
-  params: Promise<{ category: string }>;
+  params: Promise<{ subcategory: string }>;
 }) {
-  const { category: categorySlug } = await params;
-  const categoryData = getCategoryBySlug(categorySlug);
+  const { subcategory } = await params;
+
+  if (!VALID_SUBCATEGORIES.includes(subcategory)) {
+    notFound();
+  }
+
+  const fullSlug = `bevande-${subcategory}`;
+  const categoryData = getCategoryBySlug(fullSlug);
 
   if (!categoryData) {
     notFound();
   }
 
-  const producers = await getProducersByCategory(categorySlug);
+  const producers = await getProducersByCategory(fullSlug);
 
   return (
     <section className={styles.categorySection}>
@@ -54,7 +69,7 @@ export default async function CategoryPage({
           producers.map(producer => (
             <ProducerCard
               key={producer.id}
-              categoryName={producer.category.name}
+              categoryName={producer.category.name} // ZMIANA: używamy nazwy z Directus
               producerName={producer.name}
               producerNameAlt={producer.name_alt}
               regionName={producer.region}

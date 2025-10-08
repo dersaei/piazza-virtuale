@@ -6,7 +6,13 @@ export interface Producer {
   id: string;
   name: string;
   name_alt: string;
-  category: string;
+  category: {
+    slug: string;
+    name: string;
+    parent_category?: {
+      slug: string;
+    } | null;
+  };
   region: string;
   logo?: string;
   shop_url: string;
@@ -20,14 +26,29 @@ export async function getProducersByCategory(
     const producers = await directus.request(
       readItems('producers', {
         filter: {
-          category: { _eq: categorySlug },
+          _or: [
+            {
+              category: {
+                slug: { _eq: categorySlug },
+              },
+            },
+            {
+              category: {
+                parent_category: {
+                  slug: { _eq: categorySlug },
+                },
+              },
+            },
+          ],
           status: { _eq: 'published' },
         },
         fields: [
           'id',
           'name',
           'name_alt',
-          'category',
+          'category.slug',
+          'category.name',
+          'category.parent_category.slug',
           'region',
           'logo',
           'shop_url',
