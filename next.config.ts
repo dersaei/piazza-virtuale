@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  poweredByHeader: false,
   images: {
     minimumCacheTTL: 31536000, // 1 year cache for optimized images
   },
