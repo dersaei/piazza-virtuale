@@ -90,9 +90,9 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   legumi: {
     id: 'legumi',
-    label: 'Legumi',
+    label: 'Legumi e Cereali',
     slug: 'legumi',
-    title: 'Produttori di Legumi',
+    title: 'Produttori di Legumi e Cereali',
     href: '/legumi',
   },
   caseificio: {
@@ -123,6 +123,13 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     title: 'Panifici',
     href: '/pane',
   },
+  riso: {
+    id: 'riso',
+    label: 'Riso',
+    slug: 'riso',
+    title: 'Riso',
+    href: '/riso',
+  },
   pasta: {
     id: 'pasta',
     label: 'Pasta',
@@ -137,13 +144,6 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     title: 'Mulini',
     href: '/farina',
   },
-  cereali: {
-    id: 'cereali',
-    label: 'Cereali',
-    slug: 'cereali',
-    title: 'Produttori di Cereali',
-    href: '/cereali',
-  },
   pescare: {
     id: 'pescare',
     label: 'Pescare',
@@ -157,6 +157,13 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     slug: 'salumi',
     title: 'Produttori di Salumi',
     href: '/salumi',
+  },
+  'frutta-secca': {
+    id: 'frutta-secca',
+    label: 'Frutta Secca',
+    slug: 'frutta',
+    title: 'Produttori di Frutta Secca',
+    href: '/frutta-secca',
   },
 };
 
