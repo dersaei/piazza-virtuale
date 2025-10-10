@@ -16,7 +16,6 @@ export default function HorizontalHeader() {
 
   const bevandeSubcategories = getSubcategories('bevande');
 
-  // Automatically show subcategories when on /bevande routes
   useEffect(() => {
     if (pathname.startsWith('/bevande')) {
       setShowBevandeSub(true);
@@ -25,10 +24,19 @@ export default function HorizontalHeader() {
     }
   }, [pathname]);
 
-  // Determine which categories to show
   const categoriesToShow = showBevandeSub
     ? bevandeSubcategories
     : MAIN_CATEGORY_LIST;
+
+  const handleBevandeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setShowBevandeSub(true);
+  };
+
+  const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setShowBevandeSub(false);
+  };
 
   return (
     <header className={styles.horizontalHeader}>
@@ -36,28 +44,32 @@ export default function HorizontalHeader() {
         <div
           className={`${styles.navContainer} ${showBevandeSub ? styles.twoRows : ''}`}
         >
-          {/* Category buttons */}
-          {categoriesToShow.map(category => (
-            <Link
-              key={category.id}
-              href={category.href}
-              className={`${styles.categoryButton} ${
-                pathname === category.href ||
-                pathname.startsWith(category.href + '/')
-                  ? styles.active
-                  : ''
-              }`}
-            >
-              <span className={styles.categoryText}>{category.label}</span>
-            </Link>
-          ))}
+          {categoriesToShow.map(category => {
+            const isBevande = category.id === 'bevande';
 
-          {/* Back arrow - bottom left, only visible in subcategory view */}
+            return (
+              <Link
+                key={category.id}
+                href={category.href}
+                onClick={isBevande ? handleBevandeClick : undefined}
+                className={`${styles.categoryButton} ${
+                  pathname === category.href ||
+                  pathname.startsWith(category.href + '/')
+                    ? styles.active
+                    : ''
+                }`}
+              >
+                <span className={styles.categoryText}>{category.label}</span>
+              </Link>
+            );
+          })}
+
           {showBevandeSub && (
-            <Link
-              href='/'
+            <a
+              href='#'
+              onClick={handleBackClick}
               className={styles.backArrow}
-              aria-label='Torna alla homepage'
+              aria-label='Torna alle categorie principali'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -83,7 +95,7 @@ export default function HorizontalHeader() {
                   </g>
                 </g>
               </svg>
-            </Link>
+            </a>
           )}
         </div>
       </nav>
