@@ -13,45 +13,75 @@ import {
 export default function HorizontalHeader() {
   const pathname = usePathname();
   const [showBevandeSub, setShowBevandeSub] = useState(false);
+  const [showCondimentiSub, setShowCondimentiSub] = useState(false);
 
   const bevandeSubcategories = getSubcategories('bevande');
+  const condimentiSubcategories = getSubcategories('condimenti');
 
+  // Automatically show subcategories when on respective routes
   useEffect(() => {
     if (pathname.startsWith('/bevande')) {
       setShowBevandeSub(true);
+      setShowCondimentiSub(false);
+    } else if (pathname.startsWith('/condimenti')) {
+      setShowCondimentiSub(true);
+      setShowBevandeSub(false);
     } else {
       setShowBevandeSub(false);
+      setShowCondimentiSub(false);
     }
   }, [pathname]);
 
+  // Determine which categories to show
   const categoriesToShow = showBevandeSub
     ? bevandeSubcategories
-    : MAIN_CATEGORY_LIST;
+    : showCondimentiSub
+      ? condimentiSubcategories
+      : MAIN_CATEGORY_LIST;
 
-  const handleBevandeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setShowBevandeSub(true);
+  const handleCategoryClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    categoryId: string
+  ) => {
+    if (categoryId === 'bevande') {
+      e.preventDefault();
+      setShowBevandeSub(true);
+      setShowCondimentiSub(false);
+    } else if (categoryId === 'condimenti') {
+      e.preventDefault();
+      setShowCondimentiSub(true);
+      setShowBevandeSub(false);
+    }
   };
 
   const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setShowBevandeSub(false);
+    setShowCondimentiSub(false);
   };
 
   return (
     <header className={styles.horizontalHeader}>
       <nav className={styles.nav}>
         <div
-          className={`${styles.navContainer} ${showBevandeSub ? styles.twoRows : ''}`}
+          className={`${styles.navContainer} ${
+            showBevandeSub || showCondimentiSub ? styles.twoRows : ''
+          }`}
         >
+          {/* Category buttons */}
           {categoriesToShow.map(category => {
-            const isBevande = category.id === 'bevande';
+            const hasSubcategories =
+              category.id === 'bevande' || category.id === 'condimenti';
 
             return (
               <Link
                 key={category.id}
                 href={category.href}
-                onClick={isBevande ? handleBevandeClick : undefined}
+                onClick={
+                  hasSubcategories
+                    ? e => handleCategoryClick(e, category.id)
+                    : undefined
+                }
                 className={`${styles.categoryButton} ${
                   pathname === category.href ||
                   pathname.startsWith(category.href + '/')
@@ -64,7 +94,8 @@ export default function HorizontalHeader() {
             );
           })}
 
-          {showBevandeSub && (
+          {/* Back arrow - shows main categories, stays on current page */}
+          {(showBevandeSub || showCondimentiSub) && (
             <a
               href='#'
               onClick={handleBackClick}

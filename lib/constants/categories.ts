@@ -11,6 +11,7 @@ export interface CategoryInfo {
 }
 
 export const CATEGORIES: Record<string, CategoryInfo> = {
+  // Main category: Bevande with subcategories
   bevande: {
     id: 'bevande',
     label: 'Bevande',
@@ -18,15 +19,13 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     title: 'Produttori di Bevande',
     href: '/bevande',
     subcategories: [
-      'bevande-distillati',
       'bevande-birre',
       'bevande-vini',
-      'bevande-succhi',
+      'bevande-distillati',
       'bevande-caffe',
+      'bevande-succhi',
     ],
   },
-
-  // Beverage subcategories
   'bevande-birre': {
     id: 'bevande-birre',
     label: 'Birre',
@@ -43,20 +42,20 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     href: '/bevande/vini',
     parent: 'bevande',
   },
-  'bevande-caffe': {
-    id: 'bevande-caffe',
-    label: 'Caffè e Tè',
-    slug: 'bevande-caffe',
-    title: 'Torrefazioni',
-    href: '/bevande/caffe',
-    parent: 'bevande',
-  },
   'bevande-distillati': {
     id: 'bevande-distillati',
     label: 'Distillati e liquori',
     slug: 'bevande-distillati',
     title: 'Distillerie',
     href: '/bevande/distillati',
+    parent: 'bevande',
+  },
+  'bevande-caffe': {
+    id: 'bevande-caffe',
+    label: 'Caffè e Tè',
+    slug: 'bevande-caffe',
+    title: 'Torrefazioni',
+    href: '/bevande/caffe',
     parent: 'bevande',
   },
   'bevande-succhi': {
@@ -67,19 +66,55 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     href: '/bevande/succhi',
     parent: 'bevande',
   },
+
+  // Main category: Condimenti with subcategories
   condimenti: {
     id: 'condimenti',
     label: 'Condimenti',
     slug: 'condimenti',
     title: 'Produttori di Condimenti',
     href: '/condimenti',
+    subcategories: ['condimenti-pesto', 'condimenti-aceto', 'condimenti-altre'],
   },
+  'condimenti-pesto': {
+    id: 'condimenti-pesto',
+    label: 'Pesto',
+    slug: 'condimenti-pesto',
+    title: 'Produttori di Pesto',
+    href: '/condimenti/pesto',
+    parent: 'condimenti',
+  },
+  'condimenti-aceto': {
+    id: 'condimenti-aceto',
+    label: 'Aceto',
+    slug: 'condimenti-aceto',
+    title: 'Produttori di Aceto',
+    href: '/condimenti/aceto',
+    parent: 'condimenti',
+  },
+  'condimenti-altre': {
+    id: 'condimenti-altre',
+    label: 'Altre',
+    slug: 'condimenti-altre',
+    title: 'Altri Condimenti',
+    href: '/condimenti/altre',
+    parent: 'condimenti',
+  },
+
+  // Main standalone categories
   conserve: {
     id: 'conserve',
     label: 'Conserve',
     slug: 'conserve',
     title: 'Conserve',
     href: '/conserve',
+  },
+  pomodori: {
+    id: 'pomodori',
+    label: 'Pomodori',
+    slug: 'pomodori',
+    title: 'Produttori di Pomodori',
+    href: '/pomodori',
   },
   miele: {
     id: 'miele',
@@ -127,7 +162,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     id: 'riso',
     label: 'Riso',
     slug: 'riso',
-    title: 'Riso',
+    title: 'Produttori di Riso',
     href: '/riso',
   },
   pasta: {
@@ -161,7 +196,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   'frutta-secca': {
     id: 'frutta-secca',
     label: 'Frutta Secca',
-    slug: 'frutta',
+    slug: 'frutta-secca',
     title: 'Produttori di Frutta Secca',
     href: '/frutta-secca',
   },

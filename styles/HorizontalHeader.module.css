@@ -34,14 +34,12 @@
 
 /* Two-row layout for subcategories */
 .navContainer.twoRows {
-  display: grid;
-  grid-template-columns: repeat(
-    3,
-    auto
-  ); /* 3 items per row = 2 rows for 5 items */
-  grid-template-rows: repeat(2, auto);
+  display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-xs);
+  padding-left: 65px;
 }
 
 /* Minimal button styles */
@@ -111,7 +109,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 1054px) {
   .navContainer {
     padding: 0 var(--space-sm);
   }
