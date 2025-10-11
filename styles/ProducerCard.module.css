@@ -162,7 +162,7 @@
 
 .buttonText {
   display: block;
-  font-size: 0.9vw;
+  font-size: 0.8rem;
   font-weight: 300;
   letter-spacing: 0.45em;
   color: var(--refined-accent-gold);
