@@ -72,6 +72,9 @@
   display: inline-block;
   margin-bottom: calc(var(--space-lg) + 12px);
 }
+.producerName span {
+  font-size: 90%;
+}
 
 /* Elegant underline (matching homepage h1) */
 .producerName::after {
@@ -175,4 +178,9 @@
 .ctaButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(184, 162, 129, 0.25);
+}
+@media (max-width: 990px) {
+  .producerName span {
+    font-size: 100%;
+  }
 }
