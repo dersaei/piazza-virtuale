@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // Cache PWA icons (android-chrome) for 1 year
+        source: '/android-chrome-:size.png',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
 };
