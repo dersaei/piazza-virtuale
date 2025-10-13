@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Piazza Virtuale - Catalogo E-Shop Produttori Italiani',
-    short_name: 'Piazza Virtuale',
+    name: 'Piazza Virtuale',
+    short_name: 'PV',
     description:
       'Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande',
     start_url: '/',
@@ -11,11 +11,6 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: '#fdfbf7',
     theme_color: '#b6c0ba',
     icons: [
-      {
-        src: '/favicon.ico',
-        sizes: 'any',
-        type: 'image/x-icon',
-      },
       {
         src: '/android-chrome-192x192.png',
         sizes: '192x192',
