@@ -69,7 +69,7 @@ export default async function BevandaSubcategoryPage({
           producers.map(producer => (
             <ProducerCard
               key={producer.id}
-              categoryName={producer.category.name} // ZMIANA: używamy nazwy z Directus
+              categoryName={producer.category.name}
               producerName={producer.name}
               producerNameAlt={producer.name_alt}
               regionName={producer.region}
