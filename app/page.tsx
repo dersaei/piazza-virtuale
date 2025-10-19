@@ -1,6 +1,8 @@
 // app/page.tsx
 import type { Metadata } from "next";
+import Image from "next/image";
 import styles from "@/styles/HomePage.module.css";
+import territorioItaliano from "@/public/territorio-italiano.png";
 
 export const metadata: Metadata = {
   title:
@@ -12,30 +14,26 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className={styles.homePage}>
-      <section className={styles.heroVersion}>
-        <h1>Benvenuto a Piazza Virtuale</h1>
-        <h2 className={styles.keyWord}>
-          Catalogo di e-shop aziendali, produttori italiani di alimenti e
-          bevande
-        </h2>
-        <h3>
-          <span className={styles.accentWrapper}>
-            {" "}
-            Su Piazza Virtuale potrai{" "}
-            <span className={styles.keyWord2}>scoprire</span> quali produttori
-            italiani offrono la vendita diretta{" "}
-            <span className={styles.keyWord2}>online</span> dei propri prodotti,
-            consegnandoli direttamente al consumatore. Con noi{" "}
-            <span className={styles.keyWord2}>troverai</span> un&rsquo;infinità
-            di delizie – dalle{" "}
-            <span className={styles.keyWord2}>eccellenze</span> più celebri fino
-            a quelle conosciute solo dai veri intenditori:{" "}
-            <span className={styles.keyWord2}>specialità</span> regionali,
-            prodotti <span className={styles.keyWord2}>tradizionali</span>, un
-            vero e proprio <span className={styles.keyWord2}>tesoro</span> del
-            Made in Italy.
-          </span>
-        </h3>
+      <section className={styles.heroSection}>
+        {/* Left Column - Text */}
+        <div className={styles.heroText}>
+          <h1 className={styles.heroHeading}>
+            Scopri con noi i produttori italiani
+            <span className={styles.highlight}>di cibo e bevande</span>
+            che vendono direttamente
+            <span className={styles.highlight}>online</span>
+          </h1>
+        </div>
+
+        {/* Right Column - Image */}
+        <div className={styles.heroImage}>
+          <Image
+            src={territorioItaliano}
+            alt="Piazza Virtuale Catalogo di e-shop aziendali, produttori italiani di alimenti e bevandes"
+            className={styles.mapImage}
+            priority
+          />
+        </div>
       </section>
     </div>
   );
