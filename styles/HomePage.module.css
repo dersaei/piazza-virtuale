@@ -59,7 +59,7 @@
 }
 
 .heroHeading {
-  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-size: 3.5vw;
   font-weight: 300;
   color: #7a8471;
   font-family: var(--font-serif);
@@ -101,12 +101,11 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-right: 40px;
+  padding-right: 1vw;
 }
 
 .mapImage {
   width: 100%;
-  max-width: 450px;
   height: auto;
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.08));
   transition: transform 0.4s ease;

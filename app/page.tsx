@@ -18,9 +18,9 @@ export default function HomePage() {
         {/* Left Column - Text */}
         <div className={styles.heroText}>
           <h1 className={styles.heroHeading}>
-            Scopri con noi i produttori italiani
+            Scopri con noi i produttori italiani&nbsp;
             <span className={styles.highlight}>di cibo e bevande</span>
-            che vendono direttamente
+            che vendono direttamente&nbsp;
             <span className={styles.highlight}>online</span>
           </h1>
         </div>
