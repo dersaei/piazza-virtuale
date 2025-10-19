@@ -1,14 +1,15 @@
-/* styles/HomePage.module.css */
+/* styles/ChiSiamoPage.module.css */
 
-.homePage {
+.chiSiamoPage {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.heroVersion {
+/* Hero Section - based on HomePage heroVersion */
+.heroSection {
   text-align: center;
   padding: 60px 20px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   position: relative;
   background: linear-gradient(
     180deg,
@@ -22,8 +23,8 @@
 }
 
 /* Decorative corner elements */
-.heroVersion::before,
-.heroVersion::after {
+.heroSection::before,
+.heroSection::after {
   content: "";
   position: absolute;
   width: 40px;
@@ -32,25 +33,25 @@
   opacity: 0.3;
 }
 
-.heroVersion::before {
+.heroSection::before {
   top: 20px;
   left: 20px;
   border-right: none;
   border-bottom: none;
 }
 
-.heroVersion::after {
+.heroSection::after {
   bottom: 20px;
   right: 20px;
   border-left: none;
   border-top: none;
 }
 
-.heroVersion h1 {
+.heroSection h1 {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 300;
   color: #7a8471;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   margin-bottom: 32px;
   letter-spacing: 0.04em;
   line-height: 1.15;
@@ -58,8 +59,8 @@
   display: inline-block;
 }
 
-/* Elegant underline animation */
-.heroVersion h1::after {
+/* Elegant underline */
+.heroSection h1::after {
   content: "";
   position: absolute;
   bottom: -12px;
@@ -76,15 +77,19 @@
   );
   opacity: 0.6;
 }
-.heroVersion h2 {
+
+.heroSection h2 {
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  margin-bottom: var(--space-xs);
+  margin-bottom: 24px;
+  font-weight: 300;
+  color: #666;
+  font-family: var(--font-serif);
 }
 
-.heroVersion h3 {
+.heroDescription {
   font-size: clamp(1rem, 1.8vw, 1.35rem);
   color: #666;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 300;
   line-height: 1.8;
   max-width: 740px;
@@ -93,14 +98,14 @@
   padding: 0 30px;
 }
 
-/* Subtle accent marks */
-.heroVersion .accentWrapper {
+/* Accent wrapper for highlighted words */
+.accentWrapper {
   position: relative;
   display: inline-block;
 }
 
-.heroVersion .accentWrapper::before,
-.heroVersion .accentWrapper::after {
+.accentWrapper::before,
+.accentWrapper::after {
   content: "";
   position: absolute;
   width: 6px;
@@ -112,13 +117,15 @@
   transform: translateY(-50%);
 }
 
-.heroVersion .accentWrapper::before {
+.accentWrapper::before {
   left: -20px;
 }
 
-.heroVersion .accentWrapper::after {
+.accentWrapper::after {
   right: -20px;
 }
+
+/* Highlighted keyword with background */
 .keyWord {
   color: var(--refined-bg-primary);
   font-style: italic;
@@ -129,7 +136,6 @@
   border-radius: 2px;
 }
 
-/* Static background - always visible */
 .keyWord::before {
   content: "";
   position: absolute;
@@ -146,6 +152,7 @@
   border-radius: 2px;
 }
 
+/* Highlighted keyword without background */
 .keyWord2 {
   color: var(--refined-bg-primary);
   font-style: italic;
@@ -153,7 +160,7 @@
   position: relative;
 }
 
-/* Optional: add a very subtle underline on hover for interactive feel */
+/* Subtle underline on hover */
 .keyWord2::after {
   content: "";
   position: absolute;
@@ -168,4 +175,29 @@
 
 .accentWrapper:hover .keyWord2::after {
   opacity: 0.3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 40px 20px;
+    margin-bottom: 40px;
+  }
+
+  .heroSection h1 {
+    margin-bottom: 24px;
+  }
+
+  .heroSection h2 {
+    margin-bottom: 16px;
+  }
+
+  .heroDescription {
+    padding: 0 20px;
+  }
+
+  .accentWrapper::before,
+  .accentWrapper::after {
+    display: none; /* Hide decorative dots on mobile */
+  }
 }

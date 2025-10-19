@@ -1,24 +1,23 @@
-// app/page.tsx
+// app/chi-siamo/page.tsx
 import type { Metadata } from "next";
-import styles from "@/styles/HomePage.module.css";
+import styles from "@/styles/ChiSiamoPage.module.css";
 
 export const metadata: Metadata = {
-  title:
-    "Piazza Virtuale - Il catalogo degli e-shop ufficiali dei produttori italiani",
+  title: "Chi Siamo - Piazza Virtuale",
   description:
-    "Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori. Eccellenze, specialità regionali e prodotti tradizionali del Made in Italy.",
+    "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
 };
 
-export default function HomePage() {
+export default function ChiSiamoPage() {
   return (
-    <div className={styles.homePage}>
-      <section className={styles.heroVersion}>
+    <div className={styles.chiSiamoPage}>
+      <section className={styles.heroSection}>
         <h1>Benvenuto a Piazza Virtuale</h1>
         <h2 className={styles.keyWord}>
           Catalogo di e-shop aziendali, produttori italiani di alimenti e
           bevande
         </h2>
-        <h3>
+        <h3 className={styles.heroDescription}>
           <span className={styles.accentWrapper}>
             {" "}
             Su Piazza Virtuale potrai{" "}

@@ -11,8 +11,6 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  // Add Prettier config to disable conflicting rules
-  ...compat.extends('prettier'),
   {
     ignores: [
       'node_modules/**',
@@ -20,7 +18,6 @@ const eslintConfig = [
       'out/**',
       'build/**',
       'next-env.d.ts',
-      // Add some additional ignores that align with .prettierignore
       'coverage/**',
       '*.config.js',
     ],

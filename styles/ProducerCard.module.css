@@ -25,7 +25,7 @@
 /* Decorative corner elements (matching homepage) */
 .shopCard::before,
 .shopCard::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 30px;
   height: 30px;
@@ -78,7 +78,7 @@
 
 /* Elegant underline (matching homepage h1) */
 .producerName::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -12px;
   left: 50%;
@@ -140,7 +140,7 @@
 }
 
 .ctaButton::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: var(--space-sm);
   border: 0.5px solid var(--refined-accent-gold);
@@ -170,7 +170,7 @@
   letter-spacing: 0.45em;
   color: var(--refined-accent-gold);
   text-transform: uppercase;
-  font-family: 'Didot', var(--font-serif);
+  font-family: "Didot", var(--font-serif);
   text-align: center;
 }
 
