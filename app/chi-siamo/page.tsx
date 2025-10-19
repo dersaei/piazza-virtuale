@@ -1,6 +1,8 @@
 // app/chi-siamo/page.tsx
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "@/styles/ChiSiamoPage.module.css";
+import italia from "@/public/territorio-italiano.png";
 
 export const metadata: Metadata = {
   title: "Chi Siamo - Piazza Virtuale",
@@ -35,6 +37,9 @@ export default function ChiSiamoPage() {
             Made in Italy.
           </span>
         </h3>
+        <div className={styles.italiaMap}>
+          <Image src={italia} alt="territorio italiano" />
+        </div>
       </section>
     </div>
   );
