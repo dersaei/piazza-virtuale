@@ -52,6 +52,52 @@
   min-height: calc(100vh - var(--horizontal-header-height));
 }
 
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #7a8471 0%,
+    #6b7362 100%
+  );
+  border-radius: 10px;
+  border: 2px solid rgba(253, 251, 247, 0.3);
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #6b7362 0%,
+    #5d6358 100%
+  );
+  border-color: rgba(184, 162, 129, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #5d6358;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7a8471 rgba(182, 192, 186, 0.15);
+}
+
 @media (max-width: 768px) {
   :root {
     --vertical-header-width: 200px;
@@ -59,5 +105,11 @@
 
   .main-content {
     padding: var(--space-lg);
+  }
+
+  /* Thinner scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
 }
