@@ -67,6 +67,10 @@ export default function StandardSubmissionForm() {
     });
   };
 
+  const handleRegionChange = (region: string) => {
+    setFormData((prev) => ({ ...prev, region }));
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setFormData((prev) => ({ ...prev, logo: file }));
@@ -194,26 +198,32 @@ export default function StandardSubmissionForm() {
         )}
       </div>
 
-      {/* Region */}
+      {/* Region - Radio Buttons */}
       <div className={styles.formGroup}>
-        <label htmlFor="region" className={styles.label}>
+        <label className={styles.label}>
           Regione <span className={styles.required}>*</span>
         </label>
-        <select
-          id="region"
-          name="region"
-          value={formData.region}
-          onChange={handleInputChange}
-          required
-          className={styles.select}
-        >
-          <option value="">Seleziona la regione</option>
+
+        <div className={styles.radioContainer}>
           {ITALIAN_REGIONS.map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
+            <label key={region} className={styles.radioLabel}>
+              <input
+                type="radio"
+                name="region"
+                value={region}
+                checked={formData.region === region}
+                onChange={() => handleRegionChange(region)}
+                required
+                className={styles.radio}
+              />
+              <span>{region}</span>
+            </label>
           ))}
-        </select>
+        </div>
+
+        {!formData.region && (
+          <p className={styles.hint}>Seleziona una regione</p>
+        )}
       </div>
 
       {/* Logo Upload */}
@@ -226,11 +236,11 @@ export default function StandardSubmissionForm() {
           id="logo"
           name="logo"
           onChange={handleFileChange}
-          accept="image/png,image/jpeg,image/jpg,image/svg+xml"
+          accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
           className={styles.fileInput}
         />
         <p className={styles.hint}>
-          Formati accettati: PNG, JPG, SVG. Dimensione massima: 5MB
+          Formati accettati: PNG, JPEG, JPG, WebP, SVG. Dimensione massima: 5MB
         </p>
       </div>
 
@@ -248,7 +258,9 @@ export default function StandardSubmissionForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isSubmitting || formData.categories.length === 0}
+        disabled={
+          isSubmitting || formData.categories.length === 0 || !formData.region
+        }
         className={styles.submitButton}
       >
         {isSubmitting ? "Invio in corso..." : "Invia Richiesta"}

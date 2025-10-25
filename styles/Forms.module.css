@@ -129,6 +129,49 @@
   flex-shrink: 0;
 }
 
+/* Radio Buttons Container */
+.radioContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: rgba(253, 251, 247, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #2c2f2a;
+  transition: all 0.2s ease;
+  padding: var(--space-xs);
+  border-radius: 4px;
+}
+
+.radioLabel:hover {
+  color: #7a8471;
+  background: rgba(122, 132, 113, 0.05);
+}
+
+.radio {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #7a8471;
+  flex-shrink: 0;
+}
+
+/* Selected radio button label highlight */
+.radioLabel:has(.radio:checked) {
+  background: rgba(122, 132, 113, 0.1);
+  color: #7a8471;
+  font-weight: 500;
+}
+
 .fileInput {
   padding: var(--space-md);
   font-size: 0.95rem;
@@ -232,11 +275,17 @@
     padding-left: 0;
   }
 
+  .radioContainer {
+    grid-template-columns: 1fr;
+    padding: var(--space-sm);
+  }
+
   .categoryGroupTitle {
     font-size: 0.9rem;
   }
 
-  .checkboxLabel {
+  .checkboxLabel,
+  .radioLabel {
     font-size: 0.9rem;
   }
 

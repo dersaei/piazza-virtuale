@@ -65,17 +65,17 @@ export default function ComeFunzionaPage() {
               </p>
               <ul className={styles.featureList}>
                 <li>
-                  <strong>Prodotti in evidenza</strong> – foto, titolo e link
-                  alla pagina del prodotto
+                  <strong>Prodotti in evidenza</strong> &#8212; foto, titolo e
+                  link alla pagina del prodotto
                 </li>
                 <li>
-                  <strong>Video promozionale</strong> – ad esempio il processo
-                  di imballaggio dei prodotti per la spedizione o
+                  <strong>Video promozionale</strong> &#8212; ad esempio il
+                  processo di imballaggio dei prodotti per la spedizione o
                   l&apos;apertura di un pacco inviato al cliente
                 </li>
                 <li>
-                  <strong>Articolo dedicato</strong> – link con titolo e breve
-                  descrizione di un articolo che presenta il profilo del
+                  <strong>Articolo dedicato</strong> &#8212; link con titolo e
+                  breve descrizione di un articolo che presenta il profilo del
                   produttore, disponibile nel nostro magazine
                 </li>
               </ul>
