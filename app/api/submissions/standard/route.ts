@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
           categories: categories,
           region: region,
           logo: logoId,
-          status: "pending",
+          submission_status: "pending",
           submitted_at: new Date().toISOString(),
         })
       );
