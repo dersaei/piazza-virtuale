@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import directus from "@/lib/directus";
 import { createItem, uploadFiles } from "@directus/sdk";
 
+const LOGO_FOLDER_ID = "6117a847-6c58-489e-8b9e-61991620ad24";
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -41,7 +43,7 @@ export async function POST(request: NextRequest) {
     // Validate and upload logo if provided
     let logoId: string | null = null;
     if (logoFile && logoFile.size > 0) {
-      // 1. Sprawdź MIME type
+      // 1. Check MIME type
       const allowedTypes = [
         "image/png",
         "image/jpeg",
@@ -59,8 +61,8 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // 2. Sprawdź rozmiar (5MB)
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      // 2. Check file size (5MB)
+      const maxSize = 5 * 1024 * 1024;
       if (logoFile.size > maxSize) {
         return NextResponse.json(
           { error: "File troppo grande. Dimensione massima: 5MB" },
@@ -68,7 +70,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // 3. Sprawdź rozszerzenie nazwy pliku
+      // 3. Check file extension
       const fileName = logoFile.name.toLowerCase();
       if (!fileName.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
         return NextResponse.json(
@@ -77,14 +79,20 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // Upload to Directus
+      // Upload to Directus with folder
       try {
         const logoFormData = new FormData();
         logoFormData.append("file", logoFile);
 
+        // ← KLUCZOWE! Dodaj folder ID
+        logoFormData.append("folder", LOGO_FOLDER_ID);
+
         const uploadedFiles = await directus.request(uploadFiles(logoFormData));
 
-        if (uploadedFiles && uploadedFiles.id) {
+        // Extract ID from response
+        if (uploadedFiles?.data?.id) {
+          logoId = uploadedFiles.data.id;
+        } else if (uploadedFiles?.id) {
           logoId = uploadedFiles.id;
         }
       } catch (error) {
