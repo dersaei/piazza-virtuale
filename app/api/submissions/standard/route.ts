@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import directus from "@/lib/directus";
 import { createItem, uploadFiles } from "@directus/sdk";
 
-const LOGO_FOLDER_ID = "6117a847-6c58-489e-8b9e-61991620ad24";
-
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -83,9 +81,6 @@ export async function POST(request: NextRequest) {
       try {
         const logoFormData = new FormData();
         logoFormData.append("file", logoFile);
-
-        // ← KLUCZOWE! Dodaj folder ID
-        logoFormData.append("folder", LOGO_FOLDER_ID);
 
         const uploadedFiles = await directus.request(uploadFiles(logoFormData));
 
