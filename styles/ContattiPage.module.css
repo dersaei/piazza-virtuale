@@ -1,0 +1,128 @@
+/* styles/ContattiPage.module.css */
+
+.contattiPage {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 60px 20px 40px;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+  margin-bottom: 60px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.header::before,
+.header::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #b8a281;
+  opacity: 0.3;
+}
+
+.header::before {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.header::after {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+.header h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  position: relative;
+  display: block;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.header h1::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b8a281 20%,
+    #b8a281 80%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* Form Section */
+.formSection {
+  padding: var(--space-xl);
+  margin: var(--space-xl);
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.05) 0%,
+    rgba(253, 251, 247, 0.3) 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.2) 15px 28px 25px -18px;
+}
+
+.formSection h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.formIntro {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 880px) {
+  .header {
+    padding: 40px 20px 30px;
+    margin-bottom: 40px;
+  }
+
+  .header::before,
+  .header::after {
+    width: 30px;
+    height: 30px;
+  }
+  .formSection {
+    margin: var(--space-xl) 0;
+  }
+}
