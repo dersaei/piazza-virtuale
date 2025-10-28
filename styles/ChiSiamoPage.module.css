@@ -9,7 +9,7 @@
 .heroSection {
   text-align: center;
   padding: 60px 20px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   position: relative;
   background: linear-gradient(
     180deg,
@@ -193,7 +193,6 @@
 @media (max-width: 768px) {
   .heroSection {
     padding: 40px 20px;
-    margin-bottom: 40px;
   }
 
   .heroSection h1 {
