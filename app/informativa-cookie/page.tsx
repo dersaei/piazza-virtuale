@@ -1,4 +1,3 @@
-// app/cookie-policy/page.tsx
 import styles from "@/styles/LegalPage.module.css";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -90,10 +89,95 @@ export default function CookiePolicyPage() {
         <section className={styles.section}>
           <h2>3. Cookie Utilizzati su Questo Sito</h2>
           <p>
-            Attualmente, il sito <strong>Piazza Virtuale</strong> utilizza
-            esclusivamente tecnologie di analisi statistica che rispettano
-            pienamente la privacy degli utenti e non richiedono il consenso
-            preventivo.
+            Il sito <strong>Piazza Virtuale</strong> utilizza cookie tecnici
+            necessari per il funzionamento del sito e per garantire il rispetto
+            degli obblighi di legge. Questi cookie non richiedono il consenso
+            preventivo dell&rsquo;utente.
+          </p>
+
+          <h3>Cookie di Verifica dell&rsquo;Età</h3>
+          <div className={styles.highlight}>
+            <strong>Importante:</strong> In conformità all&rsquo;Art. 689 del
+            Codice Penale italiano, è vietata la vendita di bevande alcoliche ai
+            minori di 18 anni. Per garantire il rispetto di questo obbligo di
+            legge, utilizziamo un cookie tecnico di verifica dell&rsquo;età.
+          </div>
+
+          <div className={styles.table}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Caratteristica</th>
+                  <th>Dettaglio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Nome del cookie</strong>
+                  </td>
+                  <td>age_verified</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Tipologia</strong>
+                  </td>
+                  <td>Cookie tecnico necessario</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Finalità</strong>
+                  </td>
+                  <td>
+                    Verifica della maggiore età per l&rsquo;accesso a pagine
+                    contenenti informazioni su prodotti alcolici, in conformità
+                    con l&rsquo;Art. 689 del Codice Penale
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Dati memorizzati</strong>
+                  </td>
+                  <td>
+                    Valore booleano (true/false) che indica se l&rsquo;utente ha
+                    confermato di avere almeno 18 anni
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Durata</strong>
+                  </td>
+                  <td>30 giorni</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Consenso richiesto</strong>
+                  </td>
+                  <td>
+                    <strong style={{ color: "#7a8471" }}>NO</strong> - Cookie
+                    tecnico necessario per adempiere ad un obbligo di legge
+                    (Art. 689 C.P.)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Categorie interessate</strong>
+                  </td>
+                  <td>Birre, Vini, Distillati e Liquori</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <strong>Come funziona:</strong> Quando un utente accede per la prima
+            volta a una categoria contenente prodotti alcolici, viene
+            visualizzato un messaggio di verifica dell&rsquo;età. Se
+            l&rsquo;utente conferma di avere almeno 18 anni, il cookie viene
+            memorizzato per 30 giorni, evitando di ripetere la verifica ad ogni
+            visita. Se l&rsquo;utente non conferma di avere 18 anni, viene
+            reindirizzato alla homepage e non può accedere ai contenuti
+            riservati ai maggiorenni.
           </p>
 
           <h3>Ackee Analytics</h3>
@@ -208,124 +292,69 @@ export default function CookiePolicyPage() {
 
           <h3>Servizi Video (Mux)</h3>
           <p>
-            Potremmo utilizzare{" "}
-            <a
-              href="https://www.mux.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Mux
-            </a>{" "}
-            per l&rsquo;hosting e la distribuzione di contenuti video. Mux
-            potrebbe utilizzare cookie tecnici per garantire la corretta
-            riproduzione dei video e cookie analitici per migliorare la qualità
-            del servizio.
+            Per l&rsquo;hosting e lo streaming di contenuti video, potremmo
+            utilizzare Mux, una piattaforma di streaming video. Mux potrebbe
+            utilizzare cookie tecnici per ottimizzare la qualità dello streaming
+            in base alla connessione dell&rsquo;utente.
           </p>
-          <ul>
-            <li>
-              <strong>Finalità:</strong> Riproduzione video, analisi delle
-              prestazioni
-            </li>
-            <li>
-              <strong>Tipologia:</strong> Cookie tecnici e analitici
-            </li>
-            <li>
-              <strong>Informazioni:</strong>{" "}
-              <a
-                href="https://www.mux.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Privacy Policy Mux
-              </a>
-            </li>
-          </ul>
 
-          <h3>Google Analytics</h3>
+          <h3>Mappe Interattive</h3>
           <p>
-            Potremmo utilizzare Google Analytics per ottenere statistiche più
-            dettagliate sull&rsquo;utilizzo del sito. In tal caso, configureremo
-            Google Analytics in modalità privacy-friendly (anonimizzazione IP,
-            disabilitazione della condivisione dati con Google) e richiederemo
-            il consenso degli utenti prima dell&rsquo;attivazione.
+            Per visualizzare mappe interattive che mostrino la posizione dei
+            produttori, potremmo integrare servizi di mappe (come OpenStreetMap
+            o Google Maps). Questi servizi potrebbero utilizzare cookie tecnici
+            per il funzionamento delle mappe.
           </p>
-          <ul>
-            <li>
-              <strong>Finalità:</strong> Analisi statistiche del traffico web
-            </li>
-            <li>
-              <strong>Tipologia:</strong> Cookie analitici di terze parti
-            </li>
-            <li>
-              <strong>Durata:</strong> Fino a 26 mesi
-            </li>
-            <li>
-              <strong>Consenso richiesto:</strong> Sì
-            </li>
-            <li>
-              <strong>Informazioni:</strong>{" "}
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Privacy Policy Google
-              </a>
-            </li>
-          </ul>
+
+          <h3>Condivisione Social Media</h3>
+          <p>
+            Per facilitare la condivisione dei contenuti sui social media,
+            potremmo aggiungere pulsanti di condivisione. Questi pulsanti
+            potrebbero generare cookie di terze parti solo quando l&rsquo;utente
+            interagisce con essi.
+          </p>
 
           <p>
-            <strong>Nota importante:</strong> Qualora decidessimo di integrare
-            questi o altri servizi che richiedono il consenso preventivo,
-            implementeremo un banner per la gestione delle preferenze sui cookie
-            e aggiorneremo questa informativa.
+            <strong>Importante:</strong> Prima di implementare qualsiasi
+            servizio che utilizzi cookie non essenziali o cookie di
+            profilazione, aggiorneremo questa Cookie Policy e, se necessario,
+            implementeremo un sistema di gestione del consenso (cookie banner).
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2>5. Base Giuridica</h2>
+          <h2>5. Base Giuridica del Trattamento</h2>
           <p>
-            La base giuridica per l&rsquo;utilizzo delle tecnologie di analisi
-            attualmente impiegate sul sito è il{" "}
-            <strong>legittimo interesse</strong> del Titolare del trattamento
-            (art. 6.1.f del GDPR), in quanto:
+            I cookie utilizzati su questo sito si basano su diverse basi
+            giuridiche:
           </p>
-          <ul>
-            <li>
-              I dati raccolti sono completamente anonimi e non permettono
-              l&rsquo;identificazione degli utenti
-            </li>
-            <li>
-              Non vi è alcun tracciamento individuale o profilazione degli
-              utenti
-            </li>
-            <li>
-              Le informazioni sono utilizzate esclusivamente per migliorare
-              l&rsquo;esperienza di navigazione e ottimizzare i contenuti del
-              sito
-            </li>
-            <li>
-              La privacy degli utenti è pienamente rispettata senza necessità di
-              consenso preventivo
-            </li>
-          </ul>
+
+          <h3>Obblighi di Legge (Art. 6, par. 1, lett. c) GDPR)</h3>
+          <p>
+            Il cookie di verifica dell&rsquo;età è necessario per adempiere
+            all&rsquo;obbligo di legge previsto dall&rsquo;Art. 689 del Codice
+            Penale, che vieta la vendita di bevande alcoliche ai minori di 18
+            anni.
+          </p>
+
+          <h3>Legittimo Interesse (Art. 6, par. 1, lett. f) GDPR)</h3>
+          <p>
+            I cookie analitici anonimi (Ackee) sono basati sul nostro legittimo
+            interesse a comprendere come gli utenti utilizzano il sito per
+            migliorarne il funzionamento, senza intaccare la privacy degli
+            utenti.
+          </p>
         </section>
 
         <section className={styles.section}>
           <h2>6. Come Gestire i Cookie</h2>
           <p>
-            Attualmente, dato che il sito utilizza esclusivamente tecnologie di
-            analisi anonime che non richiedono consenso, non è presente un
-            banner per la gestione dei cookie.
-          </p>
-          <p>
-            Tuttavia, l&rsquo;utente può sempre gestire le preferenze relative
-            ai cookie attraverso le impostazioni del proprio browser. La maggior
-            parte dei browser permette di:
+            L&rsquo;utente può gestire le preferenze relative ai cookie
+            direttamente all&rsquo;interno del proprio browser. La maggior parte
+            dei browser consente di:
           </p>
           <ul>
-            <li>Visualizzare i cookie memorizzati</li>
-            <li>Bloccare tutti o alcuni cookie</li>
+            <li>Visualizzare quali cookie sono memorizzati</li>
             <li>Cancellare i cookie dal dispositivo</li>
             <li>
               Bloccare i cookie di terze parti mantenendo quelli del sito
@@ -407,11 +436,14 @@ export default function CookiePolicyPage() {
             </li>
           </ul>
 
-          <p>
-            <strong>Attenzione:</strong> La disabilitazione totale dei cookie
-            tecnici potrebbe compromettere il corretto funzionamento del sito e
-            l&rsquo;accesso ad alcune sue funzionalità.
-          </p>
+          <div className={styles.highlight}>
+            <strong>Attenzione:</strong> La cancellazione del cookie di verifica
+            dell&rsquo;età comporterà la necessità di confermare nuovamente di
+            avere almeno 18 anni per accedere alle pagine con prodotti alcolici.
+            La disabilitazione totale dei cookie tecnici potrebbe compromettere
+            il corretto funzionamento del sito e l&rsquo;accesso ad alcune sue
+            funzionalità.
+          </div>
         </section>
 
         <section className={styles.section}>
@@ -490,6 +522,10 @@ export default function CookiePolicyPage() {
             <li>
               Direttiva 2002/58/CE (ePrivacy Directive) come modificata dalla
               Direttiva 2009/136/CE
+            </li>
+            <li>
+              Art. 689 del Codice Penale italiano (divieto di vendita di bevande
+              alcoliche ai minori di 18 anni)
             </li>
           </ul>
         </section>

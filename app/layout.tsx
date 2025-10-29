@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import VerticalHeader from "@/components/VerticalHeader";
 import HorizontalHeader from "@/components/HorizontalHeader";
 import Footer from "@/components/Footer";
+import AgeGateModal from "@/components/AgeGateModal";
 
 export const metadata: Metadata = {
   title: "Piazza Virtuale",
@@ -40,6 +41,7 @@ export default function RootLayout({
           data-ackee-domain-id="c5a39a11-4bdf-4633-9e68-f279bb4f585f"
           strategy="lazyOnload"
         />
+        <AgeGateModal />
       </body>
     </html>
   );
