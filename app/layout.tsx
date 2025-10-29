@@ -5,6 +5,7 @@ import "@/styles/reset.css";
 import "@/styles/globals.css";
 import VerticalHeader from "@/components/VerticalHeader";
 import HorizontalHeader from "@/components/HorizontalHeader";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Piazza Virtuale",
@@ -30,6 +31,7 @@ export default function RootLayout({
           <div className="main-content-area">
             <HorizontalHeader />
             <main className="main-content">{children}</main>
+            <Footer />
           </div>
         </div>
         <Script

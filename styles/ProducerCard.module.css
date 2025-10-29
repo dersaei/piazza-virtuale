@@ -127,7 +127,6 @@
   filter: grayscale(0%) opacity(1);
 }
 
-/* CTA Button (magazineDark style) */
 .ctaButton {
   width: 100%;
   background: linear-gradient(135deg, #2c2f2a 0%, #1a1c19 100%);
