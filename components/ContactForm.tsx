@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
 
 interface FormData {
@@ -9,6 +10,7 @@ interface FormData {
   email: string;
   subject: string;
   message: string;
+  privacy_accepted: boolean;
 }
 
 export default function ContactForm() {
@@ -17,6 +19,7 @@ export default function ContactForm() {
     email: "",
     subject: "",
     message: "",
+    privacy_accepted: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,8 +35,23 @@ export default function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, privacy_accepted: e.target.checked }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate privacy acceptance
+    if (!formData.privacy_accepted) {
+      setSubmitStatus({
+        type: "error",
+        message:
+          "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
@@ -43,7 +61,12 @@ export default function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          full_name: formData.full_name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
 
       if (!response.ok) {
@@ -62,6 +85,7 @@ export default function ContactForm() {
         email: "",
         subject: "",
         message: "",
+        privacy_accepted: false,
       });
     } catch (error) {
       setSubmitStatus({
@@ -145,6 +169,26 @@ export default function ContactForm() {
         />
       </div>
 
+      {/* Privacy Policy Checkbox */}
+      <div className={styles.privacyGroup}>
+        <label className={styles.privacyLabel}>
+          <input
+            type="checkbox"
+            checked={formData.privacy_accepted}
+            onChange={handleCheckboxChange}
+            required
+            className={styles.privacyCheckbox}
+          />
+          <span className={styles.privacyText}>
+            Ho letto e accetto l&rsquo;
+            <Link href="/informativa-privacy" className={styles.privacyLink}>
+              Informativa Privacy
+            </Link>
+            <span className={styles.required}> *</span>
+          </span>
+        </label>
+      </div>
+
       {/* Submit Status */}
       {submitStatus.type && (
         <div
@@ -159,7 +203,7 @@ export default function ContactForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !formData.privacy_accepted}
         className={styles.submitButton}
       >
         {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}

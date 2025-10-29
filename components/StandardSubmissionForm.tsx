@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
 import { GROUPED_FORM_CATEGORIES } from "@/lib/constants/formCategories";
 
@@ -34,6 +35,7 @@ interface FormData {
   categories: string[];
   region: string;
   logo: File | null;
+  privacy_accepted: boolean;
 }
 
 export default function StandardSubmissionForm() {
@@ -43,6 +45,7 @@ export default function StandardSubmissionForm() {
     categories: [],
     region: "",
     logo: null,
+    privacy_accepted: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,8 +79,23 @@ export default function StandardSubmissionForm() {
     setFormData((prev) => ({ ...prev, logo: file }));
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, privacy_accepted: e.target.checked }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate privacy acceptance
+    if (!formData.privacy_accepted) {
+      setSubmitStatus({
+        type: "error",
+        message:
+          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
@@ -114,6 +132,7 @@ export default function StandardSubmissionForm() {
         categories: [],
         region: "",
         logo: null,
+        privacy_accepted: false,
       });
     } catch (error) {
       setSubmitStatus({
@@ -244,6 +263,26 @@ export default function StandardSubmissionForm() {
         </p>
       </div>
 
+      {/* Privacy Policy Checkbox */}
+      <div className={styles.privacyGroup}>
+        <label className={styles.privacyLabel}>
+          <input
+            type="checkbox"
+            checked={formData.privacy_accepted}
+            onChange={handleCheckboxChange}
+            required
+            className={styles.privacyCheckbox}
+          />
+          <span className={styles.privacyText}>
+            Ho letto e accetto l&rsquo;
+            <Link href="/informativa-privacy" className={styles.privacyLink}>
+              Informativa Privacy
+            </Link>
+            <span className={styles.required}> *</span>
+          </span>
+        </label>
+      </div>
+
       {/* Submit Status */}
       {submitStatus.type && (
         <div
@@ -259,7 +298,10 @@ export default function StandardSubmissionForm() {
       <button
         type="submit"
         disabled={
-          isSubmitting || formData.categories.length === 0 || !formData.region
+          isSubmitting ||
+          formData.categories.length === 0 ||
+          !formData.region ||
+          !formData.privacy_accepted
         }
         className={styles.submitButton}
       >

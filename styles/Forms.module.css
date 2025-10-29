@@ -213,6 +213,55 @@
   margin-top: var(--space-xs);
 }
 
+/* Privacy Policy Checkbox */
+.privacyGroup {
+  padding: var(--space-md);
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.05) 0%,
+    rgba(253, 251, 247, 0.3) 100%
+  );
+  border: 1.5px solid rgba(182, 192, 186, 0.25);
+  border-radius: 6px;
+  margin-top: var(--space-sm);
+}
+
+.privacyLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+.privacyCheckbox {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #7a8471;
+  flex-shrink: 0;
+}
+
+.privacyText {
+  font-size: 0.95rem;
+  color: #2c2f2a;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+.privacyLink {
+  color: #7a8471;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.privacyLink:hover {
+  color: #6b7362;
+}
+
 .submitButton {
   width: 100%;
   padding: var(--space-md) var(--space-xl);
@@ -297,5 +346,19 @@
 
   .submitButton {
     padding: var(--space-md);
+  }
+
+  .privacyGroup {
+    padding: var(--space-sm);
+  }
+
+  .privacyText {
+    font-size: 0.9rem;
+  }
+
+  .privacyCheckbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
   }
 }

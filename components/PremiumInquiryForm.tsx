@@ -2,21 +2,24 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
 
-interface PremiumFormData {
+interface FormData {
   producer_name: string;
   contact_name: string;
   email: string;
   message: string;
+  privacy_accepted: boolean;
 }
 
 export default function PremiumInquiryForm() {
-  const [formData, setFormData] = useState<PremiumFormData>({
+  const [formData, setFormData] = useState<FormData>({
     producer_name: "",
     contact_name: "",
     email: "",
     message: "",
+    privacy_accepted: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,8 +35,23 @@ export default function PremiumInquiryForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, privacy_accepted: e.target.checked }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate privacy acceptance
+    if (!formData.privacy_accepted) {
+      setSubmitStatus({
+        type: "error",
+        message:
+          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
@@ -43,17 +61,22 @@ export default function PremiumInquiryForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          producer_name: formData.producer_name,
+          contact_name: formData.contact_name,
+          email: formData.email,
+          message: formData.message,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Errore durante l'invio del modulo");
+        throw new Error("Errore durante l'invio della richiesta premium");
       }
 
       setSubmitStatus({
         type: "success",
         message:
-          "Grazie per il tuo interesse! Ti contatteremo presto per discutere il servizio premium.",
+          "Grazie! La tua richiesta premium è stata inviata con successo. Ti contatteremo presto per discutere i dettagli.",
       });
 
       // Reset form
@@ -62,6 +85,7 @@ export default function PremiumInquiryForm() {
         contact_name: "",
         email: "",
         message: "",
+        privacy_accepted: false,
       });
     } catch (error) {
       setSubmitStatus({
@@ -69,7 +93,7 @@ export default function PremiumInquiryForm() {
         message:
           "Si è verificato un errore. Per favore riprova più tardi o contattaci direttamente.",
       });
-      console.error("Form submission error:", error);
+      console.error("Premium inquiry form error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -79,12 +103,12 @@ export default function PremiumInquiryForm() {
     <form onSubmit={handleSubmit} className={styles.form}>
       {/* Producer Name */}
       <div className={styles.formGroup}>
-        <label htmlFor="premium_producer_name" className={styles.label}>
+        <label htmlFor="producer_name" className={styles.label}>
           Nome del Produttore <span className={styles.required}>*</span>
         </label>
         <input
           type="text"
-          id="premium_producer_name"
+          id="producer_name"
           name="producer_name"
           value={formData.producer_name}
           onChange={handleInputChange}
@@ -97,7 +121,7 @@ export default function PremiumInquiryForm() {
       {/* Contact Name */}
       <div className={styles.formGroup}>
         <label htmlFor="contact_name" className={styles.label}>
-          Nome e Cognome del Rappresentante{" "}
+          Nome e Cognome del Referente{" "}
           <span className={styles.required}>*</span>
         </label>
         <input
@@ -115,7 +139,7 @@ export default function PremiumInquiryForm() {
       {/* Email */}
       <div className={styles.formGroup}>
         <label htmlFor="email" className={styles.label}>
-          Indirizzo Email <span className={styles.required}>*</span>
+          Email <span className={styles.required}>*</span>
         </label>
         <input
           type="email"
@@ -125,11 +149,11 @@ export default function PremiumInquiryForm() {
           onChange={handleInputChange}
           required
           className={styles.input}
-          placeholder="mario.rossi@example.it"
+          placeholder="mario.rossi@esempio.it"
         />
       </div>
 
-      {/* Message (Optional) */}
+      {/* Message */}
       <div className={styles.formGroup}>
         <label htmlFor="message" className={styles.label}>
           Messaggio (opzionale)
@@ -139,10 +163,30 @@ export default function PremiumInquiryForm() {
           name="message"
           value={formData.message}
           onChange={handleInputChange}
-          rows={5}
+          rows={6}
           className={styles.textarea}
-          placeholder="Inserisci eventuali domande o richieste specifiche..."
+          placeholder="Scrivi qui eventuali domande o richieste specifiche..."
         />
+      </div>
+
+      {/* Privacy Policy Checkbox */}
+      <div className={styles.privacyGroup}>
+        <label className={styles.privacyLabel}>
+          <input
+            type="checkbox"
+            checked={formData.privacy_accepted}
+            onChange={handleCheckboxChange}
+            required
+            className={styles.privacyCheckbox}
+          />
+          <span className={styles.privacyText}>
+            Ho letto e accetto l&rsquo;
+            <Link href="/informativa-privacy" className={styles.privacyLink}>
+              Informativa Privacy
+            </Link>
+            <span className={styles.required}> *</span>
+          </span>
+        </label>
       </div>
 
       {/* Submit Status */}
@@ -159,10 +203,10 @@ export default function PremiumInquiryForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !formData.privacy_accepted}
         className={styles.submitButton}
       >
-        {isSubmitting ? "Invio in corso..." : "Invia Richiesta"}
+        {isSubmitting ? "Invio in corso..." : "Invia Richiesta Premium"}
       </button>
     </form>
   );
