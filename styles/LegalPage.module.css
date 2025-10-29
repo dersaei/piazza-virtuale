@@ -1,0 +1,235 @@
+/* styles/LegalPage.module.css */
+
+.legalPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.legalContent {
+  background: white;
+  padding: var(--space-xl);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Header Section */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid rgba(182, 192, 186, 0.15);
+}
+
+.header h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-md);
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+.lastUpdate {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #999;
+  font-style: italic;
+  font-family: var(--font-sans);
+  margin-top: var(--space-md);
+}
+
+/* Sections */
+.section {
+  margin-bottom: var(--space-xl);
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  margin-bottom: var(--space-md);
+  padding-top: var(--space-sm);
+}
+
+.section h3 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #6b7362;
+  font-family: var(--font-sans);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+/* Typography */
+.section p {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #333;
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+}
+
+.section ul {
+  list-style: disc;
+  padding-left: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.section li {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #333;
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+
+.section strong {
+  font-weight: 600;
+  color: #2c2f2a;
+}
+
+/* Links */
+.section a {
+  color: #7a8471;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.section a:hover {
+  color: #6b7362;
+}
+
+/* Highlight Box */
+.highlight {
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 100%
+  );
+  border-left: 3px solid #b8a281;
+  padding: var(--space-md);
+  margin: var(--space-lg) 0;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #2c2f2a;
+}
+
+/* Table Styling */
+.table {
+  overflow-x: auto;
+  margin: var(--space-lg) 0;
+}
+
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+}
+
+.table thead {
+  background: linear-gradient(
+    135deg,
+    rgba(122, 132, 113, 0.1) 0%,
+    rgba(182, 192, 186, 0.1) 100%
+  );
+}
+
+.table th {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  font-weight: 600;
+  color: #2c2f2a;
+  border-bottom: 2px solid rgba(182, 192, 186, 0.3);
+}
+
+.table td {
+  padding: var(--space-sm) var(--space-md);
+  color: #333;
+  border-bottom: 1px solid rgba(182, 192, 186, 0.15);
+  vertical-align: top;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: rgba(253, 251, 247, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .legalPage {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .legalContent {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .header h1 {
+    font-size: clamp(1.75rem, 5vw, 2rem);
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .section h2 {
+    font-size: 1.3rem;
+  }
+
+  .section h3 {
+    font-size: 1.05rem;
+  }
+
+  .section p,
+  .section li {
+    font-size: 0.9rem;
+  }
+
+  .section ul {
+    padding-left: var(--space-lg);
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .legalPage {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .legalContent {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .section h2 {
+    font-size: 1.2rem;
+  }
+}
