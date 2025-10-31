@@ -151,3 +151,9 @@
     padding: var(--space-sm);
   }
 }
+
+@media (max-width: 600px) {
+  .verticalHeader {
+    display: none;
+  }
+}

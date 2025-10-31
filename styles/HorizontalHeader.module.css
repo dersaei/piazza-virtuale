@@ -141,3 +141,9 @@
     grid-template-columns: repeat(2, auto);
   }
 }
+
+@media (max-width: 600px) {
+  .horizontalHeader {
+    display: none;
+  }
+}

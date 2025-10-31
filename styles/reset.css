@@ -128,7 +128,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -163,9 +163,9 @@ button {
 }
 
 button,
-html input[type='button'],
-input[type='reset'],
-input[type='submit'] {
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
   -webkit-appearance: button;
   appearance: button;
   cursor: pointer;
@@ -238,7 +238,7 @@ img {
   height: auto;
 }
 
-img[style*='object-fit'] {
+img[style*="object-fit"] {
   object-fit: var(--object-fit);
 }
 

@@ -1,0 +1,231 @@
+/* styles/MobileHeader.module.css */
+
+.mobileHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: var(--vertical-header-bg);
+  display: none; /* Hidden by default, shown on mobile */
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1001;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo img {
+  width: auto;
+  max-height: 90px;
+  display: block;
+}
+
+.menuButton {
+  position: relative;
+  background: var(--refined-accent-gold);
+  padding: var(--space-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  z-index: 10;
+  height: 100px;
+}
+
+.menuButtonText {
+  display: block;
+  padding: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #2d2d2d;
+  text-transform: uppercase;
+  font-family: "Didot", var(--font-serif);
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.menuButtonText.changing {
+  opacity: 0;
+}
+
+/* Backdrop overlay - semi-transparent background */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Menu overlay - slides in from top */
+.menuOverlay {
+  position: fixed;
+  top: 95px; /* Below mobile header */
+  left: 0;
+  right: 0;
+  background-color: var(--vertical-header-bg);
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  max-height: calc(100vh - 95px);
+  overflow-y: auto;
+  width: 100%;
+  display: none; /* Hidden by default */
+}
+
+.menuOverlay.menuOpen {
+  transform: translateY(0);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Navigation buttons - same style as vertical header */
+.navButton {
+  display: block;
+  text-align: center;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    var(--refined-bg-primary) 0%,
+    var(--refined-bg-secondary) 100%
+  );
+  padding: var(--space-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-350px);
+  transition: transform 1s ease-out, box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Buttons appear with staggered delay when menu opens */
+.menuOpen .navButton {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menuOpen .navButton:nth-child(1) {
+  transition-delay: 0.25s;
+}
+
+.menuOpen .navButton:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.menuOpen .navButton:nth-child(3) {
+  transition-delay: 0.15s;
+}
+
+.menuOpen .navButton:nth-child(4) {
+  transition-delay: 0.1s;
+}
+
+.buttonFrame {
+  border: 1.5px solid var(--refined-border-primary);
+  padding: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+}
+
+.buttonInnerFrame {
+  border: 1px solid var(--refined-border-secondary);
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.buttonInnerFrame::before,
+.buttonInnerFrame::after {
+  content: "";
+  position: absolute;
+  background: var(--refined-accent-gold);
+  opacity: 0.3;
+}
+
+.buttonInnerFrame::before {
+  top: var(--space-xs);
+  left: var(--space-sm);
+  right: var(--space-sm);
+  height: 0.5px;
+}
+
+.buttonInnerFrame::after {
+  bottom: var(--space-xs);
+  left: var(--space-sm);
+  right: var(--space-sm);
+  height: 0.5px;
+}
+
+.buttonText {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--refined-text-primary);
+  text-transform: uppercase;
+  text-align: center;
+  font-family: var(--font-sans);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navButton:active,
+.navButton.active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:active .buttonInnerFrame::before,
+.navButton:active .buttonInnerFrame::after,
+.navButton.active .buttonInnerFrame::before,
+.navButton.active .buttonInnerFrame::after {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+/* Show mobile header only on mobile devices */
+@media (max-width: 600px) {
+  .mobileHeader {
+    display: flex;
+  }
+
+  .menuOverlay {
+    display: block;
+  }
+}

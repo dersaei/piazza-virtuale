@@ -112,16 +112,17 @@
 
 /* Responsive Design */
 @media (max-width: 880px) {
-  .header {
-    padding: 40px 20px 30px;
+  .formSection {
+    margin: var(--space-xl) 0;
   }
-
+}
+@media (max-width: 600px) {
+  .header {
+    padding: 50px 10px 30px;
+  }
   .header::before,
   .header::after {
     width: 30px;
     height: 30px;
-  }
-  .formSection {
-    margin: var(--space-xl) 0;
   }
 }

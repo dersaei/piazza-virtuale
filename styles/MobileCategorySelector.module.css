@@ -1,0 +1,138 @@
+/* styles/MobileCategorySelector.module.css */
+
+.selectorBar {
+  position: fixed;
+  top: 100px; /* Below mobile header */
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: var(--horizontal-header-bg);
+  display: none; /* Hidden by default, shown on mobile */
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.selectorButton {
+  width: 90%;
+  max-width: 400px;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--vertical-header-bg);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-futura);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.selectorButton::after {
+  content: "+";
+  position: absolute;
+  right: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.selectorButton:active {
+  background: var(--vertical-header-bg);
+  color: white;
+}
+
+/* Overlay backdrop */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1100;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Category grid - centered on screen */
+.categoryGrid {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px;
+  max-height: 100vh;
+  background: var(--horizontal-header-bg);
+  border: 2px solid var(--vertical-header-bg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1101;
+  overflow-y: auto;
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: start;
+}
+
+/* Category buttons */
+.categoryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  background: white;
+  border: 1.5px solid var(--vertical-header-bg);
+  padding: var(--space-md);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 60px;
+}
+
+.categoryText {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--vertical-header-bg);
+  text-transform: uppercase;
+  font-family: var(--font-futura);
+  line-height: 1.3;
+}
+
+.categoryButton:active,
+.categoryButton.active {
+  background: var(--vertical-header-bg);
+}
+
+.categoryButton:active .categoryText,
+.categoryButton.active .categoryText {
+  color: white;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Show selector bar only on mobile devices */
+@media (max-width: 600px) {
+  .selectorBar {
+    display: flex;
+  }
+}

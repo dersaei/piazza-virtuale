@@ -5,6 +5,8 @@ import "@/styles/reset.css";
 import "@/styles/globals.css";
 import VerticalHeader from "@/components/VerticalHeader";
 import HorizontalHeader from "@/components/HorizontalHeader";
+import MobileHeader from "@/components/MobileHeader";
+import MobileCategorySelector from "@/components/MobileCategorySelector";
 import Footer from "@/components/Footer";
 import AgeGateModal from "@/components/AgeGateModal";
 
@@ -28,10 +30,19 @@ export default function RootLayout({
     <html lang="it">
       <body>
         <div>
+          {/* Desktop headers */}
           <VerticalHeader />
           <div className="main-content-area">
             <HorizontalHeader />
             <main className="main-content">{children}</main>
+            <Footer />
+          </div>
+
+          {/* Mobile headers */}
+          <MobileHeader />
+          <MobileCategorySelector />
+          <main className="mobile-main-content">{children}</main>
+          <div className="mobile-footer-wrapper">
             <Footer />
           </div>
         </div>
