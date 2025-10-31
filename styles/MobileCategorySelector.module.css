@@ -62,7 +62,14 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 1100;
-  animation: fadeIn 0.3s ease-out;
+}
+
+.overlayOpen {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.overlayClosing {
+  animation: fadeOut 0.4s ease-out forwards;
 }
 
 /* Category grid - centered on screen */
@@ -73,14 +80,12 @@
   transform: translate3d(-50%, -50%, 0);
   width: 100%;
   max-width: 600px;
-  max-height: 100vh;
-  max-height: 100dvh; /* Dynamic viewport height */
+  max-height: 90vh;
   background: var(--horizontal-header-bg);
   border: 2px solid var(--vertical-header-bg);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 1101;
   overflow-y: auto;
-  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-content: start;
@@ -91,6 +96,15 @@
   overscroll-behavior: contain;
   will-change: transform, opacity;
   backface-visibility: hidden;
+  padding: 1px;
+}
+
+.gridOpen {
+  animation: scaleOpen 0.4s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+
+.gridClosing {
+  animation: scaleClose 0.4s ease-out forwards;
 }
 
 /* Category buttons */
@@ -111,6 +125,7 @@
   will-change: background, transform;
   backface-visibility: hidden;
   transform: translateZ(0);
+  margin: 1px;
 }
 
 .categoryText {
@@ -123,6 +138,36 @@
   line-height: 1.3;
 }
 
+/* Arrow for categories with subcategories */
+.arrow {
+  width: 18px;
+  height: auto;
+  margin-left: var(--space-sm);
+  fill: var(--vertical-header-bg);
+  transition: fill 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Back button styles */
+.backButton {
+  grid-column: 1 / -1; /* Span full width */
+  background: var(--vertical-header-bg);
+  justify-content: flex-start;
+  padding-left: var(--space-lg);
+}
+
+.backButton .categoryText {
+  color: white;
+  margin-left: var(--space-sm);
+}
+
+.backArrow {
+  width: 20px;
+  height: auto;
+  fill: white;
+  flex-shrink: 0;
+}
+
 .categoryButton:active,
 .categoryButton.active {
   background: var(--vertical-header-bg);
@@ -131,6 +176,17 @@
 .categoryButton:active .categoryText,
 .categoryButton.active .categoryText {
   color: white;
+}
+
+.categoryButton:active .arrow,
+.categoryButton.active .arrow {
+  fill: white;
+}
+
+/* SVG path fills */
+.arrow .uuid-arrow-forward,
+.backArrow .uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42 {
+  fill: inherit;
 }
 
 /* Animations */
@@ -143,14 +199,34 @@
   }
 }
 
-@keyframes slideUp {
+@keyframes fadeOut {
   from {
-    opacity: 0;
-    transform: translate3d(-50%, -40%, 0);
+    opacity: 1;
   }
   to {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleOpen {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 1);
+  }
+  100% {
     opacity: 1;
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
+  }
+}
+
+@keyframes scaleClose {
+  0% {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale3d(0.5, 0.5, 1);
   }
 }
 

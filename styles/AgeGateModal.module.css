@@ -7,7 +7,7 @@
   background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 100%);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  z-index: 9998;
+  z-index: 10000;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 10001;
   padding: var(--space-lg);
   animation: fadeIn 0.3s ease-out;
 }
@@ -306,5 +306,36 @@
 
   .description p {
     font-size: 0.95rem;
+  }
+}
+
+/* Mobile devices - ensure proper positioning with safe area and above mobile header */
+@media (max-width: 600px) {
+  .backdrop {
+    top: env(safe-area-inset-top);
+    left: env(safe-area-inset-left);
+    right: env(safe-area-inset-right);
+    bottom: env(safe-area-inset-bottom);
+  }
+
+  .modal {
+    top: env(safe-area-inset-top);
+    left: env(safe-area-inset-left);
+    right: env(safe-area-inset-right);
+    bottom: env(safe-area-inset-bottom);
+    padding: var(--space-md);
+    padding-top: calc(var(--space-md) + env(safe-area-inset-top));
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+  }
+
+  .modalContent {
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .button {
+    min-height: 48px;
+    min-width: 48px;
   }
 }

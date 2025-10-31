@@ -169,8 +169,6 @@ strong::-moz-selection {
     padding: var(--space-md);
     padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
     background-color: var(--content-bg);
-    min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
   }
 
   .mobile-footer-wrapper {
