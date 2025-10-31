@@ -4,9 +4,9 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 100%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   z-index: 9998;
   animation: fadeIn 0.3s ease-out;
 }
@@ -32,11 +32,9 @@
 
   /* Hero version background (matching homepage/cards) */
   background: linear-gradient(
-    180deg,
-    rgba(182, 192, 186, 0.12) 0%,
-    rgba(253, 251, 247, 0.95) 30%,
-    rgba(253, 251, 247, 0.98) 70%,
-    transparent 100%
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(250, 250, 250, 0.95) 100%
   );
 
   border-radius: 8px;
