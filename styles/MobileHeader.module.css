@@ -3,14 +3,24 @@
 .mobileHeader {
   position: fixed;
   top: 0;
+  top: env(safe-area-inset-top);
   left: 0;
+  left: env(safe-area-inset-left);
   right: 0;
+  right: env(safe-area-inset-right);
   height: 100px;
   background-color: var(--vertical-header-bg);
   display: none; /* Hidden by default, shown on mobile */
   align-items: center;
   justify-content: space-between;
   z-index: 1001;
+  -webkit-tap-highlight-color: transparent;
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .logo {
@@ -20,6 +30,12 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.logo a {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .logo img {
@@ -37,6 +53,12 @@
   margin-left: auto;
   z-index: 10;
   height: 100px;
+  -webkit-tap-highlight-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menuButtonText {
@@ -81,21 +103,32 @@
 /* Menu overlay - slides in from top */
 .menuOverlay {
   position: fixed;
-  top: 95px; /* Below mobile header */
+  top: calc(100px + env(safe-area-inset-top));
   left: 0;
+  left: env(safe-area-inset-left);
   right: 0;
+  right: env(safe-area-inset-right);
   background-color: var(--vertical-header-bg);
-  transform: translateY(-100%);
+  transform: translate3d(0, -100%, 0);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  max-height: calc(100vh - 95px);
+  max-height: calc(
+    100vh - 100px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+  );
   overflow-y: auto;
   width: 100%;
   display: none; /* Hidden by default */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .menuOverlay.menuOpen {
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .nav {
@@ -123,14 +156,18 @@
   border: none;
   width: 100%;
   opacity: 0;
-  transform: translateY(-350px);
+  transform: translate3d(0, -350px, 0);
   transition: transform 1s ease-out, box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* Buttons appear with staggered delay when menu opens */
 .menuOpen .navButton {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .menuOpen .navButton:nth-child(1) {
@@ -207,7 +244,7 @@
 
 .navButton:active,
 .navButton.active {
-  transform: translateY(-2px);
+  transform: translate3d(0, -2px, 0);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -217,6 +254,33 @@
 .navButton.active .buttonInnerFrame::after {
   opacity: 0.5;
   transition: opacity 0.3s ease;
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .menuOverlay,
+  .navButton,
+  .menuButtonText {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Accessibility: Focus visible styles */
+.menuButton:focus-visible {
+  outline: 3px solid var(--refined-accent-gold);
+  outline-offset: 2px;
+}
+
+.navButton:focus-visible {
+  outline: 3px solid var(--refined-accent-gold);
+  outline-offset: 2px;
+}
+
+/* Ensure minimum touch target size */
+.menuButton {
+  min-width: 48px;
+  min-height: 48px;
 }
 
 /* Show mobile header only on mobile devices */

@@ -2,9 +2,11 @@
 
 .selectorBar {
   position: fixed;
-  top: 100px; /* Below mobile header */
+  top: calc(100px + env(safe-area-inset-top));
   left: 0;
+  left: env(safe-area-inset-left);
   right: 0;
+  right: env(safe-area-inset-right);
   height: 50px;
   background-color: var(--horizontal-header-bg);
   display: none; /* Hidden by default, shown on mobile */
@@ -13,6 +15,11 @@
   z-index: 998;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .selectorButton {
@@ -28,6 +35,10 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .selectorButton::after {
@@ -59,10 +70,11 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   width: 100%;
   max-width: 600px;
   max-height: 100vh;
+  max-height: 100dvh; /* Dynamic viewport height */
   background: var(--horizontal-header-bg);
   border: 2px solid var(--vertical-header-bg);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -72,6 +84,13 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-content: start;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* Category buttons */
@@ -87,6 +106,11 @@
   transition: all 0.3s ease;
   cursor: pointer;
   min-height: 60px;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  will-change: background, transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .categoryText {
@@ -122,12 +146,43 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translate(-50%, -40%);
+    transform: translate3d(-50%, -40%, 0);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
   }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .categoryGrid,
+  .overlay,
+  .categoryButton {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Accessibility: Focus visible styles */
+.selectorButton:focus-visible {
+  outline: 3px solid var(--vertical-header-bg);
+  outline-offset: 2px;
+}
+
+.categoryButton:focus-visible {
+  outline: 3px solid var(--vertical-header-bg);
+  outline-offset: 2px;
+}
+
+/* Ensure minimum touch target size */
+.selectorButton {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+.categoryButton {
+  min-width: 48px;
 }
 
 /* Show selector bar only on mobile devices */

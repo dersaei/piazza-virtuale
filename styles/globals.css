@@ -165,17 +165,46 @@ strong::-moz-selection {
   /* Show mobile layout */
   .mobile-main-content {
     display: block;
-    margin-top: 150px; /* Mobile header (70px) + category selector (50px) */
+    margin-top: calc(150px + env(safe-area-inset-top)); /* Mobile header (100px) + category selector (50px) + safe area */
     padding: var(--space-md);
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
     background-color: var(--content-bg);
-    min-height: calc(100vh - 150px);
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
   }
 
   .mobile-footer-wrapper {
     display: block;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   :root {
     --vertical-header-width: 0px;
+  }
+
+  /* Prevent overscroll bounce on iOS */
+  body {
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Enable smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Accessibility: Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
