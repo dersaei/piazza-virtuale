@@ -157,7 +157,8 @@
   width: 100%;
   opacity: 0;
   transform: translate3d(0, -350px, 0);
-  transition: transform 1s ease-out, box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.9s ease-out,
+    box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
   outline: none;
   will-change: transform, opacity;
