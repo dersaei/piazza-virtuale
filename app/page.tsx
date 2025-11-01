@@ -31,6 +31,8 @@ export default function HomePage() {
             src={territorioItaliano}
             alt="Piazza Virtuale Catalogo di e-shop aziendali, produttori italiani di alimenti e bevandes"
             className={styles.mapImage}
+            priority
+            fetchPriority="high"
           />
         </div>
       </section>

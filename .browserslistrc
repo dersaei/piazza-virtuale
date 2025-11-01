@@ -1,0 +1,10 @@
+# Browsers that we support
+# Based on: https://browsersl.ist/?q=%3E+0.5%25%2C+last+2+versions%2C+Firefox+ESR%2C+not+dead%2C+not+IE+11
+
+# Modern browsers with ES6+ support
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+not IE 11
+not op_mini all
