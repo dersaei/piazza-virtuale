@@ -10,8 +10,7 @@ export const metadata: Metadata = {
     'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
 };
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Note: Revalidation handled by Cache Components with "use cache" directive in lib/api/magazine.ts
 
 export default async function MagazinePage() {
   const cards = await getMagazineCards();

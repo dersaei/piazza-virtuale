@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "@/styles/HorizontalHeader.module.css";
 import {
   MAIN_CATEGORY_LIST,
@@ -12,30 +12,26 @@ import {
 
 export default function HorizontalHeader() {
   const pathname = usePathname();
+
+  // Derived state from pathname - automatically updates when pathname changes
+  // No need for useEffect + setState which causes cascading renders
+  const isOnBevandePage = pathname.startsWith("/bevande");
+  const isOnCondimentiPage = pathname.startsWith("/condimenti");
+
   const [showBevandeSub, setShowBevandeSub] = useState(false);
   const [showCondimentiSub, setShowCondimentiSub] = useState(false);
 
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
 
-  // Automatically show subcategories when on respective routes
-  useEffect(() => {
-    if (pathname.startsWith("/bevande")) {
-      setShowBevandeSub(true);
-      setShowCondimentiSub(false);
-    } else if (pathname.startsWith("/condimenti")) {
-      setShowCondimentiSub(true);
-      setShowBevandeSub(false);
-    } else {
-      setShowBevandeSub(false);
-      setShowCondimentiSub(false);
-    }
-  }, [pathname]);
+  // Automatically show subcategories when on respective routes (derived state)
+  const shouldShowBevandeSub = showBevandeSub || isOnBevandePage;
+  const shouldShowCondimentiSub = showCondimentiSub || isOnCondimentiPage;
 
   // Determine which categories to show
-  const categoriesToShow = showBevandeSub
+  const categoriesToShow = shouldShowBevandeSub
     ? bevandeSubcategories
-    : showCondimentiSub
+    : shouldShowCondimentiSub
     ? condimentiSubcategories
     : MAIN_CATEGORY_LIST;
 
@@ -56,6 +52,7 @@ export default function HorizontalHeader() {
 
   const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    // Reset manual subcategory expansion - pathname-based display will remain
     setShowBevandeSub(false);
     setShowCondimentiSub(false);
   };
@@ -65,7 +62,7 @@ export default function HorizontalHeader() {
       <nav className={styles.nav}>
         <div
           className={`${styles.navContainer} ${
-            showBevandeSub || showCondimentiSub ? styles.twoRows : ""
+            shouldShowBevandeSub || shouldShowCondimentiSub ? styles.twoRows : ""
           }`}
         >
           {/* Category buttons */}
@@ -95,7 +92,7 @@ export default function HorizontalHeader() {
           })}
 
           {/* Back arrow - shows main categories, stays on current page */}
-          {(showBevandeSub || showCondimentiSub) && (
+          {(shouldShowBevandeSub || shouldShowCondimentiSub) && (
             <a
               href="#"
               onClick={handleBackClick}

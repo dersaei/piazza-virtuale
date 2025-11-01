@@ -165,7 +165,9 @@ strong::-moz-selection {
   /* Show mobile layout */
   .mobile-main-content {
     display: block;
-    margin-top: calc(150px + env(safe-area-inset-top)); /* Mobile header (100px) + category selector (50px) + safe area */
+    margin-top: calc(
+      150px + env(safe-area-inset-top)
+    ); /* Mobile header (100px) + category selector (50px) + safe area */
     padding: var(--space-md);
     padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
     background-color: var(--content-bg);
@@ -189,6 +191,8 @@ strong::-moz-selection {
   /* Enable smooth scrolling */
   html {
     scroll-behavior: smooth;
+    /* Add scroll padding to account for fixed mobile headers */
+    scroll-padding-top: calc(150px + env(safe-area-inset-top));
   }
 
   /* Accessibility: Respect reduced motion preference */

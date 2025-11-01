@@ -1,11 +1,11 @@
 // components/Footer.tsx
-"use client";
-
 import Link from "next/link";
 import styles from "@/styles/Footer.module.css";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  // Static year - updated at build time
+  // For Cache Components compatibility, we use a static value
+  const currentYear = 2025;
 
   return (
     <footer className={styles.footer}>

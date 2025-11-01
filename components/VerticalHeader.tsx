@@ -23,8 +23,7 @@ export default function VerticalHeader() {
         <Link href='/'>
           <Image
             src={logo}
-            alt='Piazza Virtuale - Il catalogo degli e-shop ufficiali      
-  dei produttori italiani di cibo e bevande'
+            alt="Piazza Virtuale - Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande"
           />
         </Link>
       </div>

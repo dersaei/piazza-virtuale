@@ -9,6 +9,7 @@ import MobileHeader from "@/components/MobileHeader";
 import MobileCategorySelector from "@/components/MobileCategorySelector";
 import Footer from "@/components/Footer";
 import AgeGateModal from "@/components/AgeGateModal";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Piazza Virtuale",
@@ -29,7 +30,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="it">
+      {/* Note: Hydration warnings from browser extensions (e.g., Grammarly) are expected.
+          We intentionally do NOT use suppressHydrationWarning to ensure all real
+          hydration errors are visible during development. */}
       <body>
+        <ScrollToTop />
         <div>
           {/* Desktop headers */}
           <VerticalHeader />

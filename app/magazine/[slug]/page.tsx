@@ -5,7 +5,7 @@ import Link from 'next/link';
 import styles from '@/styles/ArticlePage.module.css';
 import { getAllArticles, getArticleBySlug } from '@/lib/api/magazine';
 
-export const revalidate = 3600;
+// Note: Revalidation handled by Cache Components with "use cache" directive in lib/api/magazine.ts
 
 export async function generateMetadata({
   params,
