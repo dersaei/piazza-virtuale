@@ -14,19 +14,29 @@ export default function HorizontalHeader() {
   const pathname = usePathname();
 
   // Derived state from pathname - automatically updates when pathname changes
-  // No need for useEffect + setState which causes cascading renders
   const isOnBevandePage = pathname.startsWith("/bevande");
   const isOnCondimentiPage = pathname.startsWith("/condimenti");
 
   const [showBevandeSub, setShowBevandeSub] = useState(false);
   const [showCondimentiSub, setShowCondimentiSub] = useState(false);
+  // Store both hide flag and the pathname it was set on
+  const [forceHideState, setForceHideState] = useState<{hide: boolean, pathname: string}>({
+    hide: false,
+    pathname: pathname
+  });
 
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
 
+  // Derive force hide status - automatically resets when pathname changes
+  // This is pure derived state, no effects needed
+  const forceHideSubcategories = forceHideState.pathname === pathname ? forceHideState.hide : false;
+
   // Automatically show subcategories when on respective routes (derived state)
-  const shouldShowBevandeSub = showBevandeSub || isOnBevandePage;
-  const shouldShowCondimentiSub = showCondimentiSub || isOnCondimentiPage;
+  // but allow force hide to override
+  // Priority: manual clicks (showBevandeSub/showCondimentiSub) override pathname-based detection
+  const shouldShowBevandeSub = !forceHideSubcategories && (showBevandeSub || (!showCondimentiSub && isOnBevandePage));
+  const shouldShowCondimentiSub = !forceHideSubcategories && (showCondimentiSub || (!showBevandeSub && isOnCondimentiPage));
 
   // Determine which categories to show
   const categoriesToShow = shouldShowBevandeSub
@@ -43,16 +53,21 @@ export default function HorizontalHeader() {
       e.preventDefault();
       setShowBevandeSub(true);
       setShowCondimentiSub(false);
+      // Reset force hide when user explicitly clicks to show subcategories
+      setForceHideState({ hide: false, pathname: pathname });
     } else if (categoryId === "condimenti") {
       e.preventDefault();
       setShowCondimentiSub(true);
       setShowBevandeSub(false);
+      // Reset force hide when user explicitly clicks to show subcategories
+      setForceHideState({ hide: false, pathname: pathname });
     }
   };
 
   const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // Reset manual subcategory expansion - pathname-based display will remain
+    // Force hide subcategories even if pathname suggests they should be shown
+    setForceHideState({ hide: true, pathname: pathname });
     setShowBevandeSub(false);
     setShowCondimentiSub(false);
   };
