@@ -1,10 +1,14 @@
 // components/StandardSubmissionForm.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
 import { GROUPED_FORM_CATEGORIES } from "@/lib/constants/formCategories";
+import { submitStandardForm } from "@/app/actions/submissions";
+import SubmitButton from "@/components/shared/SubmitButton";
+import FormStatus from "@/components/shared/FormStatus";
 
 const ITALIAN_REGIONS = [
   "Abruzzo",
@@ -29,125 +33,71 @@ const ITALIAN_REGIONS = [
   "Veneto",
 ];
 
-interface FormData {
-  producer_name: string;
-  shop_url: string;
-  categories: string[];
-  region: string;
-  logo: File | null;
-  privacy_accepted: boolean;
-}
-
 export default function StandardSubmissionForm() {
-  const [formData, setFormData] = useState<FormData>({
-    producer_name: "",
-    shop_url: "",
-    categories: [],
-    region: "",
-    logo: null,
-    privacy_accepted: false,
-  });
+  // Server action state management
+  const [state, formAction] = useActionState(submitStandardForm, null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  // Local state for UI interactions (categories, region selection)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [clientError, setClientError] = useState<string | null>(null);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // Form reference for reset
+  const formRef = useRef<HTMLFormElement>(null);
+  const prevSuccessRef = useRef(false);
+
+  // Reset form on successful submission
+  useEffect(() => {
+    // Only reset if this is a new success (not the same success state)
+    if (state?.success && !prevSuccessRef.current) {
+      prevSuccessRef.current = true;
+      formRef.current?.reset();
+
+      // Use setTimeout to avoid cascading renders
+      setTimeout(() => {
+        setSelectedCategories([]);
+        setSelectedRegion("");
+        setPrivacyAccepted(false);
+        setClientError(null);
+      }, 0);
+    } else if (!state?.success) {
+      prevSuccessRef.current = false;
+    }
+  }, [state]);
 
   const handleCategoryChange = (categoryId: string) => {
-    setFormData((prev) => {
-      const categories = prev.categories.includes(categoryId)
-        ? prev.categories.filter((id) => id !== categoryId)
-        : [...prev.categories, categoryId];
-      return { ...prev, categories };
-    });
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId]
+    );
   };
 
   const handleRegionChange = (region: string) => {
-    setFormData((prev) => ({ ...prev, region }));
+    setSelectedRegion(region);
+  };
+
+  const handlePrivacyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrivacyAccepted(e.target.checked);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData((prev) => ({ ...prev, logo: file }));
-  };
+    const file = e.target.files?.[0];
+    const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, privacy_accepted: e.target.checked }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate privacy acceptance
-    if (!formData.privacy_accepted) {
-      setSubmitStatus({
-        type: "error",
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
-
-    try {
-      // Create FormData for multipart upload
-      const submitData = new FormData();
-      submitData.append("producer_name", formData.producer_name);
-      submitData.append("shop_url", formData.shop_url);
-      submitData.append("categories", JSON.stringify(formData.categories));
-      submitData.append("region", formData.region);
-      if (formData.logo) {
-        submitData.append("logo", formData.logo);
-      }
-
-      const response = await fetch("/api/submissions/standard", {
-        method: "POST",
-        body: submitData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Errore durante l'invio del modulo");
-      }
-
-      setSubmitStatus({
-        type: "success",
-        message:
-          "Grazie! La tua richiesta è stata inviata con successo. Ti contatteremo presto.",
-      });
-
-      // Reset form
-      setFormData({
-        producer_name: "",
-        shop_url: "",
-        categories: [],
-        region: "",
-        logo: null,
-        privacy_accepted: false,
-      });
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message:
-          "Si è verificato un errore. Per favore riprova più tardi o contattaci direttamente.",
-      });
-      console.error("Form submission error:", error);
-    } finally {
-      setIsSubmitting(false);
+    if (file && file.size > MAX_FILE_SIZE) {
+      setClientError(
+        "Il file logo è troppo grande. Dimensione massima: 1MB."
+      );
+      e.target.value = ""; // Clear the file input
+    } else {
+      setClientError(null); // Clear error if file is valid
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form ref={formRef} action={formAction} className={styles.form}>
       {/* Producer Name */}
       <div className={styles.formGroup}>
         <label htmlFor="producer_name" className={styles.label}>
@@ -157,8 +107,6 @@ export default function StandardSubmissionForm() {
           type="text"
           id="producer_name"
           name="producer_name"
-          value={formData.producer_name}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="Es. Azienda Agricola Rossi"
@@ -175,8 +123,6 @@ export default function StandardSubmissionForm() {
           type="url"
           id="shop_url"
           name="shop_url"
-          value={formData.shop_url}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="https://www.tuoshop.it"
@@ -189,6 +135,13 @@ export default function StandardSubmissionForm() {
           Categorie <span className={styles.required}>*</span>
         </label>
 
+        {/* Hidden input to store selected categories as JSON */}
+        <input
+          type="hidden"
+          name="categories"
+          value={JSON.stringify(selectedCategories)}
+        />
+
         <div className={styles.categoriesContainer}>
           {Object.entries(GROUPED_FORM_CATEGORIES).map(
             ([groupName, categories]) => (
@@ -199,7 +152,7 @@ export default function StandardSubmissionForm() {
                     <label key={category.id} className={styles.checkboxLabel}>
                       <input
                         type="checkbox"
-                        checked={formData.categories.includes(category.id)}
+                        checked={selectedCategories.includes(category.id)}
                         onChange={() => handleCategoryChange(category.id)}
                         className={styles.checkbox}
                       />
@@ -212,7 +165,7 @@ export default function StandardSubmissionForm() {
           )}
         </div>
 
-        {formData.categories.length === 0 && (
+        {selectedCategories.length === 0 && (
           <p className={styles.hint}>Seleziona almeno una categoria</p>
         )}
       </div>
@@ -230,7 +183,7 @@ export default function StandardSubmissionForm() {
                 type="radio"
                 name="region"
                 value={region}
-                checked={formData.region === region}
+                checked={selectedRegion === region}
                 onChange={() => handleRegionChange(region)}
                 required
                 className={styles.radio}
@@ -240,7 +193,7 @@ export default function StandardSubmissionForm() {
           ))}
         </div>
 
-        {!formData.region && (
+        {!selectedRegion && (
           <p className={styles.hint}>Seleziona una regione</p>
         )}
       </div>
@@ -254,13 +207,18 @@ export default function StandardSubmissionForm() {
           type="file"
           id="logo"
           name="logo"
-          onChange={handleFileChange}
           accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
           className={styles.fileInput}
+          onChange={handleFileChange}
         />
         <p className={styles.hint}>
-          Formati accettati: PNG, JPEG, JPG, WebP, SVG. Dimensione massima: 5MB
+          Formati accettati: PNG, JPEG, JPG, WebP, SVG. Dimensione massima: 1MB
         </p>
+        {clientError && (
+          <p className={styles.errorHint} role="alert">
+            {clientError}
+          </p>
+        )}
       </div>
 
       {/* Privacy Policy Checkbox */}
@@ -268,8 +226,9 @@ export default function StandardSubmissionForm() {
         <label className={styles.privacyLabel}>
           <input
             type="checkbox"
-            checked={formData.privacy_accepted}
-            onChange={handleCheckboxChange}
+            name="privacy_accepted"
+            checked={privacyAccepted}
+            onChange={handlePrivacyChange}
             required
             className={styles.privacyCheckbox}
           />
@@ -284,29 +243,18 @@ export default function StandardSubmissionForm() {
       </div>
 
       {/* Submit Status */}
-      {submitStatus.type && (
-        <div
-          className={`${styles.statusMessage} ${
-            submitStatus.type === "success" ? styles.success : styles.error
-          }`}
-        >
-          {submitStatus.message}
-        </div>
-      )}
+      <FormStatus state={state} />
 
       {/* Submit Button */}
-      <button
-        type="submit"
+      <SubmitButton
+        idleText="Invia Richiesta"
+        pendingText="Invio in corso..."
         disabled={
-          isSubmitting ||
-          formData.categories.length === 0 ||
-          !formData.region ||
-          !formData.privacy_accepted
+          selectedCategories.length === 0 ||
+          !selectedRegion ||
+          !privacyAccepted
         }
-        className={styles.submitButton}
-      >
-        {isSubmitting ? "Invio in corso..." : "Invia Richiesta"}
-      </button>
+      />
     </form>
   );
 }

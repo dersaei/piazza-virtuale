@@ -62,11 +62,11 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // 2. Check file size (5MB)
-      const maxSize = 5 * 1024 * 1024;
+      // 2. Check file size (1MB)
+      const maxSize = 1 * 1024 * 1024;
       if (logoFile.size > maxSize) {
         return NextResponse.json(
-          { error: "File troppo grande. Dimensione massima: 5MB" },
+          { error: "File troppo grande. Dimensione massima: 1MB" },
           { status: 400 }
         );
       }

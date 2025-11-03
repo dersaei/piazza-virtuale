@@ -1,106 +1,47 @@
 // components/ContactForm.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
-
-interface FormData {
-  full_name: string;
-  email: string;
-  subject: string;
-  message: string;
-  privacy_accepted: boolean;
-}
+import { submitContactForm } from "@/app/actions/submissions";
+import SubmitButton from "@/components/shared/SubmitButton";
+import FormStatus from "@/components/shared/FormStatus";
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState<FormData>({
-    full_name: "",
-    email: "",
-    subject: "",
-    message: "",
-    privacy_accepted: false,
-  });
+  // Server action state management
+  const [state, formAction] = useActionState(submitContactForm, null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  // Local state for privacy checkbox
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // Form reference for reset
+  const formRef = useRef<HTMLFormElement>(null);
+  const prevSuccessRef = useRef(false);
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, privacy_accepted: e.target.checked }));
-  };
+  // Reset form on successful submission
+  useEffect(() => {
+    // Only reset if this is a new success (not the same success state)
+    if (state?.success && !prevSuccessRef.current) {
+      prevSuccessRef.current = true;
+      formRef.current?.reset();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate privacy acceptance
-    if (!formData.privacy_accepted) {
-      setSubmitStatus({
-        type: "error",
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
-      });
-      return;
+      // Use setTimeout to avoid cascading renders
+      setTimeout(() => {
+        setPrivacyAccepted(false);
+      }, 0);
+    } else if (!state?.success) {
+      prevSuccessRef.current = false;
     }
+  }, [state]);
 
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          full_name: formData.full_name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Errore durante l'invio del messaggio");
-      }
-
-      setSubmitStatus({
-        type: "success",
-        message:
-          "Grazie per averci contattato! Abbiamo ricevuto il tuo messaggio e ti risponderemo al più presto.",
-      });
-
-      // Reset form
-      setFormData({
-        full_name: "",
-        email: "",
-        subject: "",
-        message: "",
-        privacy_accepted: false,
-      });
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message:
-          "Si è verificato un errore durante l'invio del messaggio. Per favore riprova più tardi.",
-      });
-      console.error("Contact form error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handlePrivacyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrivacyAccepted(e.target.checked);
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form ref={formRef} action={formAction} className={styles.form}>
       {/* Nome e Cognome */}
       <div className={styles.formGroup}>
         <label htmlFor="full_name" className={styles.label}>
@@ -110,8 +51,6 @@ export default function ContactForm() {
           type="text"
           id="full_name"
           name="full_name"
-          value={formData.full_name}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="Es. Mario Rossi"
@@ -127,8 +66,6 @@ export default function ContactForm() {
           type="email"
           id="email"
           name="email"
-          value={formData.email}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="mario.rossi@esempio.it"
@@ -144,8 +81,6 @@ export default function ContactForm() {
           type="text"
           id="subject"
           name="subject"
-          value={formData.subject}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="Es. Richiesta informazioni"
@@ -160,8 +95,6 @@ export default function ContactForm() {
         <textarea
           id="message"
           name="message"
-          value={formData.message}
-          onChange={handleInputChange}
           required
           rows={8}
           className={styles.textarea}
@@ -174,8 +107,9 @@ export default function ContactForm() {
         <label className={styles.privacyLabel}>
           <input
             type="checkbox"
-            checked={formData.privacy_accepted}
-            onChange={handleCheckboxChange}
+            name="privacy_accepted"
+            checked={privacyAccepted}
+            onChange={handlePrivacyChange}
             required
             className={styles.privacyCheckbox}
           />
@@ -190,24 +124,14 @@ export default function ContactForm() {
       </div>
 
       {/* Submit Status */}
-      {submitStatus.type && (
-        <div
-          className={`${styles.statusMessage} ${
-            submitStatus.type === "success" ? styles.success : styles.error
-          }`}
-        >
-          {submitStatus.message}
-        </div>
-      )}
+      <FormStatus state={state} />
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isSubmitting || !formData.privacy_accepted}
-        className={styles.submitButton}
-      >
-        {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
-      </button>
+      <SubmitButton
+        idleText="Invia Messaggio"
+        pendingText="Invio in corso..."
+        disabled={!privacyAccepted}
+      />
     </form>
   );
 }

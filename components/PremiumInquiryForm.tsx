@@ -1,106 +1,47 @@
 // components/PremiumInquiryForm.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
-
-interface FormData {
-  producer_name: string;
-  contact_name: string;
-  email: string;
-  message: string;
-  privacy_accepted: boolean;
-}
+import { submitPremiumInquiry } from "@/app/actions/submissions";
+import SubmitButton from "@/components/shared/SubmitButton";
+import FormStatus from "@/components/shared/FormStatus";
 
 export default function PremiumInquiryForm() {
-  const [formData, setFormData] = useState<FormData>({
-    producer_name: "",
-    contact_name: "",
-    email: "",
-    message: "",
-    privacy_accepted: false,
-  });
+  // Server action state management
+  const [state, formAction] = useActionState(submitPremiumInquiry, null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  // Local state for privacy checkbox
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // Form reference for reset
+  const formRef = useRef<HTMLFormElement>(null);
+  const prevSuccessRef = useRef(false);
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, privacy_accepted: e.target.checked }));
-  };
+  // Reset form on successful submission
+  useEffect(() => {
+    // Only reset if this is a new success (not the same success state)
+    if (state?.success && !prevSuccessRef.current) {
+      prevSuccessRef.current = true;
+      formRef.current?.reset();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate privacy acceptance
-    if (!formData.privacy_accepted) {
-      setSubmitStatus({
-        type: "error",
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-      });
-      return;
+      // Use setTimeout to avoid cascading renders
+      setTimeout(() => {
+        setPrivacyAccepted(false);
+      }, 0);
+    } else if (!state?.success) {
+      prevSuccessRef.current = false;
     }
+  }, [state]);
 
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
-
-    try {
-      const response = await fetch("/api/submissions/premium", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          producer_name: formData.producer_name,
-          contact_name: formData.contact_name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Errore durante l'invio della richiesta premium");
-      }
-
-      setSubmitStatus({
-        type: "success",
-        message:
-          "Grazie! La tua richiesta premium è stata inviata con successo. Ti contatteremo presto per discutere i dettagli.",
-      });
-
-      // Reset form
-      setFormData({
-        producer_name: "",
-        contact_name: "",
-        email: "",
-        message: "",
-        privacy_accepted: false,
-      });
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message:
-          "Si è verificato un errore. Per favore riprova più tardi o contattaci direttamente.",
-      });
-      console.error("Premium inquiry form error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handlePrivacyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrivacyAccepted(e.target.checked);
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form ref={formRef} action={formAction} className={styles.form}>
       {/* Producer Name */}
       <div className={styles.formGroup}>
         <label htmlFor="producer_name" className={styles.label}>
@@ -110,8 +51,6 @@ export default function PremiumInquiryForm() {
           type="text"
           id="producer_name"
           name="producer_name"
-          value={formData.producer_name}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="Es. Azienda Agricola Rossi"
@@ -128,8 +67,6 @@ export default function PremiumInquiryForm() {
           type="text"
           id="contact_name"
           name="contact_name"
-          value={formData.contact_name}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="Es. Mario Rossi"
@@ -145,8 +82,6 @@ export default function PremiumInquiryForm() {
           type="email"
           id="email"
           name="email"
-          value={formData.email}
-          onChange={handleInputChange}
           required
           className={styles.input}
           placeholder="mario.rossi@esempio.it"
@@ -161,8 +96,6 @@ export default function PremiumInquiryForm() {
         <textarea
           id="message"
           name="message"
-          value={formData.message}
-          onChange={handleInputChange}
           rows={6}
           className={styles.textarea}
           placeholder="Scrivi qui eventuali domande o richieste specifiche..."
@@ -174,8 +107,9 @@ export default function PremiumInquiryForm() {
         <label className={styles.privacyLabel}>
           <input
             type="checkbox"
-            checked={formData.privacy_accepted}
-            onChange={handleCheckboxChange}
+            name="privacy_accepted"
+            checked={privacyAccepted}
+            onChange={handlePrivacyChange}
             required
             className={styles.privacyCheckbox}
           />
@@ -190,24 +124,14 @@ export default function PremiumInquiryForm() {
       </div>
 
       {/* Submit Status */}
-      {submitStatus.type && (
-        <div
-          className={`${styles.statusMessage} ${
-            submitStatus.type === "success" ? styles.success : styles.error
-          }`}
-        >
-          {submitStatus.message}
-        </div>
-      )}
+      <FormStatus state={state} />
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isSubmitting || !formData.privacy_accepted}
-        className={styles.submitButton}
-      >
-        {isSubmitting ? "Invio in corso..." : "Invia Richiesta Premium"}
-      </button>
+      <SubmitButton
+        idleText="Invia Richiesta Premium"
+        pendingText="Invio in corso..."
+        disabled={!privacyAccepted}
+      />
     </form>
   );
 }
