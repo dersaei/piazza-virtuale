@@ -151,12 +151,19 @@ export default function StandardSubmissionForm() {
                 <h4 className={styles.categoryGroupTitle}>{groupName}</h4>
                 <div className={styles.checkboxGrid}>
                   {categories.map((category) => (
-                    <label key={category.id} className={styles.checkboxLabel}>
+                    <label
+                      key={category.id}
+                      htmlFor={`category-${category.id}`}
+                      className={styles.checkboxLabel}
+                    >
                       <input
                         type="checkbox"
+                        id={`category-${category.id}`}
+                        name={`category-${category.id}`}
                         checked={selectedCategories.includes(category.id)}
                         onChange={() => handleCategoryChange(category.id)}
                         className={styles.checkbox}
+                        autoComplete="off"
                       />
                       <span>{category.label}</span>
                     </label>
@@ -226,14 +233,16 @@ export default function StandardSubmissionForm() {
 
       {/* Privacy Policy Checkbox */}
       <div className={styles.privacyGroup}>
-        <label className={styles.privacyLabel}>
+        <label htmlFor="privacy_accepted" className={styles.privacyLabel}>
           <input
             type="checkbox"
+            id="privacy_accepted"
             name="privacy_accepted"
             checked={privacyAccepted}
             onChange={handlePrivacyChange}
             required
             className={styles.privacyCheckbox}
+            autoComplete="off"
           />
           <span className={styles.privacyText}>
             Ho letto e accetto l&rsquo;
