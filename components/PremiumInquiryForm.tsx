@@ -54,6 +54,7 @@ export default function PremiumInquiryForm() {
           required
           className={styles.input}
           placeholder="Es. Azienda Agricola Rossi"
+          autoComplete="organization"
         />
       </div>
 
@@ -70,6 +71,7 @@ export default function PremiumInquiryForm() {
           required
           className={styles.input}
           placeholder="Es. Mario Rossi"
+          autoComplete="name"
         />
       </div>
 
@@ -85,6 +87,7 @@ export default function PremiumInquiryForm() {
           required
           className={styles.input}
           placeholder="mario.rossi@esempio.it"
+          autoComplete="email"
         />
       </div>
 
@@ -99,6 +102,7 @@ export default function PremiumInquiryForm() {
           rows={6}
           className={styles.textarea}
           placeholder="Scrivi qui eventuali domande o richieste specifiche..."
+          autoComplete="off"
         />
       </div>
 

@@ -8,18 +8,25 @@
   margin: 0 auto;
 }
 
-.formGroup {
+.formGroup,
+fieldset.formGroup {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
-.label {
+.label,
+legend.label {
   font-size: 1rem;
   font-weight: 600;
   color: #2c2f2a;
   font-family: var(--font-sans);
   letter-spacing: 0.02em;
+  padding: 0;
+  margin: 0;
 }
 
 .required {

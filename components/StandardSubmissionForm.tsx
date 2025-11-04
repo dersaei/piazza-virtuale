@@ -110,6 +110,7 @@ export default function StandardSubmissionForm() {
           required
           className={styles.input}
           placeholder="Es. Azienda Agricola Rossi"
+          autoComplete="organization"
         />
       </div>
 
@@ -126,14 +127,15 @@ export default function StandardSubmissionForm() {
           required
           className={styles.input}
           placeholder="https://www.tuoshop.it"
+          autoComplete="url"
         />
       </div>
 
       {/* Categories - Grouped by type */}
-      <div className={styles.formGroup}>
-        <label className={styles.label}>
+      <fieldset className={styles.formGroup}>
+        <legend className={styles.label}>
           Categorie <span className={styles.required}>*</span>
-        </label>
+        </legend>
 
         {/* Hidden input to store selected categories as JSON */}
         <input
@@ -168,13 +170,13 @@ export default function StandardSubmissionForm() {
         {selectedCategories.length === 0 && (
           <p className={styles.hint}>Seleziona almeno una categoria</p>
         )}
-      </div>
+      </fieldset>
 
       {/* Region - Radio Buttons */}
-      <div className={styles.formGroup}>
-        <label className={styles.label}>
+      <fieldset className={styles.formGroup}>
+        <legend className={styles.label}>
           Regione <span className={styles.required}>*</span>
-        </label>
+        </legend>
 
         <div className={styles.radioContainer}>
           {ITALIAN_REGIONS.map((region) => (
@@ -187,6 +189,7 @@ export default function StandardSubmissionForm() {
                 onChange={() => handleRegionChange(region)}
                 required
                 className={styles.radio}
+                autoComplete="off"
               />
               <span>{region}</span>
             </label>
@@ -196,7 +199,7 @@ export default function StandardSubmissionForm() {
         {!selectedRegion && (
           <p className={styles.hint}>Seleziona una regione</p>
         )}
-      </div>
+      </fieldset>
 
       {/* Logo Upload */}
       <div className={styles.formGroup}>
