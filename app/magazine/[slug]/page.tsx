@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '@/styles/ArticlePage.module.css';
 import { getAllArticles, getArticleBySlug } from '@/lib/api/magazine';
-import SafeHtml from '@/components/shared/SafeHtml';
 
 // Note: Revalidation handled by Cache Components with "use cache" directive in lib/api/magazine.ts
 
@@ -89,8 +88,7 @@ export default async function ArticlePage({
         </Link>
         <header className={styles.articleHeader}>
           <span className={styles.category}>{article.category}</span>
-          {/* Sanitized HTML from Directus CMS WYSIWYG field - Client Component */}
-          <SafeHtml html={article.title} as="h1" mode="basic" />
+          <h1 dangerouslySetInnerHTML={{ __html: article.title }} />
           <time className={styles.date}>
             {new Date(article.date_created).toLocaleDateString('it-IT', {
               year: 'numeric',
@@ -100,11 +98,9 @@ export default async function ArticlePage({
           </time>
         </header>
 
-        {/* Sanitized HTML content from Directus CMS WYSIWYG editor - Client Component */}
-        <SafeHtml
-          html={article.content}
+        <div
           className={styles.articleContent}
-          mode="full"
+          dangerouslySetInnerHTML={{ __html: article.content }}
         />
       </article>
     </div>
