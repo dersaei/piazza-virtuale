@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '@/styles/MagazinePage.module.css';
 import { getMagazineCards } from '@/lib/api/magazine';
+import { sanitizeHtmlBasic } from '@/lib/utils/sanitize';
 
 export const metadata: Metadata = {
   title: 'Magazine - Piazza Virtuale',
@@ -22,9 +23,10 @@ export default async function MagazinePage() {
           cards.map(card => (
             <Link key={card.id} href={card.url} className={styles.articleCard}>
               <div className={styles.tab}>{card.category}</div>
+              {/* Sanitized HTML from Directus CMS WYSIWYG field */}
               <h2
                 className={styles.title}
-                dangerouslySetInnerHTML={{ __html: card.title }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtmlBasic(card.title) }}
               />
               <div className={styles.readMore}>leggi di più</div>
             </Link>

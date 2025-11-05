@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '@/styles/ProducerCard.module.css';
+import { sanitizeHtmlBasic } from '@/lib/utils/sanitize';
 
 interface ShopCardProps {
   categoryName: string;
@@ -23,9 +24,10 @@ export default function ShopCard({
     <article className={styles.shopCard}>
       <p className={styles.categoryName}>{categoryName}</p>
 
+      {/* Sanitized HTML from Directus CMS WYSIWYG field */}
       <h2
         className={styles.producerName}
-        dangerouslySetInnerHTML={{ __html: producerName }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtmlBasic(producerName) }}
       />
 
       <p className={styles.regionName}>{regionName}</p>
