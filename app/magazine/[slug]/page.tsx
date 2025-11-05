@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '@/styles/ArticlePage.module.css';
 import { getAllArticles, getArticleBySlug } from '@/lib/api/magazine';
-import { sanitizeHtml, sanitizeHtmlBasic } from '@/lib/utils/sanitize';
+import SafeHtml from '@/components/shared/SafeHtml';
 
 // Note: Revalidation handled by Cache Components with "use cache" directive in lib/api/magazine.ts
 
@@ -32,6 +32,13 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();
+
+  // Next.js requires at least one entry when using Cache Components
+  // If no articles (e.g., Directus unavailable during build), return placeholder
+  if (articles.length === 0) {
+    console.warn('No articles found - using placeholder for static generation');
+    return [{ slug: 'placeholder' }];
+  }
 
   return articles.map(article => ({
     slug: article.slug,
@@ -82,8 +89,8 @@ export default async function ArticlePage({
         </Link>
         <header className={styles.articleHeader}>
           <span className={styles.category}>{article.category}</span>
-          {/* Sanitized HTML from Directus CMS WYSIWYG field */}
-          <h1 dangerouslySetInnerHTML={{ __html: sanitizeHtmlBasic(article.title) }} />
+          {/* Sanitized HTML from Directus CMS WYSIWYG field - Client Component */}
+          <SafeHtml html={article.title} as="h1" mode="basic" />
           <time className={styles.date}>
             {new Date(article.date_created).toLocaleDateString('it-IT', {
               year: 'numeric',
@@ -93,10 +100,11 @@ export default async function ArticlePage({
           </time>
         </header>
 
-        {/* Sanitized HTML content from Directus CMS WYSIWYG editor */}
-        <div
+        {/* Sanitized HTML content from Directus CMS WYSIWYG editor - Client Component */}
+        <SafeHtml
+          html={article.content}
           className={styles.articleContent}
-          dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
+          mode="full"
         />
       </article>
     </div>

@@ -4,21 +4,36 @@
 
 ### Overview
 
-This directory contains utility functions for sanitizing HTML content from Directus CMS to prevent XSS (Cross-Site Scripting) attacks.
+HTML sanitization from Directus CMS is now handled by the `SafeHtml` Client Component to prevent XSS (Cross-Site Scripting) attacks.
 
-### Functions
+**Location:** `components/shared/SafeHtml.tsx`
 
-#### `sanitizeHtml(dirty: string): string`
+**Why Client Component?**
+- DOMPurify (via isomorphic-dompurify) uses JSDOM which calls `new Date()` internally
+- Next.js 16 + Turbopack doesn't allow `new Date()` during static generation in Server Components
+- Since Directus content is static (doesn't change per request), client-side sanitization is optimal
 
-Sanitizes full HTML content from Directus CMS WYSIWYG editors with comprehensive tag support.
+### Usage
 
-**Use for:**
-- Full article content
-- Rich text descriptions
-- Magazine articles
-- Any WYSIWYG content with images, links, tables, etc.
+Import the `SafeHtml` component in your Server Components:
 
-**Allowed tags:**
+```tsx
+import SafeHtml from '@/components/shared/SafeHtml';
+```
+
+#### Full Mode (for article content)
+
+Use `mode="full"` for rich content from Directus WYSIWYG editor:
+
+```tsx
+<SafeHtml
+  html={article.content}
+  className={styles.articleContent}
+  mode="full"
+/>
+```
+
+**Allowed in full mode:**
 - Text formatting: `<p>`, `<br>`, `<strong>`, `<em>`, `<u>`, `<s>`, `<span>`, `<div>`
 - Headings: `<h1>` - `<h6>`
 - Lists: `<ul>`, `<ol>`, `<li>`
@@ -28,39 +43,28 @@ Sanitizes full HTML content from Directus CMS WYSIWYG editors with comprehensive
 - Tables: `<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`
 - Other: `<hr>`
 
-**Example:**
-```tsx
-import { sanitizeHtml } from '@/lib/utils/sanitize';
+#### Basic Mode (for titles/names)
 
-<div
-  className={styles.articleContent}
-  dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
+Use `mode="basic"` for short text fields with minimal formatting:
+
+```tsx
+<SafeHtml
+  html={producerName}
+  as="h2"
+  className={styles.producerName}
+  mode="basic"
 />
 ```
 
-#### `sanitizeHtmlBasic(dirty: string): string`
-
-Sanitizes HTML with restrictive rules for short text fields like titles and names.
-
-**Use for:**
-- Titles
-- Names
-- Short descriptions
-- Headlines
-- Any text that should only have basic inline formatting
-
-**Allowed tags:**
+**Allowed in basic mode:**
 - `<strong>`, `<em>`, `<u>`, `<br>`, `<span>`
 
-**Example:**
-```tsx
-import { sanitizeHtmlBasic } from '@/lib/utils/sanitize';
+#### Props
 
-<h2
-  className={styles.producerName}
-  dangerouslySetInnerHTML={{ __html: sanitizeHtmlBasic(producerName) }}
-/>
-```
+- `html` (required): Raw HTML string from Directus
+- `className` (optional): CSS class for the wrapper element
+- `as` (optional): HTML tag for wrapper - `div`, `span`, `h1`-`h6`, `p` (default: `div`)
+- `mode` (optional): `'full'` or `'basic'` (default: `'full'`)
 
 ### Security Features
 
@@ -89,33 +93,36 @@ Both functions provide protection against:
 - Prevention of accidental XSS via copy-paste
 - Compliance with security best practices
 
-### Testing
-
-Tests are available in `__tests__/sanitize.test.ts` and verify:
-- Allowed tags are preserved
-- Dangerous tags are removed
-- Event handlers are stripped
-- Links are safe
-- Empty input is handled
-
-Run tests with:
-```bash
-npm test -- sanitize.test.ts
-```
-
 ### Dependencies
 
-- `isomorphic-dompurify`: Isomorphic (works in Node.js and browser) HTML sanitizer
-  - Based on DOMPurify (industry standard)
-  - Works with React Server Components
-  - Zero dependencies in production
+- `isomorphic-dompurify`: Industry-standard HTML sanitizer
+  - Works in both browser and Node.js
+  - Actively maintained (updated November 2025)
+  - Based on DOMPurify (most trusted XSS sanitizer)
+  - Used as Client Component to avoid Next.js build issues
 
 ### Configuration
 
-To modify allowed tags/attributes, edit the configuration in:
-- `lib/utils/sanitize.ts`
+To modify allowed tags/attributes, edit the `getSanitizeConfig()` function in:
+- `components/shared/SafeHtml.tsx`
 
 Always test changes thoroughly to ensure:
 1. Security is not compromised
 2. Content displays correctly
 3. Directus WYSIWYG output is compatible
+
+### Migration from Server-side Sanitization
+
+If you previously used server-side sanitization functions:
+
+**Before (Server Component - causes build errors):**
+```tsx
+import { sanitizeHtml } from '@/lib/utils/sanitize';
+<div dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }} />
+```
+
+**After (Client Component - works perfectly):**
+```tsx
+import SafeHtml from '@/components/shared/SafeHtml';
+<SafeHtml html={content} mode="full" />
+```
