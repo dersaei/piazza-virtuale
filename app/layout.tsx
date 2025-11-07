@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "@/styles/reset.css";
 import "@/styles/globals.css";
+import { fontSerif, fontSans, fontFutura, fontDidot } from "./fonts";
 import VerticalHeader from "@/components/VerticalHeader";
 import HorizontalHeader from "@/components/HorizontalHeader";
 import MobileHeader from "@/components/MobileHeader";
@@ -29,7 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it">
+    <html
+      lang="it"
+      className={`${fontSerif.variable} ${fontSans.variable} ${fontFutura.variable} ${fontDidot.variable}`}
+    >
       {/* Note: Hydration warnings from browser extensions (e.g., Grammarly) are expected.
           We intentionally do NOT use suppressHydrationWarning to ensure all real
           hydration errors are visible during development. */}

@@ -26,10 +26,11 @@
   --space-lg: 1.75rem;
   --space-xl: 2.5rem;
 
-  /* Typography */
-  --font-serif: "Georgia", "Times New Roman", serif;
-  --font-sans: "Helvetica Neue", "Arial", sans-serif;
-  --font-futura: "Futura", "Helvetica Neue", sans-serif;
+  /* Typography - CSS variables are now automatically set by next/font in app/layout.tsx */
+  /* --font-serif: Lora (variable font) */
+  /* --font-sans: Source Sans 3 (variable font) */
+  /* --font-futura: Outfit (variable font) */
+  /* --font-didot: Cormorant Garamond (available for special headings) */
 
   /* różne */
   --text-secondary: #666;

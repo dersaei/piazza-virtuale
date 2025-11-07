@@ -164,12 +164,12 @@
 
 .buttonText {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 300;
-  letter-spacing: 0.45em;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
   color: var(--refined-accent-gold);
   text-transform: uppercase;
-  font-family: "Didot", var(--font-serif);
+  font-family: var(--font-didot);
   text-align: center;
 }
 
