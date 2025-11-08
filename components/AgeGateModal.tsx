@@ -62,6 +62,8 @@ export default function AgeGateModal() {
       const result = await setAgeVerified();
 
       if (result.success) {
+        // Restore scroll before hiding modal
+        document.body.style.overflow = "";
         setShowModal(false);
         // Refresh the page to update server-side rendering
         router.refresh();
@@ -76,6 +78,8 @@ export default function AgeGateModal() {
   };
 
   const handleDeny = () => {
+    // Restore scroll before redirecting
+    document.body.style.overflow = "";
     // Redirect to homepage if user denies age verification
     router.push("/");
   };
