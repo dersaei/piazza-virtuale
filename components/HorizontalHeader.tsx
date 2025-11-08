@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/HorizontalHeader.module.css";
 import {
   MAIN_CATEGORY_LIST,
@@ -27,6 +27,16 @@ export default function HorizontalHeader() {
 
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
+
+  // Reset all states when navigating to home or other main pages
+  useEffect(() => {
+    // If we're on homepage or any page that's not bevande/condimenti subcategory
+    if (pathname === "/" || (!pathname.startsWith("/bevande") && !pathname.startsWith("/condimenti"))) {
+      setShowBevandeSub(false);
+      setShowCondimentiSub(false);
+      setForceHideState({ hide: false, pathname: pathname });
+    }
+  }, [pathname]);
 
   // Derive force hide status - automatically resets when pathname changes
   // This is pure derived state, no effects needed
