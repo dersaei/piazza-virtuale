@@ -108,10 +108,10 @@ export default function PremiumInquiryForm() {
 
       {/* Privacy Policy Checkbox */}
       <div className={styles.privacyGroup}>
-        <label htmlFor="privacy_accepted" className={styles.privacyLabel}>
+        <label htmlFor="premium_privacy_accepted" className={styles.privacyLabel}>
           <input
             type="checkbox"
-            id="privacy_accepted"
+            id="premium_privacy_accepted"
             name="privacy_accepted"
             checked={privacyAccepted}
             onChange={handlePrivacyChange}
