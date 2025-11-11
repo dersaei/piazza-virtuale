@@ -20,7 +20,7 @@ export default async function MagazinePage() {
       <section className={styles.articlesGrid}>
         {cards.length > 0 ? (
           cards.map(card => (
-            <Link key={card.id} href={card.url} className={styles.articleCard}>
+            <Link key={card.id} href={`/magazine/${card.url}`} className={styles.articleCard}>
               <div className={styles.tab}>{card.category}</div>
               <h2
                 className={styles.title}

@@ -10,7 +10,7 @@ export interface MagazineCard {
   id: number; // ← ZMIANA: Integer zamiast UUID
   category: string;
   title: string;
-  url: string;
+  url: string; // Slug artykułu (bez /magazine/ - prefiks dodawany w komponencie)
   sort: number;
   date_created: string; // ← NOWE POLE
 }

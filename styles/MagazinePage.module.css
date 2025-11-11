@@ -3,7 +3,7 @@
 /* Articles Grid - Horizontal Layout */
 .articlesGrid {
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
   align-items: stretch;
   gap: 20px;
   max-width: 1200px;
@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 280px;
-  max-width: 300px;
+  width: 300px;
 }
 
 .articleCard:hover {
@@ -209,23 +209,43 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .articlesGrid {
-    flex-direction: column;
+@media (max-width: 1110px) {
+  .articleCard {
+    width: 30vw;
+    padding: 50px 25px;
   }
-
+}
+@media (max-width: 768px) {
   .articleCard {
     min-width: unset;
     padding: 40px 20px;
   }
 }
+@media (max-width: 712px) {
+  .articleCard {
+    width: 300px;
+  }
+}
 @media (max-width: 600px) {
   .articlesGrid {
-    justify-content: center;
-    align-items: center;
+    gap: 10px;
   }
   .articleCard {
-    height: auto;
-    width: auto;
+    width: 240px;
+    padding: 40px 15px;
+  }
+  .title {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 540px) {
+  .articlesGrid {
+    gap: 20px;
+  }
+  .articleCard {
+    width: 320px;
+  }
+  .title {
+    font-size: 1.5rem;
   }
 }
