@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Come Funziona | Piazza Virtuale",
   description:
     "Scopri come funziona Piazza Virtuale e come aggiungere il tuo e-shop al nostro catalogo",
+  alternates: {
+    canonical: "/come-funziona",
+  },
 };
 
 export default function ComeFunzionaPage() {

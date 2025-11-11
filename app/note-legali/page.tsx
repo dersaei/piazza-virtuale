@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Note Legali | Piazza Virtuale",
   description:
     "Note legali e informazioni sul sito Piazza Virtuale - Catalogo degli e-shop dei produttori italiani",
+  alternates: {
+    canonical: "/note-legali",
+  },
 };
 
 export default function NoteLegaliPage() {

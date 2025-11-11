@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Magazine - Piazza Virtuale',
   description:
     'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+  alternates: {
+    canonical: "/magazine",
+  },
 };
 
 // Note: Revalidation handled by Cache Components with "use cache" directive in lib/api/magazine.ts

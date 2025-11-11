@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Cookie Policy | Piazza Virtuale",
   description:
     "Informativa sull'utilizzo dei cookie e tecnologie similari ai sensi del Regolamento UE 2016/679 e delle Linee Guida del Garante Privacy",
+  alternates: {
+    canonical: "/informativa-cookie",
+  },
 };
 
 export default function CookiePolicyPage() {

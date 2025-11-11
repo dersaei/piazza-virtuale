@@ -24,6 +24,9 @@ export async function generateMetadata({
   return {
     title: `${category.label} - ${category.title} Italiani | Piazza Virtuale`,
     description: `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori. Prodotti artigianali e tradizionali del Made in Italy.`,
+    alternates: {
+      canonical: `/${categorySlug}`,
+    },
   };
 }
 

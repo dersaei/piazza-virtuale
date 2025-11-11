@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Chi Siamo - Piazza Virtuale",
   description:
     "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
+  alternates: {
+    canonical: "/chi-siamo",
+  },
 };
 
 export default function ChiSiamoPage() {

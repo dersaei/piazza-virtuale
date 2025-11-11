@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Contatti | Piazza Virtuale",
   description:
     "Contattaci per qualsiasi domanda o informazione su Piazza Virtuale",
+  alternates: {
+    canonical: "/contatti",
+  },
 };
 
 export default function ContattiPage() {

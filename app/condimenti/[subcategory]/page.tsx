@@ -33,6 +33,9 @@ export async function generateMetadata({
   return {
     title: `${category.label} - ${category.title} Italiani | Piazza Virtuale`,
     description: `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori.`,
+    alternates: {
+      canonical: `/condimenti/${subcategory}`,
+    },
   };
 }
 

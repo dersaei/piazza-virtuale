@@ -26,6 +26,9 @@ export async function generateMetadata({
   return {
     title: `${plainTitle} | Magazine - Piazza Virtuale`,
     description: article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
+    alternates: {
+      canonical: `/magazine/${slug}`,
+    },
   };
 }
 

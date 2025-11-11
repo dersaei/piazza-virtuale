@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: "Piazza Virtuale",
   description:
     "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande",
+  metadataBase: new URL("https://piazzavirtuale.it"),
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export const viewport: Viewport = {

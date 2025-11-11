@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Informativa Privacy | Piazza Virtuale",
   description:
     "Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)",
+  alternates: {
+    canonical: "/informativa-privacy",
+  },
 };
 
 export default function PrivacyPage() {
