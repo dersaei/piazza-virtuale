@@ -193,6 +193,12 @@
   color: #6b7362;
 }
 
+.articleContent em {
+  background-color: #31393b;
+  padding: 2px;
+  color: gold;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .articlePage {
