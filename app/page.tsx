@@ -36,6 +36,13 @@ export default function HomePage() {
           />
         </div>
       </section>
+
+      {/* Catalog Introduction Section */}
+      <section className={styles.catalogIntro}>
+        <h2 className={styles.catalogTitle}>
+          Catalogo degli e-shop di produttori italiani di cibo e bevande
+        </h2>
+      </section>
     </div>
   );
 }
