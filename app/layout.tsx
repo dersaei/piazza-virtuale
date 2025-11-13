@@ -1,6 +1,5 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "@/styles/reset.css";
 import "@/styles/globals.css";
 import { fontSerif, fontSans, fontFutura, fontDidot } from "./fonts";
@@ -11,6 +10,7 @@ import MobileCategorySelector from "@/components/MobileCategorySelector";
 import Footer from "@/components/Footer";
 import AgeGateModal from "@/components/AgeGateModal";
 import ScrollToTop from "@/components/ScrollToTop";
+import AckeeTracker from "@/components/AckeeTracker";
 
 export const metadata: Metadata = {
   title: "Piazza Virtuale",
@@ -42,6 +42,7 @@ export default function RootLayout({
           We intentionally do NOT use suppressHydrationWarning to ensure all real
           hydration errors are visible during development. */}
       <body>
+        <AckeeTracker />
         <ScrollToTop />
         <div>
           {/* Desktop headers */}
@@ -60,12 +61,6 @@ export default function RootLayout({
             <Footer />
           </div>
         </div>
-        <Script
-          src="https://ackee.piazzavirtuale.it/tracker.js"
-          data-ackee-server="https://ackee.piazzavirtuale.it"
-          data-ackee-domain-id="c5a39a11-4bdf-4633-9e68-f279bb4f585f"
-          strategy="lazyOnload"
-        />
         <AgeGateModal />
       </body>
     </html>
