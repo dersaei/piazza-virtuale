@@ -5,10 +5,9 @@ import styles from "@/styles/HomePage.module.css";
 import territorioItaliano from "@/public/territorio-italiano.png";
 
 export const metadata: Metadata = {
-  title:
-    "Piazza Virtuale - Il catalogo degli e-shop ufficiali dei produttori italiani",
+  title: "Catalogo degli e-shop di produttori italiani di cibo e bevande",
   description:
-    "Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori. Eccellenze, specialità regionali e prodotti tradizionali del Made in Italy.",
+    "Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori.",
 };
 
 export default function HomePage() {
@@ -29,7 +28,7 @@ export default function HomePage() {
         <div className={styles.heroImage}>
           <Image
             src={territorioItaliano}
-            alt="Piazza Virtuale Catalogo di e-shop aziendali, produttori italiani di alimenti e bevandes"
+            alt="Piazza Virtuale Catalogo di e-shop aziendali, produttori italiani di alimenti e bevande"
             className={styles.mapImage}
             priority
             fetchPriority="high"
