@@ -1,5 +1,6 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import "@/styles/reset.css";
 import "@/styles/globals.css";
 import { fontSerif, fontSans, fontFutura, fontDidot } from "./fonts";
@@ -42,7 +43,9 @@ export default function RootLayout({
           We intentionally do NOT use suppressHydrationWarning to ensure all real
           hydration errors are visible during development. */}
       <body>
-        <AckeeTracker />
+        <Suspense fallback={null}>
+          <AckeeTracker />
+        </Suspense>
         <ScrollToTop />
         <div>
           {/* Desktop headers */}
