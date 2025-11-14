@@ -7,7 +7,7 @@ import territorioItaliano from "@/public/territorio-italiano.png";
 export const metadata: Metadata = {
   title: "Catalogo degli e-shop di produttori italiani di cibo e bevande",
   description:
-    "Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori.",
+    "Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori. Eccellenze, specialità regionali e prodotti tradizionali del Made in Italy.",
 };
 
 export default function HomePage() {
