@@ -1,0 +1,48 @@
+---
+/**
+ * Vertical Header - lewy pasek nawigacyjny
+ * Komponent statyczny (bez client-side JS)
+ */
+
+// Import CSS Module (działa identycznie jak w Next.js!)
+import styles from '../../styles/VerticalHeader.module.css';
+
+// Nawigacja
+const NAVIGATION_ITEMS = [
+  { id: 'magazine', label: 'Magazine', href: '/magazine' },
+  { id: 'chi-siamo', label: 'Chi Siamo', href: '/chi-siamo' },
+  { id: 'come-funziona', label: 'Come Funziona', href: '/come-funziona' },
+  { id: 'contatti', label: 'Contatti', href: '/contatti' },
+];
+
+// Pobierz aktualną ścieżkę z Astro.url
+const currentPath = Astro.url.pathname;
+---
+
+<header class={styles.verticalHeader}>
+  <div class={styles.logo}>
+    <a href="/">
+      <img
+        src="/logo-piazza-virtuale.png"
+        alt="Piazza Virtuale - Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande"
+        width="200"
+        height="auto"
+      />
+    </a>
+  </div>
+
+  <nav class={styles.nav}>
+    {NAVIGATION_ITEMS.map(item => (
+      <a
+        href={item.href}
+        class={`${styles.navButton} ${currentPath === item.href ? styles.active : ''}`}
+      >
+        <div class={styles.buttonFrame}>
+          <div class={styles.buttonInnerFrame}>
+            <span class={styles.buttonText}>{item.label}</span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </nav>
+</header>

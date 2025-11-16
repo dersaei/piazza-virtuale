@@ -1,0 +1,68 @@
+---
+/**
+ * Strona główna Piazza Virtuale
+ * File-based routing: ten plik odpowiada ścieżce "/"
+ */
+
+// Import layoutu
+import Layout from '../layouts/Layout.astro';
+
+// Import komponentów
+import VerticalHeader from '../components/VerticalHeader.astro';
+import HorizontalHeader from '../components/HorizontalHeader.astro';
+
+// Import CSS Module dla strony głównej
+import styles from '../../styles/HomePage.module.css';
+
+// Metadata dla SEO (analogicznie do Next.js metadata)
+const title = 'Catalogo degli e-shop di produttori italiani di cibo e bevande';
+const description = 'Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori. Eccellenze, specialità regionali e prodotti tradizionali del Made in Italy.';
+---
+
+<Layout title={title} description={description}>
+  {/* Vertical Header - lewy pasek nawigacyjny */}
+  <VerticalHeader />
+
+  {/* Main Content Area */}
+  <div class="main-content-area">
+    {/* Horizontal Header - górny pasek z kategoriami */}
+    <HorizontalHeader />
+
+    {/* Main Content */}
+    <main class="main-content">
+      <div class={styles.homePage}>
+        {/* Hero Section */}
+        <section class={styles.heroSection}>
+          {/* Left Column - Text */}
+          <div class={styles.heroText}>
+            <h1 class={styles.heroHeading}>
+              Scopri con noi i produttori italiani&nbsp;
+              <span class={styles.highlight}>di cibo e bevande</span>
+              che vendono direttamente&nbsp;
+              <span class={styles.highlight}>online</span>
+            </h1>
+          </div>
+
+          {/* Right Column - Image */}
+          <div class={styles.heroImage}>
+            <img
+              src="/territorio-italiano.png"
+              alt="Piazza Virtuale Catalogo di e-shop aziendali, produttori italiani di alimenti e bevande"
+              class={styles.mapImage}
+              loading="eager"
+              width="600"
+              height="800"
+            />
+          </div>
+        </section>
+
+        {/* Catalog Introduction Section */}
+        <section class={styles.catalogIntro}>
+          <h2 class={styles.catalogTitle}>
+            Catalogo degli e-shop di produttori italiani di cibo e bevande
+          </h2>
+        </section>
+      </div>
+    </main>
+  </div>
+</Layout>

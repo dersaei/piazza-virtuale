@@ -1,0 +1,316 @@
+---
+/**
+ * Horizontal Header - górny pasek z kategoriami
+ * Komponent z client-side interaktywnością (vanilla JS)
+ */
+
+// Import CSS Module
+import styles from '../../styles/HorizontalHeader.module.css';
+
+// Import kategorii - musimy skopiować te same dane
+// W Astro importujemy bezpośrednio z lib/constants/categories.ts
+import { MAIN_CATEGORY_LIST, getSubcategories } from '../../lib/constants/categories';
+
+// Pobierz aktualną ścieżkę
+const currentPath = Astro.url.pathname;
+
+// Sprawdź czy jesteśmy na stronie z podkategoriami
+const isOnBevandePage = currentPath.startsWith('/bevande');
+const isOnCondimentiPage = currentPath.startsWith('/condimenti');
+
+// Pobierz podkategorie
+const bevandeSubcategories = getSubcategories('bevande');
+const condimentiSubcategories = getSubcategories('condimenti');
+
+// Określ początkowy stan - które kategorie pokazać
+let initialCategories = MAIN_CATEGORY_LIST;
+let initialShowBevande = false;
+let initialShowCondimenti = false;
+
+if (isOnBevandePage && !isOnCondimentiPage) {
+  initialCategories = bevandeSubcategories;
+  initialShowBevande = true;
+} else if (isOnCondimentiPage && !isOnBevandePage) {
+  initialCategories = condimentiSubcategories;
+  initialShowCondimenti = true;
+}
+---
+
+<header class={styles.horizontalHeader}>
+  <nav class={styles.nav}>
+    <div
+      class={`${styles.navContainer} ${initialShowBevande || initialShowCondimenti ? styles.twoRows : ''}`}
+      id="navContainer"
+    >
+      {/* Category buttons */}
+      {initialCategories.map((category) => {
+        const hasSubcategories = category.id === 'bevande' || category.id === 'condimenti';
+        const isActive = currentPath === category.href || currentPath.startsWith(category.href + '/');
+
+        return (
+          <a
+            href={category.href}
+            class={`${styles.categoryButton} ${isActive ? styles.active : ''}`}
+            data-category-id={category.id}
+            data-has-subcategories={hasSubcategories}
+          >
+            <span class={styles.categoryText}>{category.label}</span>
+          </a>
+        );
+      })}
+
+      {/* Back arrow - pokazuje się tylko gdy są podkategorie */}
+      {(initialShowBevande || initialShowCondimenti) && (
+        <a
+          href="#"
+          class={styles.backArrow}
+          id="backArrow"
+          aria-label="Torna alle categorie principali"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 10.903167075297461 5.97998046875"
+          >
+            <defs>
+              <style>{`.uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42 { stroke-width: 0px; }`}</style>
+            </defs>
+            <g>
+              <g>
+                <path
+                  class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42"
+                  d="m0,2.989990234375L5.345744680849748,0l-1.642589812583537,2.46002197265625h7.20001220703125v.52996826171875H0Z"
+                />
+                <path
+                  class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42"
+                  d="m0,2.989990234375l5.345744680849748,2.989990234375-1.642589812583537-2.46002197265625h7.20001220703125v-.52996826171875H0Z"
+                />
+                <polygon
+                  class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42"
+                  points=".765847817816393 3.262022593142319 10.723294626330244 3.262022593142319 10.723294626330244 2.607767273993886 .049733925455257 2.989990234375 .765847817816393 3.262022593142319"
+                />
+              </g>
+            </g>
+          </svg>
+        </a>
+      )}
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Client-side interaktywność (vanilla JS)
+
+  // Dane kategorii - przekazane z serwera
+  const MAIN_CATEGORIES = [
+    { id: "bevande", label: "Bevande", href: "/bevande" },
+    { id: "condimenti", label: "Condimenti", href: "/condimenti" },
+    { id: "conserve", label: "Conserve", href: "/conserve" },
+    { id: "pomodori", label: "Pomodori", href: "/pomodori" },
+    { id: "miele", label: "Miele", href: "/miele" },
+    { id: "legumi", label: "Legumi e Cereali", href: "/legumi" },
+    { id: "caseificio", label: "Caseificio", href: "/caseificio" },
+    { id: "dolci", label: "Dolci", href: "/dolci" },
+    { id: "olii", label: "Olii", href: "/olii" },
+    { id: "pane", label: "Pane", href: "/pane" },
+    { id: "riso", label: "Riso", href: "/riso" },
+    { id: "pasta", label: "Pasta", href: "/pasta" },
+    { id: "farina", label: "Farina", href: "/farina" },
+    { id: "pescare", label: "Pescare", href: "/pescare" },
+    { id: "salumi", label: "Salumi", href: "/salumi" },
+    { id: "frutta-secca", label: "Frutta Secca", href: "/frutta-secca" },
+  ];
+
+  const BEVANDE_SUBCATEGORIES = [
+    { id: "bevande-birre", label: "Birre", href: "/bevande/birre" },
+    { id: "bevande-vini", label: "Vini", href: "/bevande/vini" },
+    { id: "bevande-distillati", label: "Distillati e liquori", href: "/bevande/distillati" },
+    { id: "bevande-caffe", label: "Caffè e Tè", href: "/bevande/caffe" },
+    { id: "bevande-succhi", label: "Succhi e Infusi", href: "/bevande/succhi" },
+  ];
+
+  const CONDIMENTI_SUBCATEGORIES = [
+    { id: "condimenti-pesto", label: "Pesto", href: "/condimenti/pesto" },
+    { id: "condimenti-aceto", label: "Aceto", href: "/condimenti/aceto" },
+    { id: "condimenti-altre", label: "Altre", href: "/condimenti/altre" },
+  ];
+
+  // Stan
+  let currentCategories = 'main'; // 'main', 'bevande', 'condimenti'
+
+  const navContainer = document.getElementById('navContainer');
+  const backArrow = document.getElementById('backArrow');
+
+  // Funkcja renderująca kategorie
+  function renderCategories(categories, showBackArrow = false) {
+    const currentPath = window.location.pathname;
+
+    // Wyczyść container
+    navContainer.innerHTML = '';
+
+    // Dodaj kategorie
+    categories.forEach(category => {
+      const hasSubcategories = category.id === 'bevande' || category.id === 'condimenti';
+      const isActive = currentPath === category.href || currentPath.startsWith(category.href + '/');
+
+      const link = document.createElement('a');
+      link.href = category.href;
+      link.className = `categoryButton ${isActive ? 'active' : ''}`;
+      link.dataset.categoryId = category.id;
+      link.dataset.hasSubcategories = hasSubcategories;
+
+      const span = document.createElement('span');
+      span.className = 'categoryText';
+      span.textContent = category.label;
+
+      link.appendChild(span);
+
+      // Event listener dla kategorii z podkategoriami
+      if (hasSubcategories) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (category.id === 'bevande') {
+            renderCategories(BEVANDE_SUBCATEGORIES, true);
+            currentCategories = 'bevande';
+          } else if (category.id === 'condimenti') {
+            renderCategories(CONDIMENTI_SUBCATEGORIES, true);
+            currentCategories = 'condimenti';
+          }
+        });
+      }
+
+      navContainer.appendChild(link);
+    });
+
+    // Dodaj back arrow jeśli potrzebny
+    if (showBackArrow) {
+      const arrow = document.createElement('a');
+      arrow.href = '#';
+      arrow.className = 'backArrow';
+      arrow.id = 'backArrow';
+      arrow.setAttribute('aria-label', 'Torna alle categorie principali');
+      arrow.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.903167075297461 5.97998046875">
+          <defs>
+            <style>.uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42 { stroke-width: 0px; }</style>
+          </defs>
+          <g>
+            <g>
+              <path class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42" d="m0,2.989990234375L5.345744680849748,0l-1.642589812583537,2.46002197265625h7.20001220703125v.52996826171875H0Z"/>
+              <path class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42" d="m0,2.989990234375l5.345744680849748,2.989990234375-1.642589812583537-2.46002197265625h7.20001220703125v-.52996826171875H0Z"/>
+              <polygon class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42" points=".765847817816393 3.262022593142319 10.723294626330244 3.262022593142319 10.723294626330244 2.607767273993886 .049733925455257 2.989990234375 .765847817816393 3.262022593142319"/>
+            </g>
+          </g>
+        </svg>
+      `;
+
+      arrow.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderCategories(MAIN_CATEGORIES, false);
+        currentCategories = 'main';
+      });
+
+      navContainer.appendChild(arrow);
+      navContainer.classList.add('twoRows');
+    } else {
+      navContainer.classList.remove('twoRows');
+    }
+  }
+
+  // Dodaj event listenery do istniejących linków (tylko przy pierwszym załadowaniu)
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryLinks = document.querySelectorAll('[data-category-id]');
+
+    categoryLinks.forEach(link => {
+      const hasSubcategories = link.dataset.hasSubcategories === 'true';
+      const categoryId = link.dataset.categoryId;
+
+      if (hasSubcategories) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (categoryId === 'bevande') {
+            renderCategories(BEVANDE_SUBCATEGORIES, true);
+            currentCategories = 'bevande';
+          } else if (categoryId === 'condimenti') {
+            renderCategories(CONDIMENTI_SUBCATEGORIES, true);
+            currentCategories = 'condimenti';
+          }
+        });
+      }
+    });
+
+    // Back arrow listener
+    const existingBackArrow = document.getElementById('backArrow');
+    if (existingBackArrow) {
+      existingBackArrow.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderCategories(MAIN_CATEGORIES, false);
+        currentCategories = 'main';
+      });
+    }
+  });
+</script>
+
+<style>
+  /* Scoped styles dla dynamicznie dodawanych elementów */
+  .categoryButton {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: white;
+    border: 1.5px solid var(--vertical-header-bg);
+    padding: var(--space-sm) var(--space-md);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .categoryText {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--vertical-header-bg);
+    text-transform: uppercase;
+    font-family: var(--font-futura);
+  }
+
+  .categoryButton:hover,
+  .categoryButton.active {
+    background: var(--vertical-header-bg);
+  }
+
+  .categoryButton:hover .categoryText,
+  .categoryButton.active .categoryText {
+    color: white;
+  }
+
+  .backArrow {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 40px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.7;
+  }
+
+  .backArrow:hover {
+    opacity: 1;
+    transform: translateX(-3px);
+  }
+
+  .backArrow svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--vertical-header-bg);
+    transition: fill 0.3s ease;
+  }
+
+  .backArrow:hover svg {
+    fill: var(--refined-accent-gold);
+  }
+</style>
