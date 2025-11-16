@@ -1,0 +1,57 @@
+---
+/**
+ * ProducerCard - karta producenta/sklepu
+ * Statyczny komponent
+ */
+
+// Import CSS Module
+import styles from '../../styles/ProducerCard.module.css';
+
+interface Props {
+  categoryName: string;
+  producerName: string;
+  producerNameAlt: string;
+  regionName: string;
+  shopUrl: string;
+  logoPath?: string;
+}
+
+const {
+  categoryName,
+  producerName,
+  producerNameAlt,
+  regionName,
+  shopUrl,
+  logoPath,
+} = Astro.props;
+---
+
+<article class={styles.shopCard}>
+  <p class={styles.categoryName}>{categoryName}</p>
+
+  <h2 class={styles.producerName} set:html={producerName} />
+
+  <p class={styles.regionName}>{regionName}</p>
+
+  {logoPath && (
+    <div class={styles.logoContainer}>
+      <img
+        src={`/${logoPath}`}
+        alt={producerNameAlt}
+        class={styles.logo}
+        loading="lazy"
+      />
+    </div>
+  )}
+
+  <a
+    href={shopUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={styles.ctaButton}
+  >
+    <div class={styles.buttonInner}>
+      <span class={styles.buttonText}>Visita lo Shop</span>
+    </div>
+  </a>
+</article>

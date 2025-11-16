@@ -7,9 +7,8 @@
 // Import CSS Module
 import styles from '../../styles/HorizontalHeader.module.css';
 
-// Import kategorii - musimy skopiować te same dane
-// W Astro importujemy bezpośrednio z lib/constants/categories.ts
-import { MAIN_CATEGORY_LIST, getSubcategories } from '../../lib/constants/categories';
+// Import kategorii z src/lib
+import { MAIN_CATEGORY_LIST, getSubcategories } from '../lib/constants/categories';
 
 // Pobierz aktualną ścieżkę
 const currentPath = Astro.url.pathname;

@@ -1,0 +1,83 @@
+---
+/**
+ * Dynamiczny route dla stron kategorii
+ * Generuje statyczne strony dla każdej kategorii podczas build
+ */
+
+import Layout from '../layouts/Layout.astro';
+import VerticalHeader from '../components/VerticalHeader.astro';
+import HorizontalHeader from '../components/HorizontalHeader.astro';
+import ProducerCard from '../components/ProducerCard.astro';
+import { CATEGORIES, getCategoryBySlug, type CategorySlug } from '../lib/constants/categories';
+import { getProducersByCategory } from '../lib/api/producers';
+import styles from '../../styles/CategoryPage.module.css';
+
+// getStaticPaths() - definiuje wszystkie możliwe ścieżki
+export async function getStaticPaths() {
+  // Pobierz wszystkie kategorie (tylko główne, bez podkategorii)
+  const categoryPaths = Object.keys(CATEGORIES)
+    .filter(categorySlug => {
+      const category = CATEGORIES[categorySlug as CategorySlug];
+      // Pomiń kategorie które mają parent (to są podkategorie)
+      return !category.parent;
+    })
+    .map(categorySlug => ({
+      params: { category: categorySlug }
+    }));
+
+  return categoryPaths;
+}
+
+// Pobierz parametry z URL
+const { category: categorySlug } = Astro.params;
+
+// Pobierz dane kategorii
+const categoryData = getCategoryBySlug(categorySlug!);
+
+// Jeśli kategoria nie istnieje, przekieruj na 404
+if (!categoryData) {
+  return Astro.redirect('/404');
+}
+
+// Pobierz producentów dla tej kategorii
+const producers = await getProducersByCategory(categorySlug!);
+
+// Metadata dla SEO
+const title = `${categoryData.label} - ${categoryData.title} Italiani | Piazza Virtuale`;
+const description = `Scopri i ${categoryData.title.toLowerCase()} italiani che vendono online direttamente ai consumatori. Prodotti artigianali e tradizionali del Made in Italy.`;
+---
+
+<Layout title={title} description={description}>
+  {/* Vertical Header */}
+  <VerticalHeader />
+
+  {/* Main Content Area */}
+  <div class="main-content-area">
+    {/* Horizontal Header */}
+    <HorizontalHeader />
+
+    {/* Main Content */}
+    <main class="main-content">
+      <section class={styles.categorySection}>
+        <div class={styles.shopsGrid}>
+          {producers.length > 0 ? (
+            producers.map(producer => (
+              <ProducerCard
+                categoryName={producer.category.name}
+                producerName={producer.name}
+                producerNameAlt={producer.name_alt}
+                regionName={producer.region}
+                logoPath={producer.logo}
+                shopUrl={producer.shop_url}
+              />
+            ))
+          ) : (
+            <p class={styles.nessunTrovato}>
+              Nessun produttore trovato in questa categoria.
+            </p>
+          )}
+        </div>
+      </section>
+    </main>
+  </div>
+</Layout>
