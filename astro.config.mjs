@@ -58,12 +58,4 @@ export default defineConfig({
 
   // Pozostała konfiguracja Astro
   output: 'static', // lub 'server' / 'hybrid' jeśli potrzebujesz SSR
-
-  // Vite configuration (opcjonalnie)
-  vite: {
-    // Konfiguracja dla pnpm
-    resolve: {
-      preserveSymlinks: true
-    }
-  }
 });
