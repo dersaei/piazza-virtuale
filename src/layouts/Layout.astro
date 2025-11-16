@@ -1,0 +1,96 @@
+---
+/**
+ * Główny layout dla projektu Piazza Virtuale
+ * Importuje wszystkie globalne style i konfiguruje fonty
+ */
+
+// Importuj globalne style CSS
+import '../styles/reset.css';
+import '../styles/definevars.css';
+import '../styles/globals.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Piazza Virtuale - Twój wirtualny rynek'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonty Google Fonts -->
+    <!-- Lora (serif) - dla treści artykułów -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Source Sans 3 (sans-serif) - dla UI -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Outfit (futura alternative) - dla nagłówków -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Cormorant Garamond (didot alternative) - dla specjalnych nagłówków -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* Definicja zmiennych fontów - muszą być w globalnym CSS */
+  :root {
+    --font-serif: 'Lora', serif;
+    --font-sans: 'Source Sans 3', sans-serif;
+    --font-futura: 'Outfit', sans-serif;
+    --font-didot: 'Cormorant Garamond', serif;
+  }
+
+  /* Ustaw domyślny font dla body */
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base, 1rem);
+    line-height: var(--line-height-normal, 1.5);
+    color: var(--refined-text-primary, #2c2f2a);
+    background-color: var(--content-bg, #ffffff);
+  }
+
+  /* Typografia dla nagłówków */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-futura);
+    font-weight: 600;
+    line-height: var(--line-height-tight, 1.25);
+  }
+
+  /* Artykuły używają czcionki serif */
+  article {
+    font-family: var(--font-serif);
+  }
+</style>

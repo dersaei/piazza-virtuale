@@ -1,0 +1,216 @@
+/* src/styles/globals.css */
+
+:root {
+  /* Color palette */
+  --vertical-header-bg: #b6c0ba;
+  --horizontal-header-bg: #f9f7f7;
+  --content-bg: #ffffff;
+
+  /* Refined button colors (vertical header) */
+  --refined-bg-primary: #7a8471;
+  --refined-bg-secondary: #6b7362;
+  --refined-accent-gold: #b8a281;
+  --refined-border-primary: #4a4f45;
+  --refined-border-secondary: #5d6358;
+  --refined-text-primary: #2c2f2a;
+  --refined-highlight: rgba(255, 253, 248, 0.08);
+
+  /* Layout dimensions */
+  --vertical-header-width: 250px;
+  --horizontal-header-height: auto;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.75rem;
+  --space-xl: 2.5rem;
+
+  /* Typography */
+  /* Fonty będą zdefiniowane w głównym layoutcie Astro */
+  /* Możesz użyć Google Fonts, Adobe Fonts lub lokalnych fontów */
+  /* Przykład dla Google Fonts: */
+  /* --font-serif: 'Lora', serif; */
+  /* --font-sans: 'Source Sans 3', sans-serif; */
+  /* --font-futura: 'Outfit', sans-serif; */
+  /* --font-didot: 'Cormorant Garamond', serif; */
+
+  /* różne */
+  --text-secondary: #666;
+  --card-bg: #f9f9f9;
+  --border-light: #e5e5e5;
+}
+
+.main-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--vertical-header-width);
+}
+
+/* Main Content Styles */
+.main-content {
+  margin-top: var(--horizontal-header-height);
+  padding: var(--space-xl);
+  background-color: var(--content-bg);
+  min-height: calc(100vh - var(--horizontal-header-height));
+}
+
+/* Custom Text Selection Styling */
+::selection {
+  background: rgba(122, 132, 113, 0.25);
+  color: #2c2f2a;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: rgba(122, 132, 113, 0.25);
+  color: #2c2f2a;
+  text-shadow: none;
+}
+
+/* Enhanced selection for headings and important text */
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection,
+strong::selection {
+  background: rgba(184, 162, 129, 0.3);
+  color: #2c2f2a;
+}
+
+h1::-moz-selection,
+h2::-moz-selection,
+h3::-moz-selection,
+h4::-moz-selection,
+h5::-moz-selection,
+h6::-moz-selection,
+strong::-moz-selection {
+  background: rgba(184, 162, 129, 0.3);
+  color: #2c2f2a;
+}
+
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(182, 192, 186, 0.15);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7a8471 0%, #6b7362 100%);
+  border-radius: 10px;
+  border: 2px solid rgba(253, 251, 247, 0.3);
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b7362 0%, #5d6358 100%);
+  border-color: rgba(184, 162, 129, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #5d6358;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7a8471 rgba(182, 192, 186, 0.15);
+}
+
+/* Mobile-specific content */
+.mobile-main-content {
+  display: none;
+}
+
+.mobile-footer-wrapper {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --vertical-header-width: 200px;
+  }
+
+  .main-content {
+    padding: var(--space-lg);
+  }
+
+  /* Thinner scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Mobile layout - max 600px */
+@media (max-width: 600px) {
+  /* Hide desktop headers */
+  .verticalHeader {
+    display: none !important;
+  }
+
+  .main-content-area {
+    display: none !important;
+  }
+
+  /* Show mobile layout */
+  .mobile-main-content {
+    display: block;
+    margin-top: calc(
+      150px + env(safe-area-inset-top)
+    ); /* Mobile header (100px) + category selector (50px) + safe area */
+    padding: var(--space-md);
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+    background-color: var(--content-bg);
+  }
+
+  .mobile-footer-wrapper {
+    display: block;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  :root {
+    --vertical-header-width: 0px;
+  }
+
+  /* Prevent overscroll bounce on iOS */
+  body {
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Enable smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+    /* Add scroll padding to account for fixed mobile headers */
+    scroll-padding-top: calc(150px + env(safe-area-inset-top));
+  }
+
+  /* Accessibility: Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
