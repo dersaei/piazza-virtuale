@@ -18,12 +18,22 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Cache PWA manifest for 24 hours (instead of default max-age=0, must-revalidate)
+        // Cache PWA manifest for 1 week
         source: "/manifest.webmanifest",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=86400",
+            value: "public, max-age=604800",
+          },
+        ],
+      },
+      {
+        // Cache favicon for 1 week (instead of default max-age=0, must-revalidate)
+        source: "/favicon.ico",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800",
           },
         ],
       },
