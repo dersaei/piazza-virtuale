@@ -96,42 +96,13 @@ if (isOnBevandePage && !isOnCondimentiPage) {
   </nav>
 </header>
 
-<script>
+<script define:vars={{
+  mainCategories: MAIN_CATEGORY_LIST,
+  bevandeSubcategories,
+  condimentiSubcategories
+}}>
   // Client-side interaktywność (vanilla JS)
-
-  // Dane kategorii - przekazane z serwera
-  const MAIN_CATEGORIES = [
-    { id: "bevande", label: "Bevande", href: "/bevande" },
-    { id: "condimenti", label: "Condimenti", href: "/condimenti" },
-    { id: "conserve", label: "Conserve", href: "/conserve" },
-    { id: "pomodori", label: "Pomodori", href: "/pomodori" },
-    { id: "miele", label: "Miele", href: "/miele" },
-    { id: "legumi", label: "Legumi e Cereali", href: "/legumi" },
-    { id: "caseificio", label: "Caseificio", href: "/caseificio" },
-    { id: "dolci", label: "Dolci", href: "/dolci" },
-    { id: "olii", label: "Olii", href: "/olii" },
-    { id: "pane", label: "Pane", href: "/pane" },
-    { id: "riso", label: "Riso", href: "/riso" },
-    { id: "pasta", label: "Pasta", href: "/pasta" },
-    { id: "farina", label: "Farina", href: "/farina" },
-    { id: "pescare", label: "Pescare", href: "/pescare" },
-    { id: "salumi", label: "Salumi", href: "/salumi" },
-    { id: "frutta-secca", label: "Frutta Secca", href: "/frutta-secca" },
-  ];
-
-  const BEVANDE_SUBCATEGORIES = [
-    { id: "bevande-birre", label: "Birre", href: "/bevande/birre" },
-    { id: "bevande-vini", label: "Vini", href: "/bevande/vini" },
-    { id: "bevande-distillati", label: "Distillati e liquori", href: "/bevande/distillati" },
-    { id: "bevande-caffe", label: "Caffè e Tè", href: "/bevande/caffe" },
-    { id: "bevande-succhi", label: "Succhi e Infusi", href: "/bevande/succhi" },
-  ];
-
-  const CONDIMENTI_SUBCATEGORIES = [
-    { id: "condimenti-pesto", label: "Pesto", href: "/condimenti/pesto" },
-    { id: "condimenti-aceto", label: "Aceto", href: "/condimenti/aceto" },
-    { id: "condimenti-altre", label: "Altre", href: "/condimenti/altre" },
-  ];
+  // Dane kategorii przekazane z frontmatter via define:vars
 
   // Stan
   let currentCategories = 'main'; // 'main', 'bevande', 'condimenti'
@@ -168,10 +139,10 @@ if (isOnBevandePage && !isOnCondimentiPage) {
         link.addEventListener('click', (e) => {
           e.preventDefault();
           if (category.id === 'bevande') {
-            renderCategories(BEVANDE_SUBCATEGORIES, true);
+            renderCategories(bevandeSubcategories, true);
             currentCategories = 'bevande';
           } else if (category.id === 'condimenti') {
-            renderCategories(CONDIMENTI_SUBCATEGORIES, true);
+            renderCategories(condimentiSubcategories, true);
             currentCategories = 'condimenti';
           }
         });
@@ -204,7 +175,7 @@ if (isOnBevandePage && !isOnCondimentiPage) {
 
       arrow.addEventListener('click', (e) => {
         e.preventDefault();
-        renderCategories(MAIN_CATEGORIES, false);
+        renderCategories(mainCategories, false);
         currentCategories = 'main';
       });
 
@@ -227,10 +198,10 @@ if (isOnBevandePage && !isOnCondimentiPage) {
         link.addEventListener('click', (e) => {
           e.preventDefault();
           if (categoryId === 'bevande') {
-            renderCategories(BEVANDE_SUBCATEGORIES, true);
+            renderCategories(bevandeSubcategories, true);
             currentCategories = 'bevande';
           } else if (categoryId === 'condimenti') {
-            renderCategories(CONDIMENTI_SUBCATEGORIES, true);
+            renderCategories(condimentiSubcategories, true);
             currentCategories = 'condimenti';
           }
         });
@@ -242,7 +213,7 @@ if (isOnBevandePage && !isOnCondimentiPage) {
     if (existingBackArrow) {
       existingBackArrow.addEventListener('click', (e) => {
         e.preventDefault();
-        renderCategories(MAIN_CATEGORIES, false);
+        renderCategories(mainCategories, false);
         currentCategories = 'main';
       });
     }
