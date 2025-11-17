@@ -1,0 +1,38 @@
+---
+/**
+ * Contatti - Kontakt
+ * Strona z formularzem kontaktowym
+ */
+
+import Layout from '../layouts/Layout.astro';
+import VerticalHeader from '../components/VerticalHeader.astro';
+import HorizontalHeader from '../components/HorizontalHeader.astro';
+import ContactForm from '../components/ContactForm.astro';
+import styles from '../../styles/ContattiPage.module.css';
+
+const title = 'Contatti | Piazza Virtuale';
+const description = 'Contattaci per qualsiasi domanda o informazione su Piazza Virtuale';
+---
+
+<Layout title={title} description={description}>
+  <VerticalHeader />
+  <div class="main-content-area">
+    <HorizontalHeader />
+    <main class="main-content">
+      <div class={styles.contattiPage}>
+        <main class={styles.header}>
+          <h1>Contatti</h1>
+          <section class={styles.formSection}>
+            <h2>Inviaci un messaggio</h2>
+            <p class={styles.formIntro}>
+              Hai domande o suggerimenti?
+              <br /> Compila il modulo sottostante e ti risponderemo al più
+              presto.
+            </p>
+            <ContactForm />
+          </section>
+        </main>
+      </div>
+    </main>
+  </div>
+</Layout>

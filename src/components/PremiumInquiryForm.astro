@@ -1,0 +1,177 @@
+---
+/**
+ * PremiumInquiryForm - Formularz zapytania premium
+ * Konwertowany z React do Astro + vanilla JS
+ */
+
+import styles from '../../styles/Forms.module.css';
+---
+
+<form id="premium-form" class={styles.form}>
+  <!-- Producer Name -->
+  <div class={styles.formGroup}>
+    <label for="premium_producer_name" class={styles.label}>
+      Nome del Produttore <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="text"
+      id="premium_producer_name"
+      name="producer_name"
+      required
+      class={styles.input}
+      placeholder="Es. Azienda Agricola Rossi"
+      autocomplete="organization"
+    />
+  </div>
+
+  <!-- Contact Name -->
+  <div class={styles.formGroup}>
+    <label for="premium_contact_name" class={styles.label}>
+      Nome e Cognome del Referente <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="text"
+      id="premium_contact_name"
+      name="contact_name"
+      required
+      class={styles.input}
+      placeholder="Es. Mario Rossi"
+      autocomplete="name"
+    />
+  </div>
+
+  <!-- Email -->
+  <div class={styles.formGroup}>
+    <label for="premium_email" class={styles.label}>
+      Email <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="email"
+      id="premium_email"
+      name="email"
+      required
+      class={styles.input}
+      placeholder="mario.rossi@esempio.it"
+      autocomplete="email"
+    />
+  </div>
+
+  <!-- Message -->
+  <div class={styles.formGroup}>
+    <label for="premium_message" class={styles.label}>
+      Messaggio (opzionale)
+    </label>
+    <textarea
+      id="premium_message"
+      name="message"
+      rows="6"
+      class={styles.textarea}
+      placeholder="Scrivi qui eventuali domande o richieste specifiche..."
+      autocomplete="off"
+    ></textarea>
+  </div>
+
+  <!-- Privacy Policy Checkbox -->
+  <div class={styles.privacyGroup}>
+    <label for="premium_privacy_accepted" class={styles.privacyLabel}>
+      <input
+        type="checkbox"
+        id="premium_privacy_accepted"
+        name="privacy_accepted"
+        required
+        class={styles.privacyCheckbox}
+        autocomplete="off"
+      />
+      <span class={styles.privacyText}>
+        Ho letto e accetto l&rsquo;
+        <a href="/informativa-privacy" class={styles.privacyLink}>
+          Informativa Privacy
+        </a>
+        <span class={styles.required}> *</span>
+      </span>
+    </label>
+  </div>
+
+  <!-- Status Message (hidden initially) -->
+  <div id="premium-status" class={styles.statusMessage} role="alert" aria-live="polite" style="display: none;"></div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    id="premium-submit"
+    class={styles.submitButton}
+  >
+    Invia Richiesta Premium
+  </button>
+</form>
+
+<script>
+  // Client-side form handling
+  const form = document.getElementById('premium-form') as HTMLFormElement;
+  const submitButton = document.getElementById('premium-submit') as HTMLButtonElement;
+  const statusDiv = document.getElementById('premium-status') as HTMLDivElement;
+  const privacyCheckbox = document.getElementById('premium_privacy_accepted') as HTMLInputElement;
+
+  // Disable submit if privacy not accepted
+  function updateSubmitButton() {
+    submitButton.disabled = !privacyCheckbox.checked;
+  }
+
+  privacyCheckbox.addEventListener('change', updateSubmitButton);
+  updateSubmitButton(); // Initial check
+
+  // Handle form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Disable button and show loading
+    submitButton.disabled = true;
+    submitButton.textContent = 'Invio in corso...';
+    statusDiv.style.display = 'none';
+
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      producer_name: formData.get('producer_name') as string,
+      contact_name: formData.get('contact_name') as string,
+      email: formData.get('email') as string,
+      message: formData.get('message') as string || '',
+      privacy_accepted: formData.get('privacy_accepted') === 'on',
+    };
+
+    try {
+      const response = await fetch('/api/submissions/premium', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      // Show status message
+      statusDiv.style.display = 'block';
+      statusDiv.textContent = result.message;
+
+      if (response.ok && result.success) {
+        // Success
+        statusDiv.className = `${styles.statusMessage} ${styles.success}`;
+        form.reset();
+        privacyCheckbox.checked = false;
+      } else {
+        // Error
+        statusDiv.className = `${styles.statusMessage} ${styles.error}`;
+      }
+    } catch (error) {
+      // Network error
+      statusDiv.style.display = 'block';
+      statusDiv.className = `${styles.statusMessage} ${styles.error}`;
+      statusDiv.textContent = 'Errore di connessione. Riprova più tardi.';
+    } finally {
+      // Re-enable button
+      submitButton.textContent = 'Invia Richiesta Premium';
+      updateSubmitButton();
+    }
+  });
+</script>

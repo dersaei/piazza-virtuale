@@ -1,0 +1,291 @@
+---
+/**
+ * StandardSubmissionForm - Formularz zgłoszenia producenta
+ * Konwertowany z React do Astro + vanilla JS
+ * Zawiera: kategorie, regiony, upload logo
+ */
+
+import styles from '../../styles/Forms.module.css';
+import { GROUPED_FORM_CATEGORIES } from '../lib/constants/formCategories';
+
+const ITALIAN_REGIONS = [
+  "Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna",
+  "Friuli-Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche",
+  "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana",
+  "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto",
+];
+---
+
+<form id="standard-form" class={styles.form}>
+  <!-- Producer Name -->
+  <div class={styles.formGroup}>
+    <label for="producer_name" class={styles.label}>
+      Nome del Produttore <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="text"
+      id="producer_name"
+      name="producer_name"
+      required
+      class={styles.input}
+      placeholder="Es. Azienda Agricola Rossi"
+      autocomplete="organization"
+    />
+  </div>
+
+  <!-- Shop URL -->
+  <div class={styles.formGroup}>
+    <label for="shop_url" class={styles.label}>
+      Indirizzo del Negozio Online <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="url"
+      id="shop_url"
+      name="shop_url"
+      required
+      class={styles.input}
+      placeholder="https://www.tuoshop.it"
+      autocomplete="url"
+    />
+  </div>
+
+  <!-- Categories - Grouped by type -->
+  <fieldset class={styles.formGroup}>
+    <legend class={styles.label}>
+      Categorie <span class={styles.required}>*</span>
+    </legend>
+
+    <!-- Hidden input to store selected categories as JSON -->
+    <input
+      type="hidden"
+      id="categories"
+      name="categories"
+      value="[]"
+    />
+
+    <div class={styles.categoriesContainer}>
+      {Object.entries(GROUPED_FORM_CATEGORIES).map(([groupName, categories]) => (
+        <div key={groupName} class={styles.categoryGroup}>
+          <h4 class={styles.categoryGroupTitle}>{groupName}</h4>
+          <div class={styles.checkboxGrid}>
+            {categories.map((category) => (
+              <label
+                key={category.id}
+                for={`category-${category.id}`}
+                class={styles.checkboxLabel}
+              >
+                <input
+                  type="checkbox"
+                  id={`category-${category.id}`}
+                  name={`category-${category.id}`}
+                  data-category-id={category.id}
+                  class={`${styles.checkbox} category-checkbox`}
+                  autocomplete="off"
+                />
+                <span>{category.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p id="categories-hint" class={styles.hint}>Seleziona almeno una categoria</p>
+  </fieldset>
+
+  <!-- Region - Radio Buttons -->
+  <fieldset class={styles.formGroup}>
+    <legend class={styles.label}>
+      Regione <span class={styles.required}>*</span>
+    </legend>
+
+    <div class={styles.radioContainer}>
+      {ITALIAN_REGIONS.map((region) => (
+        <label key={region} class={styles.radioLabel}>
+          <input
+            type="radio"
+            name="region"
+            value={region}
+            required
+            class={styles.radio}
+            autocomplete="off"
+          />
+          <span>{region}</span>
+        </label>
+      ))}
+    </div>
+
+    <p id="region-hint" class={styles.hint}>Seleziona una regione</p>
+  </fieldset>
+
+  <!-- Logo Upload -->
+  <div class={styles.formGroup}>
+    <label for="logo" class={styles.label}>
+      Logo (opzionale)
+    </label>
+    <input
+      type="file"
+      id="logo"
+      name="logo"
+      accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
+      class={styles.fileInput}
+    />
+    <p class={styles.hint}>
+      Formati accettati: PNG, JPEG, JPG, WebP, SVG. Dimensione massima: 1MB
+    </p>
+    <p id="file-error" class={styles.errorHint} role="alert" style="display: none;"></p>
+  </div>
+
+  <!-- Privacy Policy Checkbox -->
+  <div class={styles.privacyGroup}>
+    <label for="standard_privacy_accepted" class={styles.privacyLabel}>
+      <input
+        type="checkbox"
+        id="standard_privacy_accepted"
+        name="privacy_accepted"
+        required
+        class={styles.privacyCheckbox}
+        autocomplete="off"
+      />
+      <span class={styles.privacyText}>
+        Ho letto e accetto l&rsquo;
+        <a href="/informativa-privacy" class={styles.privacyLink}>
+          Informativa Privacy
+        </a>
+        <span class={styles.required}> *</span>
+      </span>
+    </label>
+  </div>
+
+  <!-- Status Message (hidden initially) -->
+  <div id="standard-status" class={styles.statusMessage} role="alert" aria-live="polite" style="display: none;"></div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    id="standard-submit"
+    class={styles.submitButton}
+  >
+    Invia Richiesta
+  </button>
+</form>
+
+<script>
+  // Client-side form handling
+  const form = document.getElementById('standard-form') as HTMLFormElement;
+  const submitButton = document.getElementById('standard-submit') as HTMLButtonElement;
+  const statusDiv = document.getElementById('standard-status') as HTMLDivElement;
+  const privacyCheckbox = document.getElementById('standard_privacy_accepted') as HTMLInputElement;
+  const categoriesInput = document.getElementById('categories') as HTMLInputElement;
+  const categoryCheckboxes = document.querySelectorAll('.category-checkbox') as NodeListOf<HTMLInputElement>;
+  const logoInput = document.getElementById('logo') as HTMLInputElement;
+  const fileError = document.getElementById('file-error') as HTMLParagraphElement;
+  const categoriesHint = document.getElementById('categories-hint') as HTMLParagraphElement;
+
+  // Track selected categories
+  let selectedCategories: string[] = [];
+
+  // File validation
+  const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
+
+  logoInput.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+
+    if (file && file.size > MAX_FILE_SIZE) {
+      fileError.textContent = 'Il file logo è troppo grande. Dimensione massima: 1MB.';
+      fileError.style.display = 'block';
+      logoInput.value = ''; // Clear the file input
+    } else {
+      fileError.style.display = 'none';
+    }
+  });
+
+  // Category checkbox handler
+  categoryCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const categoryId = checkbox.dataset.categoryId!;
+
+      if (checkbox.checked) {
+        if (!selectedCategories.includes(categoryId)) {
+          selectedCategories.push(categoryId);
+        }
+      } else {
+        selectedCategories = selectedCategories.filter(id => id !== categoryId);
+      }
+
+      // Update hidden input
+      categoriesInput.value = JSON.stringify(selectedCategories);
+
+      // Update hint visibility
+      if (selectedCategories.length === 0) {
+        categoriesHint.style.display = 'block';
+      } else {
+        categoriesHint.style.display = 'none';
+      }
+
+      updateSubmitButton();
+    });
+  });
+
+  // Disable submit if requirements not met
+  function updateSubmitButton() {
+    const hasCategories = selectedCategories.length > 0;
+    const hasPrivacy = privacyCheckbox.checked;
+
+    submitButton.disabled = !hasCategories || !hasPrivacy;
+  }
+
+  privacyCheckbox.addEventListener('change', updateSubmitButton);
+  updateSubmitButton(); // Initial check
+
+  // Handle form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Disable button and show loading
+    submitButton.disabled = true;
+    submitButton.textContent = 'Invio in corso...';
+    statusDiv.style.display = 'none';
+
+    // Create FormData (for file upload)
+    const formData = new FormData(form);
+
+    // Add categories JSON (override the hidden input value)
+    formData.set('categories', JSON.stringify(selectedCategories));
+
+    try {
+      const response = await fetch('/api/submissions/standard', {
+        method: 'POST',
+        body: formData, // Send as multipart/form-data
+      });
+
+      const result = await response.json();
+
+      // Show status message
+      statusDiv.style.display = 'block';
+      statusDiv.textContent = result.message;
+
+      if (response.ok && result.success) {
+        // Success
+        statusDiv.className = `${styles.statusMessage} ${styles.success}`;
+        form.reset();
+        selectedCategories = [];
+        categoriesInput.value = '[]';
+        privacyCheckbox.checked = false;
+        categoriesHint.style.display = 'block';
+      } else {
+        // Error
+        statusDiv.className = `${styles.statusMessage} ${styles.error}`;
+      }
+    } catch (error) {
+      // Network error
+      statusDiv.style.display = 'block';
+      statusDiv.className = `${styles.statusMessage} ${styles.error}`;
+      statusDiv.textContent = 'Errore di connessione. Riprova più tardi.';
+    } finally {
+      // Re-enable button
+      submitButton.textContent = 'Invia Richiesta';
+      updateSubmitButton();
+    }
+  });
+</script>

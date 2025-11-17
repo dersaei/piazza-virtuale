@@ -1,9 +1,8 @@
-// lib/api/magazine.ts
-'use cache';
+// src/lib/api/magazine.ts
+// Funkcje do pobierania artykułów z Directus dla Magazine
 
-import directus from '@/lib/directus';
+import directus from '../directus';
 import { readItems } from '@directus/sdk';
-import { cacheTag } from 'next/cache';
 
 // Magazine Card interface (for /magazine page)
 export interface MagazineCard {
@@ -29,8 +28,6 @@ export interface MagazineArticle {
 
 // Get all magazine cards for homepage
 export async function getMagazineCards(): Promise<MagazineCard[]> {
-  cacheTag('magazine-cards');
-
   try {
     const cards = await directus.request(
       readItems('magazine_cards', {
@@ -50,10 +47,8 @@ export async function getMagazineCards(): Promise<MagazineCard[]> {
   }
 }
 
-// Get all articles (for generateStaticParams)
+// Get all articles (for getStaticPaths in Astro)
 export async function getAllArticles(): Promise<MagazineArticle[]> {
-  cacheTag('magazine-articles');
-
   try {
     const articles = await directus.request(
       readItems('magazine_articles', {
@@ -77,9 +72,6 @@ export async function getAllArticles(): Promise<MagazineArticle[]> {
 export async function getArticleBySlug(
   slug: string
 ): Promise<MagazineArticle | null> {
-  cacheTag('magazine-articles');
-  cacheTag(`magazine-article-${slug}`);
-
   try {
     const articles = await directus.request(
       readItems('magazine_articles', {
@@ -106,9 +98,3 @@ export async function getArticleBySlug(
     return null;
   }
 }
-
-// Cache configuration: automatically revalidates every day (static content)
-// Can be invalidated immediately via webhook using tags:
-// - 'magazine-articles' (all articles)
-// - 'magazine-article-{slug}' (specific article)
-// - 'magazine-cards' (cards on homepage)

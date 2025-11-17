@@ -1,0 +1,47 @@
+---
+/**
+ * Magazine - Lista artykułów
+ * Strona z kartami artykułów z Directus
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import VerticalHeader from '../../components/VerticalHeader.astro';
+import HorizontalHeader from '../../components/HorizontalHeader.astro';
+import styles from '../../../styles/MagazinePage.module.css';
+import { getMagazineCards } from '../../lib/api/magazine';
+
+const title = 'Magazine - Piazza Virtuale';
+const description = 'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.';
+
+// Pobierz karty artykułów z Directus
+const cards = await getMagazineCards();
+---
+
+<Layout title={title} description={description}>
+  <VerticalHeader />
+  <div class="main-content-area">
+    <HorizontalHeader />
+    <main class="main-content">
+      <div class={styles.containerMagazine}>
+        <section class={styles.articlesGrid}>
+          {cards.length > 0 ? (
+            cards.map(card => (
+              <a key={card.id} href={`/magazine/${card.url}`} class={styles.articleCard}>
+                <div class={styles.tab}>{card.category}</div>
+                <h2
+                  class={styles.title}
+                  set:html={card.title}
+                />
+                <div class={styles.readMore}>leggi di più</div>
+              </a>
+            ))
+          ) : (
+            <p class={styles.noArticles}>
+              Nessun articolo disponibile al momento.
+            </p>
+          )}
+        </section>
+      </div>
+    </main>
+  </div>
+</Layout>

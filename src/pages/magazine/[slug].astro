@@ -1,0 +1,102 @@
+---
+/**
+ * Magazine Article - Pojedynczy artykuł
+ * Dynamic route z getStaticPaths()
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import VerticalHeader from '../../components/VerticalHeader.astro';
+import HorizontalHeader from '../../components/HorizontalHeader.astro';
+import styles from '../../../styles/ArticlePage.module.css';
+import { getAllArticles, getArticleBySlug } from '../../lib/api/magazine';
+
+// getStaticPaths - generuje wszystkie możliwe route dla artykułów
+export async function getStaticPaths() {
+  const articles = await getAllArticles();
+
+  // Jeśli brak artykułów (np. Directus niedostępny), zwróć placeholder
+  if (articles.length === 0) {
+    console.warn('No articles found - using placeholder for static generation');
+    return [{ params: { slug: 'placeholder' } }];
+  }
+
+  return articles.map(article => ({
+    params: { slug: article.slug }
+  }));
+}
+
+// Pobierz slug z URL
+const { slug } = Astro.params;
+
+// Pobierz artykuł z Directus
+const article = await getArticleBySlug(slug!);
+
+// Jeśli artykuł nie istnieje, przekieruj do 404
+if (!article) {
+  return Astro.redirect('/404');
+}
+
+// Przygotuj metadata
+const plainTitle = article.title.replace(/<[^>]*>/g, '');
+const title = `${plainTitle} | Magazine - Piazza Virtuale`;
+const description = article.content.substring(0, 160).replace(/<[^>]*>/g, '');
+
+// Formatuj datę
+const formattedDate = new Date(article.date_created).toLocaleDateString('it-IT', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={title} description={description}>
+  <VerticalHeader />
+  <div class="main-content-area">
+    <HorizontalHeader />
+    <main class="main-content">
+      <div class={styles.articlePage}>
+        <article class={styles.articleCard}>
+          <a href="/magazine" class={styles.backLink}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 10.903167075297461 5.97998046875"
+              class={styles.backArrow}
+            >
+              <defs>
+                <style>{`.uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42 { stroke-width: 0px; }`}</style>
+              </defs>
+              <g>
+                <g>
+                  <path
+                    class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42"
+                    d="m0,2.989990234375L5.345744680849748,0l-1.642589812583537,2.46002197265625h7.20001220703125v.52996826171875H0Z"
+                  />
+                  <path
+                    class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42"
+                    d="m0,2.989990234375l5.345744680849748,2.989990234375-1.642589812583537-2.46002197265625h7.20001220703125v-.52996826171875H0Z"
+                  />
+                  <polygon
+                    class="uuid-4cbcace5-1e93-4d7a-a56f-aa52c291ec42"
+                    points=".765847817816393 3.262022593142319 10.723294626330244 3.262022593142319 10.723294626330244 2.607767273993886 .049733925455257 2.989990234375 .765847817816393 3.262022593142319"
+                  />
+                </g>
+              </g>
+            </svg>
+          </a>
+          <header class={styles.articleHeader}>
+            <span class={styles.category}>{article.category}</span>
+            <h1 set:html={article.title} />
+            <time class={styles.date}>
+              {formattedDate}
+            </time>
+          </header>
+
+          <div
+            class={styles.articleContent}
+            set:html={article.content}
+          />
+        </article>
+      </div>
+    </main>
+  </div>
+</Layout>

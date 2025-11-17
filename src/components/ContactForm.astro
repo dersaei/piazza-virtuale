@@ -1,0 +1,178 @@
+---
+/**
+ * ContactForm - Formularz kontaktowy
+ * Konwertowany z React do Astro + vanilla JS
+ */
+
+import styles from '../../styles/Forms.module.css';
+---
+
+<form id="contact-form" class={styles.form}>
+  <!-- Nome e Cognome -->
+  <div class={styles.formGroup}>
+    <label for="full_name" class={styles.label}>
+      Nome e Cognome <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="text"
+      id="full_name"
+      name="full_name"
+      required
+      class={styles.input}
+      placeholder="Es. Mario Rossi"
+      autocomplete="name"
+    />
+  </div>
+
+  <!-- Email -->
+  <div class={styles.formGroup}>
+    <label for="email" class={styles.label}>
+      Email <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      class={styles.input}
+      placeholder="mario.rossi@esempio.it"
+      autocomplete="email"
+    />
+  </div>
+
+  <!-- Oggetto/Argomento -->
+  <div class={styles.formGroup}>
+    <label for="subject" class={styles.label}>
+      Oggetto <span class={styles.required}>*</span>
+    </label>
+    <input
+      type="text"
+      id="subject"
+      name="subject"
+      required
+      class={styles.input}
+      placeholder="Es. Richiesta informazioni"
+      autocomplete="off"
+    />
+  </div>
+
+  <!-- Messaggio -->
+  <div class={styles.formGroup}>
+    <label for="message" class={styles.label}>
+      Messaggio <span class={styles.required}>*</span>
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="8"
+      class={styles.textarea}
+      placeholder="Scrivi qui il tuo messaggio..."
+      autocomplete="off"
+    ></textarea>
+  </div>
+
+  <!-- Privacy Policy Checkbox -->
+  <div class={styles.privacyGroup}>
+    <label for="privacy_accepted" class={styles.privacyLabel}>
+      <input
+        type="checkbox"
+        id="privacy_accepted"
+        name="privacy_accepted"
+        required
+        class={styles.privacyCheckbox}
+        autocomplete="off"
+      />
+      <span class={styles.privacyText}>
+        Ho letto e accetto l&rsquo;
+        <a href="/informativa-privacy" class={styles.privacyLink}>
+          Informativa Privacy
+        </a>
+        <span class={styles.required}> *</span>
+      </span>
+    </label>
+  </div>
+
+  <!-- Status Message (hidden initially) -->
+  <div id="contact-status" class={styles.statusMessage} role="alert" aria-live="polite" style="display: none;"></div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    id="contact-submit"
+    class={styles.submitButton}
+  >
+    Invia Messaggio
+  </button>
+</form>
+
+<script>
+  // Client-side form handling
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitButton = document.getElementById('contact-submit') as HTMLButtonElement;
+  const statusDiv = document.getElementById('contact-status') as HTMLDivElement;
+  const privacyCheckbox = document.getElementById('privacy_accepted') as HTMLInputElement;
+
+  // Disable submit if privacy not accepted
+  function updateSubmitButton() {
+    submitButton.disabled = !privacyCheckbox.checked;
+  }
+
+  privacyCheckbox.addEventListener('change', updateSubmitButton);
+  updateSubmitButton(); // Initial check
+
+  // Handle form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Disable button and show loading
+    submitButton.disabled = true;
+    submitButton.textContent = 'Invio in corso...';
+    statusDiv.style.display = 'none';
+
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      full_name: formData.get('full_name') as string,
+      email: formData.get('email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+      privacy_accepted: formData.get('privacy_accepted') === 'on',
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      // Show status message
+      statusDiv.style.display = 'block';
+      statusDiv.textContent = result.message;
+
+      if (response.ok && result.success) {
+        // Success
+        statusDiv.className = `${styles.statusMessage} ${styles.success}`;
+        form.reset();
+        privacyCheckbox.checked = false;
+      } else {
+        // Error
+        statusDiv.className = `${styles.statusMessage} ${styles.error}`;
+      }
+    } catch (error) {
+      // Network error
+      statusDiv.style.display = 'block';
+      statusDiv.className = `${styles.statusMessage} ${styles.error}`;
+      statusDiv.textContent = 'Errore di connessione. Riprova più tardi.';
+    } finally {
+      // Re-enable button
+      submitButton.textContent = 'Invia Messaggio';
+      updateSubmitButton();
+    }
+  });
+</script>

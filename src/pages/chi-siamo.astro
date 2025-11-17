@@ -1,0 +1,58 @@
+---
+/**
+ * Chi Siamo - O nas
+ * Strona statyczna z opisem misji Piazza Virtuale
+ */
+
+import Layout from '../layouts/Layout.astro';
+import VerticalHeader from '../components/VerticalHeader.astro';
+import HorizontalHeader from '../components/HorizontalHeader.astro';
+import styles from '../../styles/ChiSiamoPage.module.css';
+
+const title = 'Chi Siamo - Piazza Virtuale';
+const description = 'Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.';
+---
+
+<Layout title={title} description={description}>
+  <VerticalHeader />
+  <div class="main-content-area">
+    <HorizontalHeader />
+    <main class="main-content">
+      <div class={styles.chiSiamoPage}>
+        <section class={styles.heroSection}>
+          <h1>Benvenuto a Piazza Virtuale</h1>
+          <h2 class={styles.keyWord}>
+            Catalogo di e-shop aziendali, produttori italiani di alimenti e
+            bevande
+          </h2>
+          <h3 class={styles.heroDescription}>
+            <span class={styles.accentWrapper}>
+              Su Piazza Virtuale potrai{' '}
+              <span class={styles.keyWord2}>scoprire</span> quali produttori
+              italiani offrono la vendita diretta{' '}
+              <span class={styles.keyWord2}>online</span> dei propri prodotti,
+              consegnandoli direttamente al consumatore. Con noi{' '}
+              <span class={styles.keyWord2}>troverai</span> un&rsquo;infinità
+              di delizie – dalle{' '}
+              <span class={styles.keyWord2}>eccellenze</span> più celebri fino
+              a quelle conosciute solo dai veri intenditori:{' '}
+              <span class={styles.keyWord2}>specialità</span> regionali,
+              prodotti <span class={styles.keyWord2}>tradizionali</span>, un
+              vero e proprio <span class={styles.keyWord2}>tesoro</span> del
+              Made in Italy.
+            </span>
+          </h3>
+          <div class={styles.italiaMap}>
+            <img
+              src="/territorio-italiano.png"
+              alt="territorio italiano"
+              width="800"
+              height="600"
+              loading="lazy"
+            />
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</Layout>
