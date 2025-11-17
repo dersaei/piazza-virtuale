@@ -11,6 +11,9 @@ import '../styles/globals.css';
 // Importuj komponent Font z Astro
 import { Font } from 'astro:assets';
 
+// Importuj Footer
+import Footer from '../components/Footer.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -43,6 +46,7 @@ const {
   </head>
   <body>
     <slot />
+    <Footer />
   </body>
 </html>
 

@@ -1,0 +1,31 @@
+---
+/**
+ * Footer - Stopka strony
+ * Statyczny komponent z linkami do stron legalnych
+ */
+
+import styles from '../../styles/Footer.module.css';
+
+// Static year - updated at build time
+const currentYear = 2025;
+---
+
+<footer class={styles.footer}>
+  <div class={styles.footerContent}>
+    <span class={styles.copyright}>
+      &copy; {currentYear} Spiżarnia Regio
+    </span>
+
+    <nav class={styles.footerNav}>
+      <a href="/informativa-privacy" class={styles.footerLink}>
+        Privacy
+      </a>
+      <a href="/informativa-cookie" class={styles.footerLink}>
+        Cookie
+      </a>
+      <a href="/note-legali" class={styles.footerLink}>
+        Note Legali
+      </a>
+    </nav>
+  </div>
+</footer>
