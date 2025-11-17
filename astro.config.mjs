@@ -56,6 +56,12 @@ export default defineConfig({
     ]
   },
 
+  // Prefetch - automatyczne ładowanie stron w tle dla szybszej nawigacji
+  prefetch: {
+    prefetchAll: true,        // Prefetch wszystkich linków wewnętrznych
+    defaultStrategy: 'hover'  // Prefetch po najechaniu myszką (dobry balans performance/bandwidth)
+  },
+
   // Pozostała konfiguracja Astro
   output: 'static', // lub 'server' / 'hybrid' jeśli potrzebujesz SSR
 });
