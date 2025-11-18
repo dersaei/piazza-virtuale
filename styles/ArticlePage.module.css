@@ -199,6 +199,13 @@
   color: gold;
 }
 
+/* Allow inline background-color on parent to override em styles */
+.articleContent p[style*="background-color"] em,
+.articleContent p[style*="background-color"] code em {
+  background-color: inherit;
+  color: inherit;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .articlePage {
