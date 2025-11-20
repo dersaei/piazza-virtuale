@@ -8,7 +8,7 @@ declare module "ackee-tracker" {
 
   export interface AckeeAttributes {
     siteLocation?: string;
-    siteReferrer?: string;
+    siteReferrer?: string | null;
     siteLanguage?: string;
     screenWidth?: number;
     screenHeight?: number;
