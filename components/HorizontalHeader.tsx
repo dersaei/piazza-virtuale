@@ -3,7 +3,7 @@
 
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/HorizontalHeader.module.css";
 import {
   MAIN_CATEGORY_LIST,
@@ -35,6 +35,23 @@ export default function HorizontalHeader() {
 
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
+
+  // Reset states when navigating to home or other main pages
+  // Only triggers setState when state actually needs to change (avoids cascading renders)
+  useEffect(() => {
+    const isMainPage = pathname === "/" || (!pathname.startsWith("/bevande") && !pathname.startsWith("/condimenti"));
+
+    if (isMainPage) {
+      // Only reset if there's actually something to reset
+      const needsReset = showBevandeSub.show || showCondimentiSub.show || forceHideState.hide;
+
+      if (needsReset) {
+        setShowBevandeSub({ show: false, pathname });
+        setShowCondimentiSub({ show: false, pathname });
+        setForceHideState({ hide: false, pathname });
+      }
+    }
+  }, [pathname, showBevandeSub.show, showCondimentiSub.show, forceHideState.hide]);
 
   // Derive current values - automatically reset when pathname changes
   // This is pure derived state, no effects needed

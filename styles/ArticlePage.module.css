@@ -44,12 +44,6 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
-.caricamento {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-}
-
 /* Decorative corner elements */
 .articleCard::before,
 .articleCard::after {
