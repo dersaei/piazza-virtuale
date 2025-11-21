@@ -1,7 +1,7 @@
 // components/HorizontalHeader.tsx
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import styles from "@/styles/HorizontalHeader.module.css";
@@ -12,6 +12,7 @@ import {
 
 export default function HorizontalHeader() {
   const pathname = usePathname();
+  const { pending } = useLinkStatus();
 
   // Derived state from pathname - automatically updates when pathname changes
   const isOnBevandePage = pathname.startsWith("/bevande");
@@ -99,6 +100,9 @@ export default function HorizontalHeader() {
 
   return (
     <header className={styles.horizontalHeader}>
+      {/* Loading indicator for navigation on slow networks */}
+
+      {pending && <div className={styles.loadingBar} />}
       <nav className={styles.nav}>
         <div
           className={`${styles.navContainer} ${
@@ -116,6 +120,7 @@ export default function HorizontalHeader() {
               <Link
                 key={category.id}
                 href={category.href}
+                prefetch={hasSubcategories ? false : undefined}
                 onClick={
                   hasSubcategories
                     ? (e) => handleCategoryClick(e, category.id)
