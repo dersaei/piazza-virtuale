@@ -36,19 +36,18 @@ export default function HorizontalHeader() {
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
 
-  // Derive current values with automatic reset for main pages
-  // Auto-hides submenu when navigating to homepage or non-bevande/condimenti pages
-  const isMainPage =
-    pathname === "/" ||
-    (!pathname.startsWith("/bevande") && !pathname.startsWith("/condimenti"));
-
+  // Derive current values with automatic reset
+  // Only show submenu if pathname matches where that submenu should be shown
+  // (either "/" where user clicked manually, or "/bevande/*" or "/condimenti/*")
   const currentShowBevandeSub =
-    showBevandeSub.pathname === pathname && !isMainPage
+    showBevandeSub.pathname === pathname &&
+    (pathname === "/" || pathname.startsWith("/bevande"))
       ? showBevandeSub.show
       : false;
 
   const currentShowCondimentiSub =
-    showCondimentiSub.pathname === pathname && !isMainPage
+    showCondimentiSub.pathname === pathname &&
+    (pathname === "/" || pathname.startsWith("/condimenti"))
       ? showCondimentiSub.show
       : false;
 
