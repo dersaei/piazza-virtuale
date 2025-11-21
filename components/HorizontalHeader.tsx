@@ -3,7 +3,7 @@
 
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "@/styles/HorizontalHeader.module.css";
 import {
   MAIN_CATEGORY_LIST,
@@ -36,28 +36,24 @@ export default function HorizontalHeader() {
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
 
-  // Reset states when navigating to home or other main pages
-  // Only triggers setState when state actually needs to change (avoids cascading renders)
-  useEffect(() => {
-    const isMainPage = pathname === "/" || (!pathname.startsWith("/bevande") && !pathname.startsWith("/condimenti"));
+  // Derive current values with automatic reset for main pages
+  // Auto-hides submenu when navigating to homepage or non-bevande/condimenti pages
+  const isMainPage =
+    pathname === "/" ||
+    (!pathname.startsWith("/bevande") && !pathname.startsWith("/condimenti"));
 
-    if (isMainPage) {
-      // Only reset if there's actually something to reset
-      const needsReset = showBevandeSub.show || showCondimentiSub.show || forceHideState.hide;
+  const currentShowBevandeSub =
+    showBevandeSub.pathname === pathname && !isMainPage
+      ? showBevandeSub.show
+      : false;
 
-      if (needsReset) {
-        setShowBevandeSub({ show: false, pathname });
-        setShowCondimentiSub({ show: false, pathname });
-        setForceHideState({ hide: false, pathname });
-      }
-    }
-  }, [pathname, showBevandeSub.show, showCondimentiSub.show, forceHideState.hide]);
+  const currentShowCondimentiSub =
+    showCondimentiSub.pathname === pathname && !isMainPage
+      ? showCondimentiSub.show
+      : false;
 
-  // Derive current values - automatically reset when pathname changes
-  // This is pure derived state, no effects needed
-  const currentShowBevandeSub = showBevandeSub.pathname === pathname ? showBevandeSub.show : false;
-  const currentShowCondimentiSub = showCondimentiSub.pathname === pathname ? showCondimentiSub.show : false;
-  const forceHideSubcategories = forceHideState.pathname === pathname ? forceHideState.hide : false;
+  const forceHideSubcategories =
+    forceHideState.pathname === pathname ? forceHideState.hide : false;
 
   // Automatically show subcategories when on respective routes (derived state)
   // but allow force hide to override
