@@ -100,7 +100,7 @@ export default function HorizontalHeader() {
               <Link
                 key={category.id}
                 href={category.href}
-                prefetch={hasSubcategories ? false : undefined}
+                prefetch={hasSubcategories ? false : null}
                 onClick={
                   hasSubcategories
                     ? (e) => handleCategoryClick(e, category.id)
