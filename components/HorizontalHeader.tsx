@@ -73,8 +73,7 @@ export default function HorizontalHeader() {
     }
   };
 
-  const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleBackClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     // Force hide subcategories even if pathname suggests they should be shown
     setForceHideState({ hide: true, pathname: pathname });
     setShowBevandeSub({ show: false, pathname: pathname });
