@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <div className={styles.articlePage}>
       <article className={styles.articleCard}>
-        <p style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+        <p className={styles.caricamento}>
           Caricamento articolo...
         </p>
       </article>
