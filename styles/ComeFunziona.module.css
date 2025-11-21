@@ -266,6 +266,11 @@
   margin-bottom: var(--space-xl);
   letter-spacing: 0.03em;
 }
+@media (max-width: 1060px) {
+  .comeFunzionaPage {
+    padding: var(--space-lg);
+  }
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -316,7 +321,7 @@
     padding: 0 var(--space-md);
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .heroSection {
     padding: 50px 10px 30px;
   }

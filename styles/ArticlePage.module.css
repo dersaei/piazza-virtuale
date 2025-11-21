@@ -209,7 +209,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .articlePage {
     padding: 20px 15px;
   }
@@ -237,7 +237,6 @@
 
   .articleContent {
     font-size: 1rem;
-    text-align: center;
   }
 
   .articleContent h2 {

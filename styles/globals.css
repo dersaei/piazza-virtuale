@@ -135,14 +135,15 @@ strong::-moz-selection {
 .mobile-footer-wrapper {
   display: none;
 }
+@media (max-width: 1060px) {
+  .main-content {
+    padding: var(--space-xs);
+  }
+}
 
 @media (max-width: 768px) {
   :root {
     --vertical-header-width: 200px;
-  }
-
-  .main-content {
-    padding: var(--space-lg);
   }
 
   /* Thinner scrollbar on mobile */
@@ -153,7 +154,7 @@ strong::-moz-selection {
 }
 
 /* Mobile layout - max 600px */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   /* Hide desktop headers */
   .verticalHeader {
     display: none !important;

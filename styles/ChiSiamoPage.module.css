@@ -188,7 +188,11 @@
   margin-left: auto;
   margin-right: auto;
 }
-
+@media (max-width: 1060px) {
+  .chiSiamoPage {
+    padding: var(--space-lg);
+  }
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .heroSection {

@@ -109,6 +109,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+@media (max-width: 1060px) {
+  .contattiPage {
+    padding: var(--space-lg);
+  }
+}
 
 /* Responsive Design */
 @media (max-width: 880px) {
@@ -116,7 +121,7 @@
     margin: var(--space-xl) 0;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .header {
     padding: 50px 10px 30px;
   }

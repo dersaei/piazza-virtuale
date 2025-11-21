@@ -106,12 +106,21 @@
 
 /* Responsive Design */
 @media (max-width: 1054px) {
+  .navContainer.twoRows {
+    grid-template-columns: repeat(
+      2,
+      auto
+    ); /* 2 items per row on smaller screens */
+  }
+}
+
+@media (max-width: 800px) {
   .navContainer {
     padding: 0 var(--space-sm);
   }
 
   .categoryButton {
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-sm);
   }
 
   .categoryText {
@@ -119,30 +128,11 @@
   }
 
   .navContainer.twoRows {
-    grid-template-columns: repeat(
-      2,
-      auto
-    ); /* 2 items per row on smaller screens */
-  }
-
-  .backArrow {
-    width: 35px;
-    height: 19px;
-    left: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .categoryText {
-    font-size: 0.75rem;
-  }
-
-  .navContainer.twoRows {
     grid-template-columns: repeat(2, auto);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .horizontalHeader {
     display: none;
   }

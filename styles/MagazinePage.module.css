@@ -211,34 +211,40 @@
 /* Responsive */
 @media (max-width: 1110px) {
   .articleCard {
-    width: 30vw;
+    width: 47%;
     padding: 50px 25px;
   }
+  .articlesGrid {
+    padding: var(--space-xl) var(--space-xs);
+  }
 }
+
+@media (max-width: 800px) {
+  .articleCard {
+    width: 80%;
+  }
+}
+
 @media (max-width: 768px) {
   .articleCard {
     min-width: unset;
     padding: 40px 20px;
   }
 }
-@media (max-width: 712px) {
-  .articleCard {
-    width: 300px;
-  }
-}
-@media (max-width: 600px) {
+
+@media (max-width: 650px) {
   .articlesGrid {
     gap: 10px;
   }
   .articleCard {
-    width: 240px;
+    width: 48%;
     padding: 40px 15px;
   }
   .title {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
-@media (max-width: 540px) {
+@media (max-width: 500px) {
   .articlesGrid {
     gap: 20px;
   }

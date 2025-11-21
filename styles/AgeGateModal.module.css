@@ -310,7 +310,7 @@
 }
 
 /* Mobile devices - ensure proper positioning with safe area and above mobile header */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .backdrop {
     top: env(safe-area-inset-top);
     left: env(safe-area-inset-left);

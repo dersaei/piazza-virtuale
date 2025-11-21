@@ -178,8 +178,19 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(184, 162, 129, 0.25);
 }
+
+@media (max-width: 1060px) {
+  .shopCard {
+    width: 30vw;
+  }
+}
 @media (max-width: 990px) {
   .producerName span {
     font-size: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .shopCard {
+    width: 300px;
   }
 }
