@@ -90,8 +90,7 @@ export default function HorizontalHeader() {
     }
   };
 
-  const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleBackClick = () => {
     // Force hide subcategories even if pathname suggests they should be shown
     setForceHideState({ hide: true, pathname: pathname });
     setShowBevandeSub({ show: false, pathname: pathname });
@@ -136,8 +135,8 @@ export default function HorizontalHeader() {
 
           {/* Back arrow - shows main categories, stays on current page */}
           {(shouldShowBevandeSub || shouldShowCondimentiSub) && (
-            <a
-              href="#"
+            <button
+              type="button"
               onClick={handleBackClick}
               className={styles.backArrow}
               aria-label="Torna alle categorie principali"
@@ -166,7 +165,7 @@ export default function HorizontalHeader() {
                   </g>
                 </g>
               </svg>
-            </a>
+            </button>
           )}
         </div>
       </nav>

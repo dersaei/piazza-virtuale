@@ -23,8 +23,8 @@
 }
 
 .backArrow {
-  width: 35px;
-  height: 20px;
+  width: 40px;
+  height: 22px;
   fill: #7a8471;
   transition: fill 0.3s ease;
 }
