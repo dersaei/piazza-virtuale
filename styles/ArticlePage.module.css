@@ -245,29 +245,3 @@
     margin-top: 32px;
   }
 }
-
-/* Skeleton loading styles */
-.skeleton {
-  pointer-events: none;
-}
-
-.skeletonBox {
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 0%,
-    #e0e0e0 50%,
-    #f0f0f0 100%
-  );
-  background-size: 200% 100%;
-  animation: skeletonPulse 1.5s ease-in-out infinite;
-  border-radius: 4px;
-}
-
-@keyframes skeletonPulse {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}

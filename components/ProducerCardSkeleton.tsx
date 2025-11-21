@@ -3,41 +3,29 @@ import styles from '@/styles/ProducerCard.module.css';
 
 export default function ProducerCardSkeleton() {
   return (
-    <article className={`${styles.shopCard} ${styles.skeleton}`}>
-      {/* Category name skeleton */}
-      <div
-        className={styles.skeletonBox}
-        style={{ width: '60%', height: '1rem', marginBottom: '0.5rem' }}
-      />
+    <article className={styles.shopCard}>
+      {/* Exact same structure as ProducerCard */}
+      <p className={styles.categoryName} style={{ color: 'transparent', background: '#e0e0e0' }}>
+        Loading
+      </p>
 
-      {/* Producer name skeleton */}
-      <div
-        className={styles.skeletonBox}
-        style={{ width: '80%', height: '2rem', marginBottom: '2rem' }}
-      />
+      <h2 className={styles.producerName} style={{ color: 'transparent', background: '#e0e0e0' }}>
+        Loading Producer
+      </h2>
 
-      {/* Region name skeleton */}
-      <div
-        className={styles.skeletonBox}
-        style={{ width: '40%', height: '0.9rem', marginBottom: '1.5rem' }}
-      />
+      <p className={styles.regionName} style={{ color: 'transparent', background: '#e0e0e0' }}>
+        Loading
+      </p>
 
-      {/* Logo skeleton */}
-      <div
-        className={styles.skeletonBox}
-        style={{
-          width: '150px',
-          height: '150px',
-          borderRadius: '8px',
-          marginBottom: '1.5rem'
-        }}
-      />
+      <div className={styles.logoContainer} style={{ background: '#f0f0f0' }} />
 
-      {/* Button skeleton */}
-      <div
-        className={styles.skeletonBox}
-        style={{ width: '100%', height: '48px', borderRadius: '4px' }}
-      />
+      <div className={styles.ctaButton} style={{ pointerEvents: 'none', opacity: 0.6 }}>
+        <div className={styles.buttonInner}>
+          <span className={styles.buttonText} style={{ color: 'transparent', background: '#e0e0e0' }}>
+            Visita lo Shop
+          </span>
+        </div>
+      </div>
     </article>
   );
 }
