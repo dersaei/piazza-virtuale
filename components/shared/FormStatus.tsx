@@ -1,5 +1,4 @@
 // components/shared/FormStatus.tsx
-"use client";
 
 import styles from "@/styles/Forms.module.css";
 
