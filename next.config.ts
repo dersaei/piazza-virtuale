@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // Apply security headers to all routes
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self'",
+          },
+        ],
+      },
+      {
         // Cache PWA manifest for 24 hours (instead of default max-age=0, must-revalidate)
         source: "/manifest.webmanifest",
         headers: [
