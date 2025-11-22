@@ -1,9 +1,9 @@
 // lib/api/magazine.ts
-'use cache';
+"use cache";
 
-import directus from '@/lib/directus';
-import { readItems } from '@directus/sdk';
-import { cacheTag } from 'next/cache';
+import directus from "@/lib/directus";
+import { readItems } from "@directus/sdk";
+import { cacheTag, cacheLife } from "next/cache";
 
 // Magazine Card interface (for /magazine page)
 export interface MagazineCard {
@@ -29,46 +29,47 @@ export interface MagazineArticle {
 
 // Get all magazine cards for homepage
 export async function getMagazineCards(): Promise<MagazineCard[]> {
-  cacheTag('magazine-cards');
+  cacheLife("days");
+  cacheTag("magazine-cards");
 
   try {
     const cards = await directus.request(
-      readItems('magazine_cards', {
+      readItems("magazine_cards", {
         filter: {
-          status: { _eq: 'published' },
+          status: { _eq: "published" },
         },
-        fields: ['id', 'category', 'title', 'url', 'sort', 'date_created'],
-        sort: ['sort'], // Sort by manual order
+        fields: ["id", "category", "title", "url", "sort", "date_created"],
+        sort: ["sort"], // Sort by manual order
         limit: -1,
       })
     );
 
     return cards as MagazineCard[];
   } catch (error) {
-    console.error('Error fetching magazine cards:', error);
+    console.error("Error fetching magazine cards:", error);
     return [];
   }
 }
 
 // Get all articles (for generateStaticParams)
 export async function getAllArticles(): Promise<MagazineArticle[]> {
-  cacheTag('magazine-articles');
+  cacheTag("magazine-articles");
 
   try {
     const articles = await directus.request(
-      readItems('magazine_articles', {
+      readItems("magazine_articles", {
         filter: {
-          status: { _eq: 'published' },
+          status: { _eq: "published" },
         },
-        fields: ['id', 'slug', 'date_created'],
-        sort: ['-date_created'], // ← ZMIANA: Sort by date_created desc
+        fields: ["id", "slug", "date_created"],
+        sort: ["-date_created"], // ← ZMIANA: Sort by date_created desc
         limit: -1,
       })
     );
 
     return articles as MagazineArticle[];
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error("Error fetching articles:", error);
     return [];
   }
 }
@@ -77,24 +78,24 @@ export async function getAllArticles(): Promise<MagazineArticle[]> {
 export async function getArticleBySlug(
   slug: string
 ): Promise<MagazineArticle | null> {
-  cacheTag('magazine-articles');
+  cacheTag("magazine-articles");
   cacheTag(`magazine-article-${slug}`);
 
   try {
     const articles = await directus.request(
-      readItems('magazine_articles', {
+      readItems("magazine_articles", {
         filter: {
           slug: { _eq: slug },
-          status: { _eq: 'published' },
+          status: { _eq: "published" },
         },
         fields: [
-          'id',
-          'slug',
-          'title',
-          'category',
-          'content',
-          'date_created', // ← ZMIANA
-          'date_updated', // ← NOWE
+          "id",
+          "slug",
+          "title",
+          "category",
+          "content",
+          "date_created", // ← ZMIANA
+          "date_updated", // ← NOWE
         ],
         limit: 1,
       })
@@ -102,7 +103,7 @@ export async function getArticleBySlug(
 
     return articles.length > 0 ? (articles[0] as MagazineArticle) : null;
   } catch (error) {
-    console.error('Error fetching article:', error);
+    console.error("Error fetching article:", error);
     return null;
   }
 }

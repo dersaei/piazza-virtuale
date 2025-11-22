@@ -3,7 +3,7 @@
 
 import directus from "@/lib/directus";
 import { readItems } from "@directus/sdk";
-import { cacheTag } from "next/cache";
+import { cacheTag, cacheLife } from "next/cache";
 
 export interface Producer {
   id: string;
@@ -25,6 +25,7 @@ export interface Producer {
 export async function getProducersByCategory(
   categorySlug: string
 ): Promise<Producer[]> {
+  cacheLife("hours");
   // Cache tags for granular revalidation
   cacheTag("producers"); // Global tag for all producers
   cacheTag(`producers-${categorySlug}`); // Category-specific tag
