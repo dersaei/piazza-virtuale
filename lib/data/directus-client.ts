@@ -1,0 +1,48 @@
+// lib/data/directus-client.ts
+import "server-only";
+import { createDirectus, rest } from "@directus/sdk";
+
+/**
+ * Directus Client Configuration
+ * This is the ONLY place where Directus client should be created
+ * and environment variables should be accessed.
+ */
+
+/**
+ * Get Directus URL based on environment
+ * IMPORTANT: This is the ONLY function that should access process.env
+ */
+function getDirectusUrl(): string {
+  // Check if we're running in production
+  if (process.env.NODE_ENV === "production") {
+    // If this code runs on the server (SSR/API routes), use internal connection
+    if (typeof window === "undefined") {
+      return "http://localhost:8055"; // Server-side: direct local connection
+    }
+
+    // If this code runs in the browser, use the public subdomain
+    return "https://cms.piazzavirtuale.it"; // Client-side: public subdomain
+  }
+
+  // Development environment - use direct IP access
+  return "http://185.238.72.187:8055";
+}
+
+/**
+ * Directus client instance
+ * Use this for ALL database operations
+ */
+export const directusClient = createDirectus(getDirectusUrl()).with(rest());
+
+/**
+ * Type-safe Directus collections
+ * Add your collection types here for better type safety
+ */
+export type DirectusCollections = {
+  producers: any; // TODO: Add proper type
+  standard_submissions: any; // TODO: Add proper type
+  premium_inquiries: any; // TODO: Add proper type
+  contact_messages: any; // TODO: Add proper type
+  magazine_articles: any; // TODO: Add proper type
+  magazine_cards: any; // TODO: Add proper type
+};

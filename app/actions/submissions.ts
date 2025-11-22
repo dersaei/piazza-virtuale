@@ -2,11 +2,11 @@
 "use server";
 
 import "server-only";
-import directus from "@/lib/directus";
-import { createItem, uploadFiles } from "@directus/sdk";
-
-// ID folderu "logo" z Directus File Library
-const LOGO_FOLDER_ID = "6117a847-6c58-489e-8b9e-61991620ad24";
+import {
+  createStandardSubmission,
+  createPremiumInquiry,
+  createContactMessage,
+} from "@/lib/data";
 
 /**
  * Type for form submission state
@@ -88,80 +88,23 @@ export async function submitStandardForm(
       };
     }
 
-    // Validate and upload logo if provided
-    let logoId: string | null = null;
-    if (logo && logo.size > 0) {
-      // Validate file type
-      const allowedTypes = [
-        "image/png",
-        "image/jpeg",
-        "image/jpg",
-        "image/svg+xml",
-        "image/webp",
-      ];
-      if (!allowedTypes.includes(logo.type)) {
-        return {
-          success: false,
-          message:
-            "Formato file non valido. Formati accettati: PNG, JPEG, JPG, WebP, SVG.",
-        };
-      }
-
-      // Validate file size
-      const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
-      if (logo.size > MAX_FILE_SIZE) {
-        return {
-          success: false,
-          message:
-            "Errore: Il file logo è troppo grande. Dimensione massima: 1MB.",
-        };
-      }
-
-      // Validate file extension
-      const fileName = logo.name.toLowerCase();
-      if (!fileName.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
-        return {
-          success: false,
-          message: "Estensione file non valida.",
-        };
-      }
-
-      // Upload to Directus
-      try {
-        const logoFormData = new FormData();
-        // IMPORTANT: folder MUST be before file!
-        logoFormData.append("folder", LOGO_FOLDER_ID);
-        logoFormData.append("file", logo);
-
-        const uploadedFiles = await directus.request(uploadFiles(logoFormData));
-
-        // Extract ID from response
-        if (uploadedFiles?.data?.id) {
-          logoId = uploadedFiles.data.id;
-        } else if (uploadedFiles?.id) {
-          logoId = uploadedFiles.id;
-        }
-      } catch (error) {
-        console.error("Logo upload error:", error);
-        return {
-          success: false,
-          message: "Errore durante il caricamento del logo.",
-        };
-      }
-    }
-
-    // Create submission in Directus
-    await directus.request(
-      createItem("standard_submissions", {
-        producer_name: producer_name,
-        shop_url: shop_url,
-        categories: categories,
-        region: region,
-        logo: logoId,
-        submission_status: "pending",
-        submitted_at: new Date().toISOString(),
-      })
+    // Delegate to Data Access Layer
+    const result = await createStandardSubmission(
+      {
+        producer_name,
+        shop_url,
+        categories,
+        region,
+      },
+      logo
     );
+
+    if (!result.success) {
+      return {
+        success: false,
+        message: result.error || "Errore sconosciuto.",
+      };
+    }
 
     return {
       success: true,
@@ -248,17 +191,20 @@ export async function submitPremiumInquiry(
       };
     }
 
-    // Create premium inquiry in Directus
-    await directus.request(
-      createItem("premium_inquiries", {
-        producer_name,
-        contact_name,
-        email,
-        message: message || null,
-        status: "pending",
-        submitted_at: new Date().toISOString(),
-      })
-    );
+    // Delegate to Data Access Layer
+    const result = await createPremiumInquiry({
+      producer_name,
+      contact_name,
+      email,
+      message: message || null,
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        message: result.error || "Errore sconosciuto.",
+      };
+    }
 
     return {
       success: true,
@@ -338,17 +284,20 @@ export async function submitContactForm(
       };
     }
 
-    // Create contact message in Directus
-    await directus.request(
-      createItem("contact_messages", {
-        full_name: full_name.trim(),
-        email: email.trim().toLowerCase(),
-        subject: subject.trim(),
-        message: message.trim(),
-        status: "pending",
-        submitted_at: new Date().toISOString(),
-      })
-    );
+    // Delegate to Data Access Layer
+    const result = await createContactMessage({
+      full_name,
+      email,
+      subject,
+      message,
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        message: result.error || "Errore sconosciuto.",
+      };
+    }
 
     return {
       success: true,
