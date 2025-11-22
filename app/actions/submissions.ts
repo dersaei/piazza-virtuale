@@ -1,6 +1,7 @@
 // app/actions/submissions.ts
 "use server";
 
+import "server-only";
 import directus from "@/lib/directus";
 import { createItem, uploadFiles } from "@directus/sdk";
 

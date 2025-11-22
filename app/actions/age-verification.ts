@@ -1,6 +1,7 @@
 // app/actions/age-verification.ts
 "use server";
 
+import "server-only";
 import { cookies } from "next/headers";
 
 const AGE_VERIFIED_COOKIE = "age_verified";
