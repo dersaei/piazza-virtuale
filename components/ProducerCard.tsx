@@ -23,10 +23,7 @@ export default function ShopCard({
     <article className={styles.shopCard}>
       <p className={styles.categoryName}>{categoryName}</p>
 
-      <h2
-        className={styles.producerName}
-        dangerouslySetInnerHTML={{ __html: producerName }}
-      />
+      <h2 className={styles.producerName}>{producerName}</h2>
 
       <p className={styles.regionName}>{regionName}</p>
 

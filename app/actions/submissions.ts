@@ -1,6 +1,7 @@
 // app/actions/submissions.ts
 "use server";
 
+import "server-only";
 import directus from "@/lib/directus";
 import { createItem, uploadFiles } from "@directus/sdk";
 
@@ -45,6 +46,28 @@ export async function submitStandardForm(
       return {
         success: false,
         message: "Per favore, compila tutti i campi obbligatori.",
+      };
+    }
+
+    // Validate field lengths
+    if (producer_name.length > 200) {
+      return {
+        success: false,
+        message: "Nome del produttore troppo lungo (max 200 caratteri).",
+      };
+    }
+
+    if (shop_url.length > 500) {
+      return {
+        success: false,
+        message: "URL troppo lungo (max 500 caratteri).",
+      };
+    }
+
+    if (region.length > 100) {
+      return {
+        success: false,
+        message: "Nome regione troppo lungo (max 100 caratteri).",
       };
     }
 
@@ -193,6 +216,35 @@ export async function submitPremiumInquiry(
       return {
         success: false,
         message: "Per favore, inserisci un indirizzo email valido.",
+      };
+    }
+
+    // Validate field lengths
+    if (producer_name.length > 200) {
+      return {
+        success: false,
+        message: "Nome del produttore troppo lungo (max 200 caratteri).",
+      };
+    }
+
+    if (contact_name.length > 200) {
+      return {
+        success: false,
+        message: "Nome di contatto troppo lungo (max 200 caratteri).",
+      };
+    }
+
+    if (email.length > 254) {
+      return {
+        success: false,
+        message: "Email troppo lunga (max 254 caratteri).",
+      };
+    }
+
+    if (message && message.length > 5000) {
+      return {
+        success: false,
+        message: "Messaggio troppo lungo (max 5000 caratteri).",
       };
     }
 

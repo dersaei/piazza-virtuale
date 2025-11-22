@@ -1,6 +1,7 @@
 // lib/api/magazine.ts
 "use cache";
 
+import "server-only";
 import directus from "@/lib/directus";
 import { readItems } from "@directus/sdk";
 import { cacheTag, cacheLife } from "next/cache";
