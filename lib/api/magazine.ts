@@ -53,6 +53,7 @@ export async function getMagazineCards(): Promise<MagazineCard[]> {
 
 // Get all articles (for generateStaticParams)
 export async function getAllArticles(): Promise<MagazineArticle[]> {
+  cacheLife("days");
   cacheTag("magazine-articles");
 
   try {
@@ -78,6 +79,7 @@ export async function getAllArticles(): Promise<MagazineArticle[]> {
 export async function getArticleBySlug(
   slug: string
 ): Promise<MagazineArticle | null> {
+  cacheLife("days");
   cacheTag("magazine-articles");
   cacheTag(`magazine-article-${slug}`);
 
