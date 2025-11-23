@@ -2,18 +2,26 @@
 "use server";
 
 import "server-only";
-import directus from "@/lib/directus";
-import { createItem, uploadFiles } from "@directus/sdk";
-
-// ID folderu "logo" z Directus File Library
-const LOGO_FOLDER_ID = "6117a847-6c58-489e-8b9e-61991620ad24";
+import {
+  createStandardSubmission,
+  createPremiumInquiry,
+  createContactMessage,
+} from "@/lib/data";
+import {
+  standardSubmissionSchema,
+  premiumInquirySchema,
+  contactFormSchema,
+  formatZodError,
+} from "@/lib/validation/schemas";
 
 /**
  * Type for form submission state
+ * Includes formData to preserve user input on validation errors
  */
 export type FormSubmissionState = {
   success: boolean;
   message: string;
+  formData?: Record<string, unknown>;
 } | null;
 
 /**
@@ -33,54 +41,10 @@ export async function submitStandardForm(
     const logo = formData.get("logo") as File | null;
     const privacy_accepted = formData.get("privacy_accepted") as string;
 
-    // Validation
-    if (!privacy_accepted || privacy_accepted !== "on") {
-      return {
-        success: false,
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-      };
-    }
-
-    if (!producer_name || !shop_url || !categoriesJson || !region) {
-      return {
-        success: false,
-        message: "Per favore, compila tutti i campi obbligatori.",
-      };
-    }
-
-    // Validate field lengths
-    if (producer_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome del produttore troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (shop_url.length > 500) {
-      return {
-        success: false,
-        message: "URL troppo lungo (max 500 caratteri).",
-      };
-    }
-
-    if (region.length > 100) {
-      return {
-        success: false,
-        message: "Nome regione troppo lungo (max 100 caratteri).",
-      };
-    }
-
     // Parse categories
     let categories: string[] = [];
     try {
       categories = JSON.parse(categoriesJson);
-      if (!Array.isArray(categories) || categories.length === 0) {
-        return {
-          success: false,
-          message: "Seleziona almeno una categoria.",
-        };
-      }
     } catch {
       return {
         success: false,
@@ -88,80 +52,45 @@ export async function submitStandardForm(
       };
     }
 
-    // Validate and upload logo if provided
-    let logoId: string | null = null;
-    if (logo && logo.size > 0) {
-      // Validate file type
-      const allowedTypes = [
-        "image/png",
-        "image/jpeg",
-        "image/jpg",
-        "image/svg+xml",
-        "image/webp",
-      ];
-      if (!allowedTypes.includes(logo.type)) {
-        return {
-          success: false,
-          message:
-            "Formato file non valido. Formati accettati: PNG, JPEG, JPG, WebP, SVG.",
-        };
-      }
+    // Validate using Zod schema
+    const validationResult = standardSubmissionSchema.safeParse({
+      producer_name,
+      shop_url,
+      categories,
+      region,
+      privacy_accepted,
+    });
 
-      // Validate file size
-      const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
-      if (logo.size > MAX_FILE_SIZE) {
-        return {
-          success: false,
-          message:
-            "Errore: Il file logo è troppo grande. Dimensione massima: 1MB.",
-        };
-      }
-
-      // Validate file extension
-      const fileName = logo.name.toLowerCase();
-      if (!fileName.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
-        return {
-          success: false,
-          message: "Estensione file non valida.",
-        };
-      }
-
-      // Upload to Directus
-      try {
-        const logoFormData = new FormData();
-        // IMPORTANT: folder MUST be before file!
-        logoFormData.append("folder", LOGO_FOLDER_ID);
-        logoFormData.append("file", logo);
-
-        const uploadedFiles = await directus.request(uploadFiles(logoFormData));
-
-        // Extract ID from response
-        if (uploadedFiles?.data?.id) {
-          logoId = uploadedFiles.data.id;
-        } else if (uploadedFiles?.id) {
-          logoId = uploadedFiles.id;
-        }
-      } catch (error) {
-        console.error("Logo upload error:", error);
-        return {
-          success: false,
-          message: "Errore durante il caricamento del logo.",
-        };
-      }
+    if (!validationResult.success) {
+      return {
+        success: false,
+        message: formatZodError(validationResult.error),
+        formData: {
+          producer_name,
+          shop_url,
+          categories,
+          region,
+        },
+      };
     }
 
-    // Create submission in Directus
-    await directus.request(
-      createItem("standard_submissions", {
-        producer_name: producer_name,
-        shop_url: shop_url,
-        categories: categories,
-        region: region,
-        logo: logoId,
-        submission_status: "pending",
-        submitted_at: new Date().toISOString(),
-      })
+    // Delegate to Data Access Layer
+    const result = await createStandardSubmission(
+      {
+        producer_name: validationResult.data.producer_name,
+        shop_url: validationResult.data.shop_url,
+        categories: validationResult.data.categories,
+        region: validationResult.data.region,
+      },
+      logo
     );
+
+    if (!result.success) {
+      return {
+        success: false,
+        message: result.error || "Errore sconosciuto.",
+      };
+    }
 
     return {
       success: true,
@@ -194,71 +123,42 @@ export async function submitPremiumInquiry(
     const message = formData.get("message") as string;
     const privacy_accepted = formData.get("privacy_accepted") as string;
 
-    // Validation
-    if (!privacy_accepted || privacy_accepted !== "on") {
+    // Validate using Zod schema
+    const validationResult = premiumInquirySchema.safeParse({
+      producer_name,
+      contact_name,
+      email,
+      message,
+      privacy_accepted,
+    });
+
+    if (!validationResult.success) {
       return {
         success: false,
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+        message: formatZodError(validationResult.error),
+        formData: {
+          producer_name,
+          contact_name,
+          email,
+          message,
+        },
       };
     }
 
-    if (!producer_name || !contact_name || !email) {
+    // Delegate to Data Access Layer
+    const result = await createPremiumInquiry({
+      producer_name: validationResult.data.producer_name,
+      contact_name: validationResult.data.contact_name,
+      email: validationResult.data.email,
+      message: validationResult.data.message || null,
+    });
+
+    if (!result.success) {
       return {
         success: false,
-        message: "Per favore, compila tutti i campi obbligatori.",
+        message: result.error || "Errore sconosciuto.",
       };
     }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return {
-        success: false,
-        message: "Per favore, inserisci un indirizzo email valido.",
-      };
-    }
-
-    // Validate field lengths
-    if (producer_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome del produttore troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (contact_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome di contatto troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (email.length > 254) {
-      return {
-        success: false,
-        message: "Email troppo lunga (max 254 caratteri).",
-      };
-    }
-
-    if (message && message.length > 5000) {
-      return {
-        success: false,
-        message: "Messaggio troppo lungo (max 5000 caratteri).",
-      };
-    }
-
-    // Create premium inquiry in Directus
-    await directus.request(
-      createItem("premium_inquiries", {
-        producer_name,
-        contact_name,
-        email,
-        message: message || null,
-        status: "pending",
-        submitted_at: new Date().toISOString(),
-      })
-    );
 
     return {
       success: true,
@@ -291,64 +191,42 @@ export async function submitContactForm(
     const message = formData.get("message") as string;
     const privacy_accepted = formData.get("privacy_accepted") as string;
 
-    // Validation
-    if (!privacy_accepted || privacy_accepted !== "on") {
+    // Validate using Zod schema
+    const validationResult = contactFormSchema.safeParse({
+      full_name,
+      email,
+      subject,
+      message,
+      privacy_accepted,
+    });
+
+    if (!validationResult.success) {
       return {
         success: false,
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
+        message: formatZodError(validationResult.error),
+        formData: {
+          full_name,
+          email,
+          subject,
+          message,
+        },
       };
     }
 
-    if (!full_name || !email || !subject || !message) {
+    // Delegate to Data Access Layer
+    const result = await createContactMessage({
+      full_name: validationResult.data.full_name,
+      email: validationResult.data.email,
+      subject: validationResult.data.subject,
+      message: validationResult.data.message,
+    });
+
+    if (!result.success) {
       return {
         success: false,
-        message: "Per favore, compila tutti i campi obbligatori.",
+        message: result.error || "Errore sconosciuto.",
       };
     }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return {
-        success: false,
-        message: "Per favore, inserisci un indirizzo email valido.",
-      };
-    }
-
-    // Validate field lengths
-    if (full_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome e cognome troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (subject.length > 300) {
-      return {
-        success: false,
-        message: "Oggetto troppo lungo (max 300 caratteri).",
-      };
-    }
-
-    if (message.length > 5000) {
-      return {
-        success: false,
-        message: "Messaggio troppo lungo (max 5000 caratteri).",
-      };
-    }
-
-    // Create contact message in Directus
-    await directus.request(
-      createItem("contact_messages", {
-        full_name: full_name.trim(),
-        email: email.trim().toLowerCase(),
-        subject: subject.trim(),
-        message: message.trim(),
-        status: "pending",
-        submitted_at: new Date().toISOString(),
-      })
-    );
 
     return {
       success: true,

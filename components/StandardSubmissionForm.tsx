@@ -43,6 +43,22 @@ export default function StandardSubmissionForm() {
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
 
+  // Track previous formData to detect changes (React recommended pattern)
+  const [prevFormData, setPrevFormData] = useState<
+    Record<string, unknown> | undefined
+  >();
+
+  // Update state when formData changes (validation error) - React pattern for "resetting state when props change"
+  // See: https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (state?.formData && !state.success && state.formData !== prevFormData) {
+    setPrevFormData(state.formData);
+    setSelectedCategories((state.formData.categories as string[]) || []);
+    setSelectedRegion((state.formData.region as string) || "");
+  } else if (state?.success && prevFormData !== undefined) {
+    // Reset tracking on successful submission
+    setPrevFormData(undefined);
+  }
+
   // Form reference for reset
   const formRef = useRef<HTMLFormElement>(null);
   const prevSuccessRef = useRef(false);
@@ -87,9 +103,7 @@ export default function StandardSubmissionForm() {
     const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 
     if (file && file.size > MAX_FILE_SIZE) {
-      setClientError(
-        "Il file logo è troppo grande. Dimensione massima: 1MB."
-      );
+      setClientError("Il file logo è troppo grande. Dimensione massima: 1MB.");
       e.target.value = ""; // Clear the file input
     } else {
       setClientError(null); // Clear error if file is valid
@@ -111,6 +125,7 @@ export default function StandardSubmissionForm() {
           className={styles.input}
           placeholder="Es. Azienda Agricola Rossi"
           autoComplete="organization"
+          defaultValue={(state?.formData?.producer_name as string) || ""}
         />
       </div>
 
@@ -128,6 +143,7 @@ export default function StandardSubmissionForm() {
           className={styles.input}
           placeholder="https://www.tuoshop.it"
           autoComplete="url"
+          defaultValue={(state?.formData?.shop_url as string) || ""}
         />
       </div>
 
@@ -262,9 +278,7 @@ export default function StandardSubmissionForm() {
         idleText="Invia Richiesta"
         pendingText="Invio in corso..."
         disabled={
-          selectedCategories.length === 0 ||
-          !selectedRegion ||
-          !privacyAccepted
+          selectedCategories.length === 0 || !selectedRegion || !privacyAccepted
         }
       />
     </form>
