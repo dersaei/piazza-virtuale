@@ -38,40 +38,30 @@ export default function StandardSubmissionForm() {
   const [state, formAction] = useActionState(submitStandardForm, null);
 
   // Local state for UI interactions (categories, region selection)
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    (state?.formData?.categories as string[]) || []
-  );
-  const [selectedRegion, setSelectedRegion] = useState<string>(
-    (state?.formData?.region as string) || ""
-  );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
+
+  // Track previous formData to detect changes (React recommended pattern)
+  const [prevFormData, setPrevFormData] = useState<
+    Record<string, unknown> | undefined
+  >();
+
+  // Update state when formData changes (validation error) - React pattern for "resetting state when props change"
+  // See: https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (state?.formData && !state.success && state.formData !== prevFormData) {
+    setPrevFormData(state.formData);
+    setSelectedCategories((state.formData.categories as string[]) || []);
+    setSelectedRegion((state.formData.region as string) || "");
+  } else if (state?.success && prevFormData !== undefined) {
+    // Reset tracking on successful submission
+    setPrevFormData(undefined);
+  }
 
   // Form reference for reset
   const formRef = useRef<HTMLFormElement>(null);
   const prevSuccessRef = useRef(false);
-  const lastAppliedFormDataRef = useRef<Record<string, unknown> | undefined>();
-
-  // Update categories and region when formData changes (validation error)
-  useEffect(() => {
-    // Only apply formData once per validation error to prevent cascading renders
-    if (
-      state?.formData &&
-      !state.success &&
-      state.formData !== lastAppliedFormDataRef.current
-    ) {
-      lastAppliedFormDataRef.current = state.formData;
-      // We need to restore user's form data after validation errors
-      // This is safe because we track with lastAppliedFormDataRef to prevent cascading renders
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSelectedCategories((state.formData.categories as string[]) || []);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSelectedRegion((state.formData.region as string) || "");
-    } else if (state?.success) {
-      // Reset ref on successful submission
-      lastAppliedFormDataRef.current = undefined;
-    }
-  }, [state]);
 
   // Reset form on successful submission
   useEffect(() => {
