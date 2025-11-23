@@ -34,11 +34,18 @@ export const standardSubmissionSchema = z.object({
     .min(1, "Regione è obbligatoria.")
     .max(100, "Nome regione troppo lungo (max 100 caratteri)."),
 
-  privacy_accepted: z.literal("on", {
-    errorMap: () => ({
-      message: "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+  privacy_accepted: z
+    .literal("on")
+    .or(
+      z.literal("").refine((val) => val === "on", {
+        message:
+          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+      })
+    )
+    .refine((val) => val === "on", {
+      message:
+        "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
     }),
-  }),
 });
 
 export type StandardSubmissionInput = z.infer<typeof standardSubmissionSchema>;
@@ -65,11 +72,18 @@ export const premiumInquirySchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  privacy_accepted: z.literal("on", {
-    errorMap: () => ({
-      message: "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+  privacy_accepted: z
+    .literal("on")
+    .or(
+      z.literal("").refine((val) => val === "on", {
+        message:
+          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+      })
+    )
+    .refine((val) => val === "on", {
+      message:
+        "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
     }),
-  }),
 });
 
 export type PremiumInquiryInput = z.infer<typeof premiumInquirySchema>;
@@ -95,11 +109,18 @@ export const contactFormSchema = z.object({
     .min(1, "Messaggio è obbligatorio.")
     .max(5000, "Messaggio troppo lungo (max 5000 caratteri)."),
 
-  privacy_accepted: z.literal("on", {
-    errorMap: () => ({
-      message: "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
+  privacy_accepted: z
+    .literal("on")
+    .or(
+      z.literal("").refine((val) => val === "on", {
+        message:
+          "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
+      })
+    )
+    .refine((val) => val === "on", {
+      message:
+        "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
     }),
-  }),
 });
 
 export type ContactFormInput = z.infer<typeof contactFormSchema>;
@@ -108,6 +129,6 @@ export type ContactFormInput = z.infer<typeof contactFormSchema>;
  * Helper function to format Zod errors into user-friendly messages
  */
 export function formatZodError(error: z.ZodError): string {
-  const firstError = error.errors[0];
+  const firstError = error.issues[0]; // Changed from .errors to .issues
   return firstError?.message || "Errore di validazione.";
 }
