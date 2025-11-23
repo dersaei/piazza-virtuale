@@ -16,7 +16,31 @@ const nextConfig: NextConfig = {
     unoptimized: true, // Disable Image Optimization API for standalone mode
   },
   async headers() {
+    // Content Security Policy (CSP) for XSS protection
+    const cspHeader = `
+      default-src 'self';
+      script-src 'self' 'unsafe-eval' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' blob: data: https:;
+      font-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'self';
+      upgrade-insecure-requests;
+    `.replace(/\s{2,}/g, ' ').trim();
+
     return [
+      {
+        // Apply CSP to all routes
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
+      },
       {
         // Cache PWA manifest for 24 hours (instead of default max-age=0, must-revalidate)
         source: "/manifest.webmanifest",
