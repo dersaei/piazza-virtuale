@@ -55,6 +55,7 @@ export default function ContactForm() {
           className={styles.input}
           placeholder="Es. Mario Rossi"
           autoComplete="name"
+          defaultValue={(state?.formData?.full_name as string) || ""}
         />
       </div>
 
@@ -71,6 +72,7 @@ export default function ContactForm() {
           className={styles.input}
           placeholder="mario.rossi@esempio.it"
           autoComplete="email"
+          defaultValue={(state?.formData?.email as string) || ""}
         />
       </div>
 
@@ -87,6 +89,7 @@ export default function ContactForm() {
           className={styles.input}
           placeholder="Es. Richiesta informazioni"
           autoComplete="off"
+          defaultValue={(state?.formData?.subject as string) || ""}
         />
       </div>
 
@@ -103,6 +106,7 @@ export default function ContactForm() {
           className={styles.textarea}
           placeholder="Scrivi qui il tuo messaggio..."
           autoComplete="off"
+          defaultValue={(state?.formData?.message as string) || ""}
         />
       </div>
 

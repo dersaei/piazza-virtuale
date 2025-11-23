@@ -38,14 +38,26 @@ export default function StandardSubmissionForm() {
   const [state, formAction] = useActionState(submitStandardForm, null);
 
   // Local state for UI interactions (categories, region selection)
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedRegion, setSelectedRegion] = useState<string>("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    (state?.formData?.categories as string[]) || []
+  );
+  const [selectedRegion, setSelectedRegion] = useState<string>(
+    (state?.formData?.region as string) || ""
+  );
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
 
   // Form reference for reset
   const formRef = useRef<HTMLFormElement>(null);
   const prevSuccessRef = useRef(false);
+
+  // Update categories and region when formData changes (validation error)
+  useEffect(() => {
+    if (state?.formData && !state.success) {
+      setSelectedCategories((state.formData.categories as string[]) || []);
+      setSelectedRegion((state.formData.region as string) || "");
+    }
+  }, [state]);
 
   // Reset form on successful submission
   useEffect(() => {
@@ -111,6 +123,7 @@ export default function StandardSubmissionForm() {
           className={styles.input}
           placeholder="Es. Azienda Agricola Rossi"
           autoComplete="organization"
+          defaultValue={(state?.formData?.producer_name as string) || ""}
         />
       </div>
 
@@ -128,6 +141,7 @@ export default function StandardSubmissionForm() {
           className={styles.input}
           placeholder="https://www.tuoshop.it"
           autoComplete="url"
+          defaultValue={(state?.formData?.shop_url as string) || ""}
         />
       </div>
 

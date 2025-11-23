@@ -16,10 +16,12 @@ import {
 
 /**
  * Type for form submission state
+ * Includes formData to preserve user input on validation errors
  */
 export type FormSubmissionState = {
   success: boolean;
   message: string;
+  formData?: Record<string, unknown>;
 } | null;
 
 /**
@@ -63,6 +65,12 @@ export async function submitStandardForm(
       return {
         success: false,
         message: formatZodError(validationResult.error),
+        formData: {
+          producer_name,
+          shop_url,
+          categories,
+          region,
+        },
       };
     }
 
@@ -128,6 +136,12 @@ export async function submitPremiumInquiry(
       return {
         success: false,
         message: formatZodError(validationResult.error),
+        formData: {
+          producer_name,
+          contact_name,
+          email,
+          message,
+        },
       };
     }
 
@@ -190,6 +204,12 @@ export async function submitContactForm(
       return {
         success: false,
         message: formatZodError(validationResult.error),
+        formData: {
+          full_name,
+          email,
+          subject,
+          message,
+        },
       };
     }
 
