@@ -3,7 +3,7 @@
 
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/HorizontalHeader.module.css";
 import {
   MAIN_CATEGORY_LIST,
@@ -17,6 +17,7 @@ export default function HorizontalHeader() {
   // Derived state from pathname - automatically updates when pathname changes
   const isOnBevandePage = pathname.startsWith("/bevande");
   const isOnCondimentiPage = pathname.startsWith("/condimenti");
+  const isOnHomePage = pathname === "/";
 
   // Store state along with the pathname it was set on
   // This allows automatic reset when pathname changes without needing useEffect
@@ -41,6 +42,16 @@ export default function HorizontalHeader() {
     hide: false,
     pathname: pathname,
   });
+
+  // Reset all state when navigating to home page or to a main category page
+  // This ensures that when clicking logo or vertical menu items, the subcategories are hidden
+  useEffect(() => {
+    if (isOnHomePage || (!isOnBevandePage && !isOnCondimentiPage)) {
+      setShowBevandeSub({ show: false, pathname: pathname });
+      setShowCondimentiSub({ show: false, pathname: pathname });
+      setForceHideState({ hide: false, pathname: pathname });
+    }
+  }, [pathname, isOnHomePage, isOnBevandePage, isOnCondimentiPage]);
 
   const bevandeSubcategories = getSubcategories("bevande");
   const condimentiSubcategories = getSubcategories("condimenti");
