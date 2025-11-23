@@ -33,16 +33,3 @@ function getDirectusUrl(): string {
  * Use this for ALL database operations
  */
 export const directusClient = createDirectus(getDirectusUrl()).with(rest());
-
-/**
- * Type-safe Directus collections
- * Add your collection types here for better type safety
- */
-export type DirectusCollections = {
-  producers: any; // TODO: Add proper type
-  standard_submissions: any; // TODO: Add proper type
-  premium_inquiries: any; // TODO: Add proper type
-  contact_messages: any; // TODO: Add proper type
-  magazine_articles: any; // TODO: Add proper type
-  magazine_cards: any; // TODO: Add proper type
-};
