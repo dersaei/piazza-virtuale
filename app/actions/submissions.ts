@@ -7,6 +7,13 @@ import {
   createPremiumInquiry,
   createContactMessage,
 } from "@/lib/data";
+import {
+  standardSubmissionSchema,
+  premiumInquirySchema,
+  contactFormSchema,
+  formatZodError,
+} from "@/lib/validation/schemas";
+import { z } from "zod";
 
 /**
  * Type for form submission state
@@ -33,54 +40,10 @@ export async function submitStandardForm(
     const logo = formData.get("logo") as File | null;
     const privacy_accepted = formData.get("privacy_accepted") as string;
 
-    // Validation
-    if (!privacy_accepted || privacy_accepted !== "on") {
-      return {
-        success: false,
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-      };
-    }
-
-    if (!producer_name || !shop_url || !categoriesJson || !region) {
-      return {
-        success: false,
-        message: "Per favore, compila tutti i campi obbligatori.",
-      };
-    }
-
-    // Validate field lengths
-    if (producer_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome del produttore troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (shop_url.length > 500) {
-      return {
-        success: false,
-        message: "URL troppo lungo (max 500 caratteri).",
-      };
-    }
-
-    if (region.length > 100) {
-      return {
-        success: false,
-        message: "Nome regione troppo lungo (max 100 caratteri).",
-      };
-    }
-
     // Parse categories
     let categories: string[] = [];
     try {
       categories = JSON.parse(categoriesJson);
-      if (!Array.isArray(categories) || categories.length === 0) {
-        return {
-          success: false,
-          message: "Seleziona almeno una categoria.",
-        };
-      }
     } catch {
       return {
         success: false,
@@ -88,13 +51,29 @@ export async function submitStandardForm(
       };
     }
 
+    // Validate using Zod schema
+    const validationResult = standardSubmissionSchema.safeParse({
+      producer_name,
+      shop_url,
+      categories,
+      region,
+      privacy_accepted,
+    });
+
+    if (!validationResult.success) {
+      return {
+        success: false,
+        message: formatZodError(validationResult.error),
+      };
+    }
+
     // Delegate to Data Access Layer
     const result = await createStandardSubmission(
       {
-        producer_name,
-        shop_url,
-        categories,
-        region,
+        producer_name: validationResult.data.producer_name,
+        shop_url: validationResult.data.shop_url,
+        categories: validationResult.data.categories,
+        region: validationResult.data.region,
       },
       logo
     );
@@ -137,66 +116,28 @@ export async function submitPremiumInquiry(
     const message = formData.get("message") as string;
     const privacy_accepted = formData.get("privacy_accepted") as string;
 
-    // Validation
-    if (!privacy_accepted || privacy_accepted !== "on") {
-      return {
-        success: false,
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-      };
-    }
+    // Validate using Zod schema
+    const validationResult = premiumInquirySchema.safeParse({
+      producer_name,
+      contact_name,
+      email,
+      message,
+      privacy_accepted,
+    });
 
-    if (!producer_name || !contact_name || !email) {
+    if (!validationResult.success) {
       return {
         success: false,
-        message: "Per favore, compila tutti i campi obbligatori.",
-      };
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return {
-        success: false,
-        message: "Per favore, inserisci un indirizzo email valido.",
-      };
-    }
-
-    // Validate field lengths
-    if (producer_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome del produttore troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (contact_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome di contatto troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (email.length > 254) {
-      return {
-        success: false,
-        message: "Email troppo lunga (max 254 caratteri).",
-      };
-    }
-
-    if (message && message.length > 5000) {
-      return {
-        success: false,
-        message: "Messaggio troppo lungo (max 5000 caratteri).",
+        message: formatZodError(validationResult.error),
       };
     }
 
     // Delegate to Data Access Layer
     const result = await createPremiumInquiry({
-      producer_name,
-      contact_name,
-      email,
-      message: message || null,
+      producer_name: validationResult.data.producer_name,
+      contact_name: validationResult.data.contact_name,
+      email: validationResult.data.email,
+      message: validationResult.data.message || null,
     });
 
     if (!result.success) {
@@ -237,59 +178,28 @@ export async function submitContactForm(
     const message = formData.get("message") as string;
     const privacy_accepted = formData.get("privacy_accepted") as string;
 
-    // Validation
-    if (!privacy_accepted || privacy_accepted !== "on") {
-      return {
-        success: false,
-        message:
-          "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
-      };
-    }
+    // Validate using Zod schema
+    const validationResult = contactFormSchema.safeParse({
+      full_name,
+      email,
+      subject,
+      message,
+      privacy_accepted,
+    });
 
-    if (!full_name || !email || !subject || !message) {
+    if (!validationResult.success) {
       return {
         success: false,
-        message: "Per favore, compila tutti i campi obbligatori.",
-      };
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return {
-        success: false,
-        message: "Per favore, inserisci un indirizzo email valido.",
-      };
-    }
-
-    // Validate field lengths
-    if (full_name.length > 200) {
-      return {
-        success: false,
-        message: "Nome e cognome troppo lungo (max 200 caratteri).",
-      };
-    }
-
-    if (subject.length > 300) {
-      return {
-        success: false,
-        message: "Oggetto troppo lungo (max 300 caratteri).",
-      };
-    }
-
-    if (message.length > 5000) {
-      return {
-        success: false,
-        message: "Messaggio troppo lungo (max 5000 caratteri).",
+        message: formatZodError(validationResult.error),
       };
     }
 
     // Delegate to Data Access Layer
     const result = await createContactMessage({
-      full_name,
-      email,
-      subject,
-      message,
+      full_name: validationResult.data.full_name,
+      email: validationResult.data.email,
+      subject: validationResult.data.subject,
+      message: validationResult.data.message,
     });
 
     if (!result.success) {
