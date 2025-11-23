@@ -1,114 +1,55 @@
 // lib/api/magazine.ts
+/**
+ * Cached wrapper for magazine data access
+ * This layer adds caching to the Data Access Layer
+ */
 "use cache";
 
-import "server-only";
-import directus from "@/lib/directus";
-import { readItems } from "@directus/sdk";
 import { cacheTag, cacheLife } from "next/cache";
+import {
+  getMagazineCards as getCardsFromDAL,
+  getAllPublishedArticles as getAllArticlesFromDAL,
+  getArticleBySlug as getArticleFromDAL,
+  type MagazineCardDTO,
+  type MagazineArticleDTO,
+} from "@/lib/data";
 
-// Magazine Card interface (for /magazine page)
-export interface MagazineCard {
-  id: number; // ← ZMIANA: Integer zamiast UUID
-  category: string;
-  title: string;
-  url: string; // Slug artykułu (bez /magazine/ - prefiks dodawany w komponencie)
-  sort: number;
-  date_created: string; // ← NOWE POLE
-}
+// Re-export types for backward compatibility
+export type MagazineCard = MagazineCardDTO;
+export type MagazineArticle = MagazineArticleDTO;
 
-// Magazine Article interface (for /magazine/[slug] page)
-export interface MagazineArticle {
-  id: number; // ← ZMIANA: Integer zamiast UUID
-  slug: string;
-  title: string;
-  category: string;
-  content: string;
-  date_created: string; // ← ZMIANA: date_published → date_created
-  date_updated?: string; // ← NOWE POLE (opcjonalne)
-  status: string;
-}
-
-// Get all magazine cards for homepage
-export async function getMagazineCards(): Promise<MagazineCard[]> {
+/**
+ * Get all magazine cards for homepage (with caching)
+ */
+export async function getMagazineCards(): Promise<MagazineCardDTO[]> {
   cacheLife("days");
   cacheTag("magazine-cards");
 
-  try {
-    const cards = await directus.request(
-      readItems("magazine_cards", {
-        filter: {
-          status: { _eq: "published" },
-        },
-        fields: ["id", "category", "title", "url", "sort", "date_created"],
-        sort: ["sort"], // Sort by manual order
-        limit: -1,
-      })
-    );
-
-    return cards as MagazineCard[];
-  } catch (error) {
-    console.error("Error fetching magazine cards:", error);
-    return [];
-  }
+  return getCardsFromDAL();
 }
 
-// Get all articles (for generateStaticParams)
-export async function getAllArticles(): Promise<MagazineArticle[]> {
+/**
+ * Get all articles (with caching)
+ * Used for generateStaticParams
+ */
+export async function getAllArticles(): Promise<MagazineArticleDTO[]> {
   cacheLife("days");
   cacheTag("magazine-articles");
 
-  try {
-    const articles = await directus.request(
-      readItems("magazine_articles", {
-        filter: {
-          status: { _eq: "published" },
-        },
-        fields: ["id", "slug", "date_created"],
-        sort: ["-date_created"], // ← ZMIANA: Sort by date_created desc
-        limit: -1,
-      })
-    );
-
-    return articles as MagazineArticle[];
-  } catch (error) {
-    console.error("Error fetching articles:", error);
-    return [];
-  }
+  return getAllArticlesFromDAL();
 }
 
-// Get single article by slug
+/**
+ * Get single article by slug (with caching)
+ */
 export async function getArticleBySlug(
   slug: string
-): Promise<MagazineArticle | null> {
+): Promise<MagazineArticleDTO | null> {
   cacheLife("days");
   cacheTag("magazine-articles");
   cacheTag(`magazine-article-${slug}`);
 
-  try {
-    const articles = await directus.request(
-      readItems("magazine_articles", {
-        filter: {
-          slug: { _eq: slug },
-          status: { _eq: "published" },
-        },
-        fields: [
-          "id",
-          "slug",
-          "title",
-          "category",
-          "content",
-          "date_created", // ← ZMIANA
-          "date_updated", // ← NOWE
-        ],
-        limit: 1,
-      })
-    );
-
-    return articles.length > 0 ? (articles[0] as MagazineArticle) : null;
-  } catch (error) {
-    console.error("Error fetching article:", error);
-    return null;
-  }
+  return getArticleFromDAL(slug);
 }
 
 // Cache configuration: automatically revalidates every day (static content)

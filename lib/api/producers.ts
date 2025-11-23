@@ -1,76 +1,33 @@
 // lib/api/producers.ts
+/**
+ * Cached wrapper for producers data access
+ * This layer adds caching to the Data Access Layer
+ */
 "use cache";
 
-import "server-only";
-import directus from "@/lib/directus";
-import { readItems } from "@directus/sdk";
 import { cacheTag, cacheLife } from "next/cache";
+import {
+  getProducersByCategory as getProducersFromDAL,
+  type ProducerDTO,
+} from "@/lib/data";
 
-export interface Producer {
-  id: string;
-  name: string;
-  name_alt: string;
-  category: {
-    slug: string;
-    name: string;
-    parent_category?: {
-      slug: string;
-    } | null;
-  };
-  region: string;
-  logo?: string;
-  shop_url: string;
-  status: string;
-}
+// Re-export type for backward compatibility
+export type Producer = ProducerDTO;
 
+/**
+ * Get producers by category (with caching)
+ * This is a cached wrapper around the DAL function
+ */
 export async function getProducersByCategory(
   categorySlug: string
-): Promise<Producer[]> {
+): Promise<ProducerDTO[]> {
   cacheLife("hours");
   // Cache tags for granular revalidation
   cacheTag("producers"); // Global tag for all producers
   cacheTag(`producers-${categorySlug}`); // Category-specific tag
-  try {
-    const producers = await directus.request(
-      readItems("producers", {
-        filter: {
-          _or: [
-            {
-              category: {
-                slug: { _eq: categorySlug },
-              },
-            },
-            {
-              category: {
-                parent_category: {
-                  slug: { _eq: categorySlug },
-                },
-              },
-            },
-          ],
-          status: { _eq: "published" },
-        },
-        fields: [
-          "id",
-          "name",
-          "name_alt",
-          "category.slug",
-          "category.name",
-          "category.parent_category.slug",
-          "region",
-          "logo",
-          "shop_url",
-        ],
-        sort: ["name"],
-        limit: -1,
-      })
-    );
 
-    return producers as Producer[];
-  } catch (error) {
-    console.error("Error fetching producers:", error);
-    return [];
-  }
+  // Delegate to Data Access Layer
+  return getProducersFromDAL(categorySlug);
 }
 
 // Cache configuration: automatically revalidates every 1 hour
