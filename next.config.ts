@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Disable Image Optimization API for standalone mode
   },
+
+  // Compiler options for modern JavaScript output
+  // Reduces bundle size by avoiding transpilation of modern features
+  compiler: {
+    // Remove console.log in production (optional, commented out for now)
+    // removeConsole: process.env.NODE_ENV === 'production',
+  },
+
   async headers() {
     // Content Security Policy (CSP) for XSS protection
     const cspHeader = `

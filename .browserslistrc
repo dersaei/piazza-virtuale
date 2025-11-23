@@ -1,10 +1,19 @@
-# Browsers that we support
-# Based on: https://browsersl.ist/?q=%3E+0.5%25%2C+last+2+versions%2C+Firefox+ESR%2C+not+dead%2C+not+IE+11
+# Target ONLY modern browsers with full ES2020+ support
+# This eliminates unnecessary polyfills for Array.at, Object.fromEntries, etc.
+# Based on: https://browsersl.ist
 
-# Modern browsers with ES6+ support
-> 0.5%
-last 2 versions
-Firefox ESR
+# Modern browsers (2020+) with native ES2020+ support
+chrome >= 87
+edge >= 88
+firefox >= 78
+safari >= 14
+ios_saf >= 14
+samsung >= 14
+
+# Exclude legacy browsers
 not dead
 not IE 11
 not op_mini all
+not android < 87
+not chrome < 87
+not and_chr < 87
