@@ -50,12 +50,26 @@ export default function StandardSubmissionForm() {
   // Form reference for reset
   const formRef = useRef<HTMLFormElement>(null);
   const prevSuccessRef = useRef(false);
+  const lastAppliedFormDataRef = useRef<Record<string, unknown> | undefined>();
 
   // Update categories and region when formData changes (validation error)
   useEffect(() => {
-    if (state?.formData && !state.success) {
+    // Only apply formData once per validation error to prevent cascading renders
+    if (
+      state?.formData &&
+      !state.success &&
+      state.formData !== lastAppliedFormDataRef.current
+    ) {
+      lastAppliedFormDataRef.current = state.formData;
+      // We need to restore user's form data after validation errors
+      // This is safe because we track with lastAppliedFormDataRef to prevent cascading renders
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedCategories((state.formData.categories as string[]) || []);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedRegion((state.formData.region as string) || "");
+    } else if (state?.success) {
+      // Reset ref on successful submission
+      lastAppliedFormDataRef.current = undefined;
     }
   }, [state]);
 
