@@ -6,10 +6,8 @@ import { z } from "zod";
  * Uses Zod's built-in email validation which is more robust than regex
  */
 export const emailSchema = z
-  .string({
-    required_error: "Email è obbligatoria.",
-  })
-  .email("Per favore, inserisci un indirizzo email valido.")
+  .string()
+  .email({ message: "Per favore, inserisci un indirizzo email valido." })
   .max(254, "Email troppo lunga (max 254 caratteri).");
 
 /**
@@ -23,7 +21,7 @@ export const standardSubmissionSchema = z.object({
 
   shop_url: z
     .string()
-    .url("Per favore, inserisci un URL valido.")
+    .url({ message: "Per favore, inserisci un URL valido." })
     .max(500, "URL troppo lungo (max 500 caratteri)."),
 
   categories: z
@@ -36,12 +34,12 @@ export const standardSubmissionSchema = z.object({
     .min(1, "Regione è obbligatoria.")
     .max(100, "Nome regione troppo lungo (max 100 caratteri)."),
 
-  privacy_accepted: z.literal("on", {
-    errorMap: () => ({
+  privacy_accepted: z
+    .string()
+    .refine((val) => val === "on", {
       message:
         "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
     }),
-  }),
 });
 
 export type StandardSubmissionInput = z.infer<typeof standardSubmissionSchema>;
@@ -68,12 +66,12 @@ export const premiumInquirySchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  privacy_accepted: z.literal("on", {
-    errorMap: () => ({
+  privacy_accepted: z
+    .string()
+    .refine((val) => val === "on", {
       message:
         "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
     }),
-  }),
 });
 
 export type PremiumInquiryInput = z.infer<typeof premiumInquirySchema>;
@@ -99,12 +97,12 @@ export const contactFormSchema = z.object({
     .min(1, "Messaggio è obbligatorio.")
     .max(5000, "Messaggio troppo lungo (max 5000 caratteri)."),
 
-  privacy_accepted: z.literal("on", {
-    errorMap: () => ({
+  privacy_accepted: z
+    .string()
+    .refine((val) => val === "on", {
       message:
         "Devi accettare l'Informativa Privacy per poter inviare il messaggio.",
     }),
-  }),
 });
 
 export type ContactFormInput = z.infer<typeof contactFormSchema>;
