@@ -6,9 +6,8 @@ import { z } from "zod";
  * Uses Zod's built-in email validation which is more robust than regex
  */
 export const emailSchema = z
-  .string()
-  .email({ message: "Per favore, inserisci un indirizzo email valido." })
-  .max(254, "Email troppo lunga (max 254 caratteri).");
+  .email({ error: "Per favore, inserisci un indirizzo email valido." })
+  .max(254, { error: "Email troppo lunga (max 254 caratteri)." });
 
 /**
  * Standard Submission Form Schema
@@ -16,23 +15,22 @@ export const emailSchema = z
 export const standardSubmissionSchema = z.object({
   producer_name: z
     .string()
-    .min(1, "Nome del produttore è obbligatorio.")
-    .max(200, "Nome del produttore troppo lungo (max 200 caratteri)."),
+    .min(1, { error: "Nome del produttore è obbligatorio." })
+    .max(200, { error: "Nome del produttore troppo lungo (max 200 caratteri)." }),
 
   shop_url: z
-    .string()
-    .url({ message: "Per favore, inserisci un URL valido." })
-    .max(500, "URL troppo lungo (max 500 caratteri)."),
+    .url({ error: "Per favore, inserisci un URL valido." })
+    .max(500, { error: "URL troppo lungo (max 500 caratteri)." }),
 
   categories: z
     .array(z.string())
-    .min(1, "Seleziona almeno una categoria.")
-    .max(20, "Troppe categorie selezionate (max 20)."),
+    .min(1, { error: "Seleziona almeno una categoria." })
+    .max(20, { error: "Troppe categorie selezionate (max 20)." }),
 
   region: z
     .string()
-    .min(1, "Regione è obbligatoria.")
-    .max(100, "Nome regione troppo lungo (max 100 caratteri)."),
+    .min(1, { error: "Regione è obbligatoria." })
+    .max(100, { error: "Nome regione troppo lungo (max 100 caratteri)." }),
 
   privacy_accepted: z
     .string()
@@ -50,19 +48,19 @@ export type StandardSubmissionInput = z.infer<typeof standardSubmissionSchema>;
 export const premiumInquirySchema = z.object({
   producer_name: z
     .string()
-    .min(1, "Nome del produttore è obbligatorio.")
-    .max(200, "Nome del produttore troppo lungo (max 200 caratteri)."),
+    .min(1, { error: "Nome del produttore è obbligatorio." })
+    .max(200, { error: "Nome del produttore troppo lungo (max 200 caratteri)." }),
 
   contact_name: z
     .string()
-    .min(1, "Nome di contatto è obbligatorio.")
-    .max(200, "Nome di contatto troppo lungo (max 200 caratteri)."),
+    .min(1, { error: "Nome di contatto è obbligatorio." })
+    .max(200, { error: "Nome di contatto troppo lungo (max 200 caratteri)." }),
 
   email: emailSchema,
 
   message: z
     .string()
-    .max(5000, "Messaggio troppo lungo (max 5000 caratteri).")
+    .max(5000, { error: "Messaggio troppo lungo (max 5000 caratteri)." })
     .optional()
     .or(z.literal("")),
 
@@ -82,20 +80,20 @@ export type PremiumInquiryInput = z.infer<typeof premiumInquirySchema>;
 export const contactFormSchema = z.object({
   full_name: z
     .string()
-    .min(1, "Nome e cognome sono obbligatori.")
-    .max(200, "Nome e cognome troppo lungo (max 200 caratteri)."),
+    .min(1, { error: "Nome e cognome sono obbligatori." })
+    .max(200, { error: "Nome e cognome troppo lungo (max 200 caratteri)." }),
 
   email: emailSchema,
 
   subject: z
     .string()
-    .min(1, "Oggetto è obbligatorio.")
-    .max(300, "Oggetto troppo lungo (max 300 caratteri)."),
+    .min(1, { error: "Oggetto è obbligatorio." })
+    .max(300, { error: "Oggetto troppo lungo (max 300 caratteri)." }),
 
   message: z
     .string()
-    .min(1, "Messaggio è obbligatorio.")
-    .max(5000, "Messaggio troppo lungo (max 5000 caratteri)."),
+    .min(1, { error: "Messaggio è obbligatorio." })
+    .max(5000, { error: "Messaggio troppo lungo (max 5000 caratteri)." }),
 
   privacy_accepted: z
     .string()
