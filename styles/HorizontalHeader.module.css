@@ -141,6 +141,12 @@
   padding: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0.7;
+  outline: none;
+}
+
+.backArrow:focus-visible {
+  outline: 2px solid var(--refined-accent-gold);
+  outline-offset: 2px;
 }
 
 .backArrow:hover {
