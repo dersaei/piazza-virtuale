@@ -5,9 +5,23 @@ import styles from "@/styles/ChiSiamoPage.module.css";
 import italia from "@/public/territorio-italiano.png";
 
 export const metadata: Metadata = {
-  title: "Chi Siamo - Piazza Virtuale",
+  title: "Chi Siamo",
   description:
     "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
+  openGraph: {
+    title: "Chi Siamo | Piazza Virtuale",
+    description:
+      "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
+    url: "https://piazzavirtuale.it/chi-siamo",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chi Siamo | Piazza Virtuale",
+    description:
+      "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
+    images: ["/opengraph-image"],
+  },
   alternates: {
     canonical: "/chi-siamo",
   },

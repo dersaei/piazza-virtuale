@@ -5,11 +5,33 @@ import styles from '@/styles/MagazinePage.module.css';
 import { getMagazineCards } from '@/lib/api/magazine';
 
 export const metadata: Metadata = {
-  title: 'Magazine - Piazza Virtuale',
+  title: 'Magazine',
   description:
     'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+  keywords: [
+    'magazine',
+    'guide',
+    'prodotti italiani',
+    'produttori',
+    'made in italy',
+    'consigli acquisto',
+  ],
+  openGraph: {
+    title: 'Magazine | Piazza Virtuale',
+    description:
+      'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+    url: 'https://piazzavirtuale.it/magazine',
+    images: ['/opengraph-image'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Magazine | Piazza Virtuale',
+    description:
+      'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+    images: ['/opengraph-image'],
+  },
   alternates: {
-    canonical: "/magazine",
+    canonical: '/magazine',
   },
 };
 

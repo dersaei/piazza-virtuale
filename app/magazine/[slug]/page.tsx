@@ -17,15 +17,52 @@ export async function generateMetadata({
 
   if (!article) {
     return {
-      title: 'Articolo non trovato | Magazine - Piazza Virtuale',
+      title: 'Articolo non trovato',
+      description: 'L\'articolo richiesto non è stato trovato nel nostro magazine.',
     };
   }
 
   const plainTitle = article.title.replace(/<[^>]*>/g, '');
+  const plainDescription = article.content.substring(0, 160).replace(/<[^>]*>/g, '').trim() + '...';
 
   return {
-    title: `${plainTitle} | Magazine - Piazza Virtuale`,
-    description: article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
+    title: plainTitle,
+    description: plainDescription,
+    keywords: [
+      article.category,
+      'magazine',
+      'produttori italiani',
+      'cibo italiano',
+      'bevande italiane',
+      'made in italy',
+    ],
+    authors: [{ name: 'Piazza Virtuale' }],
+    openGraph: {
+      type: 'article',
+      locale: 'it_IT',
+      url: `https://piazzavirtuale.it/magazine/${slug}`,
+      siteName: 'Piazza Virtuale',
+      title: `${plainTitle} | Magazine - Piazza Virtuale`,
+      description: plainDescription,
+      publishedTime: article.date_created,
+      modifiedTime: article.date_updated || article.date_created,
+      authors: ['Piazza Virtuale'],
+      section: article.category,
+      images: [
+        {
+          url: `/magazine/${slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: plainTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${plainTitle} | Magazine - Piazza Virtuale`,
+      description: plainDescription,
+      images: [`/magazine/${slug}/opengraph-image`],
+    },
     alternates: {
       canonical: `/magazine/${slug}`,
     },

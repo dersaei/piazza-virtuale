@@ -14,10 +14,57 @@ import ScrollToTop from "@/components/ScrollToTop";
 import AckeeTracker from "@/components/AckeeTracker";
 
 export const metadata: Metadata = {
-  title: "Piazza Virtuale",
-  description:
-    "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande",
   metadataBase: new URL("https://piazzavirtuale.it"),
+  title: {
+    default: "Piazza Virtuale",
+    template: "%s | Piazza Virtuale",
+  },
+  description:
+    "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande. Scopri i migliori produttori che vendono online direttamente ai consumatori.",
+  keywords: [
+    "produttori italiani",
+    "e-shop",
+    "cibo italiano",
+    "bevande italiane",
+    "made in italy",
+    "acquisto diretto",
+    "food italiano",
+    "specialità regionali",
+    "eccellenze italiane",
+    "vendita diretta",
+  ],
+  authors: [{ name: "Piazza Virtuale" }],
+  creator: "Piazza Virtuale",
+  publisher: "Piazza Virtuale",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "it_IT",
+    url: "https://piazzavirtuale.it",
+    siteName: "Piazza Virtuale",
+    title: "Piazza Virtuale - Il catalogo degli e-shop dei produttori italiani",
+    description:
+      "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande. Scopri i migliori produttori che vendono online direttamente ai consumatori.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Piazza Virtuale - Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Piazza Virtuale - Il catalogo degli e-shop dei produttori italiani",
+    description:
+      "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande. Scopri i migliori produttori che vendono online direttamente ai consumatori.",
+    images: ["/opengraph-image"],
+  },
   alternates: {
     canonical: "/",
   },

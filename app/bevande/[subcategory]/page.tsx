@@ -17,7 +17,8 @@ export async function generateMetadata({
 
   if (!VALID_SUBCATEGORIES.includes(subcategory)) {
     return {
-      title: 'Categoria non trovata | Piazza Virtuale',
+      title: 'Categoria non trovata',
+      description: 'La categoria richiesta non esiste.',
     };
   }
 
@@ -26,13 +27,48 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: 'Categoria non trovata | Piazza Virtuale',
+      title: 'Categoria non trovata',
+      description: 'La categoria richiesta non esiste.',
     };
   }
 
+  const title = `${category.label} - ${category.title} Italiani`;
+  const description = `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori. Prodotti artigianali e tradizionali del Made in Italy.`;
+
   return {
-    title: `${category.label} - ${category.title} Italiani | Piazza Virtuale`,
-    description: `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori.`,
+    title,
+    description,
+    keywords: [
+      category.label.toLowerCase(),
+      category.title.toLowerCase(),
+      'bevande italiane',
+      'produttori italiani',
+      'made in italy',
+      'vendita diretta',
+      'e-shop',
+    ],
+    openGraph: {
+      type: 'website',
+      locale: 'it_IT',
+      url: `https://piazzavirtuale.it/bevande/${subcategory}`,
+      siteName: 'Piazza Virtuale',
+      title: `${title} | Piazza Virtuale`,
+      description,
+      images: [
+        {
+          url: '/opengraph-image',
+          width: 1200,
+          height: 630,
+          alt: `${title} - Piazza Virtuale`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Piazza Virtuale`,
+      description,
+      images: ['/opengraph-image'],
+    },
     alternates: {
       canonical: `/bevande/${subcategory}`,
     },
