@@ -2,7 +2,7 @@
 // Font configuration using next/font for optimal performance
 // All fonts are self-hosted and preloaded automatically by Next.js
 
-import { Lora, Source_Sans_3, Outfit, GFS_Didot } from "next/font/google";
+import { Lora, Source_Sans_3, Outfit, Bodoni_Moda_SC } from "next/font/google";
 
 /**
  * Lora - Serif font for body text and elegant typography
@@ -44,15 +44,14 @@ export const fontFutura = Outfit({
 });
 
 /**
- * Cormorant Garamond - Elegant serif font for special headings
+ * Bodoni Moda SC - Elegant serif font with small caps for special headings
  * Replaces: Didot
  * Variable font for optimal performance
- * Weights used: 300, 400, 500, 600
+ * Axes: Italic (ital), Optical Size (opsz), Weight (wght)
  */
-export const fontDidot = GFS_Didot({
-  weight: ["400"],
-  subsets: ["latin"],
+export const fontDidot = Bodoni_Moda_SC({
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   variable: "--font-didot",
-  style: ["normal"],
+  // Variable fonts don't need weight specification
 });
