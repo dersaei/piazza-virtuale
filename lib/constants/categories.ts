@@ -28,7 +28,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   "bevande-birre": {
     id: "bevande-birre",
-    label: "Birre",
+    label: "Birre e Sidri",
     slug: "bevande-birre",
     title: "Birrifici Artigianali",
     href: "/bevande/birre",
