@@ -130,7 +130,10 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 1060px) {
+  .homePage {
+    padding: var(--space-lg);
+  }
   .heroSection {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -264,7 +267,7 @@
 }
 
 .catalogTitle {
-  font-size: 1.7rem;
+  font-size: 1.75rem;
   font-weight: 600;
   color: #5d6358;
   font-family: var(--font-didot);
@@ -284,7 +287,7 @@
 }
 
 /* Responsive Design for Catalog Section */
-@media (max-width: 1024px) {
+@media (max-width: 1060px) {
   .catalogIntro {
     margin: 40px 30px 30px 30px;
     padding: 40px 45px;
