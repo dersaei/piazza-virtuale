@@ -108,7 +108,7 @@ export async function getProducersCountByCategory(
 }
 
 /**
- * Get counts for all main categories
+ * Get counts for all categories
  * Returns a map of category slug to producer count
  */
 export async function getAllCategoryCounts(): Promise<
@@ -123,23 +123,19 @@ export async function getAllCategoryCounts(): Promise<
         fields: [
           "id",
           "category.slug",
-          "category.parent_category.slug",
         ],
         limit: -1,
       })
     );
 
-    // Count producers by main category
+    // Count producers by their actual category
     const counts: Record<string, number> = {};
 
     for (const producer of producers) {
-      // Use parent category if exists, otherwise use the category itself
-      const mainCategorySlug =
-        producer.category?.parent_category?.slug ||
-        producer.category?.slug;
+      const categorySlug = producer.category?.slug;
 
-      if (mainCategorySlug) {
-        counts[mainCategorySlug] = (counts[mainCategorySlug] || 0) + 1;
+      if (categorySlug) {
+        counts[categorySlug] = (counts[categorySlug] || 0) + 1;
       }
     }
 

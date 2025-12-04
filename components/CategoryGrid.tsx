@@ -1,15 +1,20 @@
 // components/CategoryGrid.tsx
 import Link from "next/link";
 import { getAllCategoryCounts } from "@/lib/api/producers";
-import { MAIN_CATEGORY_LIST } from "@/lib/constants/categories";
+import { CATEGORY_LIST } from "@/lib/constants/categories";
 import styles from "@/styles/CategoryGrid.module.css";
 
 export async function CategoryGrid() {
   const categoryCounts = await getAllCategoryCounts();
 
+  // Filter out parent categories (Bevande, Condimenti) - show only leaf categories
+  const displayCategories = CATEGORY_LIST.filter(
+    (category) => !category.subcategories
+  );
+
   return (
     <div className={styles.categoryGrid}>
-      {MAIN_CATEGORY_LIST.map((category) => {
+      {displayCategories.map((category) => {
         const count = categoryCounts[category.slug] || 0;
 
         return (
