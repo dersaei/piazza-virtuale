@@ -327,3 +327,21 @@
     font-size: 1.25rem;
   }
 }
+
+/* Categories Section */
+.categoriesSection {
+  padding: 2rem 40px 4rem 40px;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #7a8471;
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .categoriesSection {
+    padding: 1.5rem 20px 3rem 20px;
+  }
+}

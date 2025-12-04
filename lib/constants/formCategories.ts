@@ -12,7 +12,7 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
   // BEVANDE
   {
     id: "bevande-birre",
-    label: "Bevande - Birre",
+    label: "Bevande - Birre e Sidri",
     group: "Bevande",
   },
   {
@@ -21,17 +21,17 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
     group: "Bevande",
   },
   {
-    id: "bevande-distillati-liquori",
+    id: "bevande-distillati",
     label: "Bevande - Distillati e Liquori",
     group: "Bevande",
   },
   {
-    id: "bevande-caffe-te",
+    id: "bevande-caffe",
     label: "Bevande - Caffè e Tè",
     group: "Bevande",
   },
   {
-    id: "bevande-succhi-infusi",
+    id: "bevande-succhi",
     label: "Bevande - Succhi e Infusi",
     group: "Bevande",
   },
@@ -60,12 +60,8 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
 
   // ALTRE (bez grupy)
   {
-    id: "conserve-dolci",
-    label: "Conserve Dolci",
-  },
-  {
-    id: "conserve-salate",
-    label: "Conserve Salate",
+    id: "conserve",
+    label: "Conserve",
   },
   {
     id: "miele",
@@ -73,15 +69,15 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
   },
   {
     id: "legumi",
-    label: "Legumi",
-  },
-  {
-    id: "dolci",
-    label: "Dolci",
+    label: "Legumi e Cereali",
   },
   {
     id: "caseificio",
     label: "Caseificio",
+  },
+  {
+    id: "dolci",
+    label: "Dolci",
   },
   {
     id: "olii",
@@ -92,6 +88,10 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
     label: "Pane",
   },
   {
+    id: "riso",
+    label: "Riso",
+  },
+  {
     id: "pasta",
     label: "Pasta",
   },
@@ -100,16 +100,16 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
     label: "Farina",
   },
   {
-    id: "cereali",
-    label: "Cereali",
-  },
-  {
     id: "pescare",
     label: "Pescare",
   },
   {
     id: "salumi",
     label: "Salumi",
+  },
+  {
+    id: "frutta-secca",
+    label: "Frutta Secca",
   },
 ];
 

@@ -20,6 +20,7 @@
 export {
   getProducersByCategory,
   getProducersCountByCategory,
+  getAllCategoryCounts,
   type ProducerDTO,
 } from "./producers";
 

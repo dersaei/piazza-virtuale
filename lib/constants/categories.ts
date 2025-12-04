@@ -74,7 +74,12 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     slug: "condimenti",
     title: "Produttori di Condimenti",
     href: "/condimenti",
-    subcategories: ["condimenti-pesto", "condimenti-aceto", "condimenti-pomodori", "condimenti-altre"],
+    subcategories: [
+      "condimenti-pesto",
+      "condimenti-aceto",
+      "condimenti-pomodori",
+      "condimenti-altre",
+    ],
   },
   "condimenti-pesto": {
     id: "condimenti-pesto",

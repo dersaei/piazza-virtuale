@@ -1,8 +1,10 @@
 // app/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Suspense } from "react";
 import styles from "@/styles/HomePage.module.css";
 import territorioItaliano from "@/public/territorio-italiano.png";
+import { CategoryGrid } from "@/components/CategoryGrid";
 
 export const metadata: Metadata = {
   title:
@@ -42,6 +44,13 @@ export default function HomePage() {
         <h2 className={styles.catalogTitle}>
           Catalogo degli e-shop di produttori italiani di cibo e bevande
         </h2>
+      </section>
+
+      {/* Categories Grid Section */}
+      <section className={styles.categoriesSection}>
+        <Suspense fallback={<div className={styles.loading}>Caricamento...</div>}>
+          <CategoryGrid />
+        </Suspense>
       </section>
     </div>
   );

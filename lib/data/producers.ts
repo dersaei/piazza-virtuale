@@ -106,3 +106,46 @@ export async function getProducersCountByCategory(
     return 0;
   }
 }
+
+/**
+ * Get counts for all main categories
+ * Returns a map of category slug to producer count
+ */
+export async function getAllCategoryCounts(): Promise<
+  Record<string, number>
+> {
+  try {
+    const producers = await directusClient.request(
+      readItems("producers", {
+        filter: {
+          status: { _eq: "published" },
+        },
+        fields: [
+          "id",
+          "category.slug",
+          "category.parent_category.slug",
+        ],
+        limit: -1,
+      })
+    );
+
+    // Count producers by main category
+    const counts: Record<string, number> = {};
+
+    for (const producer of producers) {
+      // Use parent category if exists, otherwise use the category itself
+      const mainCategorySlug =
+        producer.category?.parent_category?.slug ||
+        producer.category?.slug;
+
+      if (mainCategorySlug) {
+        counts[mainCategorySlug] = (counts[mainCategorySlug] || 0) + 1;
+      }
+    }
+
+    return counts;
+  } catch (error) {
+    console.error("Error fetching category counts:", error);
+    return {};
+  }
+}
