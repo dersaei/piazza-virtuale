@@ -48,6 +48,11 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
     group: "Condimenti",
   },
   {
+    id: "condimenti-pomodori",
+    label: "Condimenti - Pomodori",
+    group: "Condimenti",
+  },
+  {
     id: "condimenti-altre",
     label: "Condimenti - Altre",
     group: "Condimenti",

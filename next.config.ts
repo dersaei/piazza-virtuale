@@ -23,6 +23,16 @@ const nextConfig: NextConfig = {
     // removeConsole: process.env.NODE_ENV === 'production',
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/pomodori",
+        destination: "/condimenti/pomodori",
+        permanent: true, // 301 redirect for SEO
+      },
+    ];
+  },
+
   async headers() {
     // Content Security Policy (CSP) for XSS protection
     const cspHeader = `

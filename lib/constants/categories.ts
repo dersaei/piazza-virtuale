@@ -74,7 +74,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     slug: "condimenti",
     title: "Produttori di Condimenti",
     href: "/condimenti",
-    subcategories: ["condimenti-pesto", "condimenti-aceto", "condimenti-altre"],
+    subcategories: ["condimenti-pesto", "condimenti-aceto", "condimenti-pomodori", "condimenti-altre"],
   },
   "condimenti-pesto": {
     id: "condimenti-pesto",
@@ -90,6 +90,14 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     slug: "condimenti-aceto",
     title: "Produttori di Aceto",
     href: "/condimenti/aceto",
+    parent: "condimenti",
+  },
+  "condimenti-pomodori": {
+    id: "condimenti-pomodori",
+    label: "Pomodori",
+    slug: "condimenti-pomodori",
+    title: "Produttori di Pomodori",
+    href: "/condimenti/pomodori",
     parent: "condimenti",
   },
   "condimenti-altre": {
@@ -108,13 +116,6 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
     slug: "conserve",
     title: "Conserve",
     href: "/conserve",
-  },
-  pomodori: {
-    id: "pomodori",
-    label: "Pomodori",
-    slug: "pomodori",
-    title: "Produttori di Pomodori",
-    href: "/pomodori",
   },
   miele: {
     id: "miele",

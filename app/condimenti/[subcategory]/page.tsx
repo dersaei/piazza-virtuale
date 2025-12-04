@@ -6,7 +6,7 @@ import ProducerCard from '@/components/ProducerCard';
 import styles from '@/styles/CategoryPage.module.css';
 import { getProducersByCategory } from '@/lib/api/producers';
 
-const VALID_SUBCATEGORIES = ['pesto', 'aceto', 'altre'];
+const VALID_SUBCATEGORIES = ['pesto', 'aceto', 'pomodori', 'altre'];
 
 export async function generateMetadata({
   params,
