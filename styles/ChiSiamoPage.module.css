@@ -188,6 +188,59 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Content Section */
+.contentSection {
+  padding: 60px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(253, 251, 247, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(182, 192, 186, 0.1);
+}
+
+.contentSection .intro {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: #7a8471;
+  font-family: var(--font-didot);
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  text-align: center;
+  font-style: italic;
+}
+
+.contentSection h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.contentSection h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #b8a281, transparent);
+  opacity: 0.5;
+}
+
+.contentSection p {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: #666;
+  font-family: var(--font-futura);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  text-align: justify;
+}
 @media (max-width: 1060px) {
   .chiSiamoPage {
     padding: var(--space-lg);
@@ -214,5 +267,17 @@
   .accentWrapper::before,
   .accentWrapper::after {
     display: none; /* Hide decorative dots on mobile */
+  }
+
+  .contentSection {
+    padding: 40px 20px;
+  }
+
+  .contentSection p {
+    text-align: left;
+  }
+
+  .contentSection h2 {
+    margin-top: 30px;
   }
 }

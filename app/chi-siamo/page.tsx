@@ -58,6 +58,45 @@ export default function ChiSiamoPage() {
           <Image src={italia} alt="territorio italiano" />
         </div>
       </section>
+
+      <section className={styles.contentSection}>
+        <p className={styles.intro}>
+          Il catalogo italiano di negozi online ufficiali di produttori di cibo
+          e bevande dall&rsquo;Italia, rivolto ai consumatori che cercano
+          acquisti diretti dai produttori.
+        </p>
+
+        <h2>Cos&rsquo;è questo sito</h2>
+        <p>
+          Il sito &ldquo;Piazza Virtuale&rdquo; si presenta come una vetrina
+          virtuale di e-shop di produttori enogastronomici italiani, ovvero di
+          alimenti e bevande. Il suo obiettivo è facilitare la ricerca di
+          produttori che vendono i propri prodotti direttamente online, senza
+          intermediari.
+        </p>
+
+        <h2>Principali categorie di prodotti</h2>
+        <p>
+          Sulla pagina principale sono raccolti i link ai produttori in molte
+          categorie, come bevande (birra, sidro, vino, distillati, caffè e tè,
+          succhi), condimenti e aggiunte (pesto, aceto, pomodori, altre salse),
+          nonché conserve, mieli, legumi e cereali, prodotti lattiero-caseari,
+          dolciumi, oli, pane, riso, pasta, farina, pesce, salumi e frutta secca
+          e disidratata. Ogni categoria mostra il numero di produttori
+          disponibili nel catalogo, ad esempio sezioni separate per vino, olio,
+          pasta o formaggi.
+        </p>
+
+        <h2>Come funziona il catalogo</h2>
+        <p>
+          Cliccando sulla categoria scelta si accede all&rsquo;elenco dei
+          produttori che offrono la vendita online nel segmento specifico,
+          permettendo di scoprire i loro negozi ufficiali. Il sito dispone anche
+          di sezioni informative (magazine, descrizione del progetto, come
+          funziona, contatti) e collegamenti all&rsquo;informativa sulla privacy,
+          ai cookie e alle informazioni legali.
+        </p>
+      </section>
     </div>
   );
 }
