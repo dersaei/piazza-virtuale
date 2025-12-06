@@ -115,7 +115,7 @@
   letter-spacing: 0.15em;
   color: var(--vertical-header-bg);
   text-transform: uppercase;
-  font-family: var(--font-futura);
+  font-family: var(--font-sans);
 }
 
 .categoryButton:hover,

@@ -64,9 +64,9 @@
 .menuButtonText {
   display: block;
   padding: 0;
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: -2;
   color: #2d2d2d;
   text-transform: uppercase;
   font-family: var(--font-didot);
@@ -239,7 +239,7 @@
   color: var(--refined-text-primary);
   text-transform: uppercase;
   text-align: center;
-  font-family: var(--font-sans);
+  font-family: var(--font-didot);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 

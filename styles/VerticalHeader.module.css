@@ -108,13 +108,13 @@
 }
 
 .buttonText {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   color: var(--refined-text-primary);
   text-transform: uppercase;
   text-align: center;
-  font-family: var(--font-sans);
+  font-family: var(--font-didot);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -138,7 +138,7 @@
     margin: 0 auto;
   }
   .buttonText {
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     letter-spacing: 0.1em;
   }
   .nav {

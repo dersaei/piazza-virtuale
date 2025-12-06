@@ -105,7 +105,7 @@
 
 .textContent {
   flex: 1;
-  font-family: var(--font-sans);
+  font-family: var(--font-futura);
   line-height: 1.8;
   color: #2c2f2a;
 }
