@@ -48,7 +48,9 @@ export default function HomePage() {
 
       {/* Categories Grid Section */}
       <section className={styles.categoriesSection}>
-        <Suspense fallback={<div className={styles.loading}>Caricamento...</div>}>
+        <Suspense
+          fallback={<div className={styles.loading}>Caricamento...</div>}
+        >
           <CategoryGrid />
         </Suspense>
       </section>
