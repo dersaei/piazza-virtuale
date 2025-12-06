@@ -1,9 +1,7 @@
 // app/page.tsx
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Suspense } from "react";
 import styles from "@/styles/HomePage.module.css";
-import territorioItaliano from "@/public/territorio-italiano.png";
 import { CategoryGrid } from "@/components/CategoryGrid";
 
 export const metadata: Metadata = {
@@ -16,35 +14,18 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className={styles.homePage}>
-      <section className={styles.heroSection}>
-        {/* Left Column - Text */}
-        <div className={styles.heroText}>
-          <h1 className={styles.heroHeading}>
-            Scopri con noi i produttori italiani&nbsp;
-            <span className={styles.highlight}>di cibo e bevande</span>
-            che vendono direttamente&nbsp;
-            <span className={styles.highlight}>online</span>
-          </h1>
-        </div>
-
-        {/* Right Column - Image */}
-        <div className={styles.heroImage}>
-          <Image
-            src={territorioItaliano}
-            alt="Piazza Virtuale Catalogo di e-shop aziendali, produttori italiani di alimenti e bevande"
-            className={styles.mapImage}
-            priority
-            fetchPriority="high"
-          />
-        </div>
-      </section>
-
       {/* Catalog Introduction Section */}
       <section className={styles.catalogIntro}>
-        <h2 className={styles.catalogTitle}>
-          Catalogo degli e-shop di produttori italiani di cibo e bevande
-        </h2>
+        <h1 className={styles.catalogTitle}>
+          Vetrina dei negozi online di produttori italiani enogastronomici
+        </h1>
       </section>
+      <h2 className={styles.heroHeading}>
+        Scopri con noi i produttori italiani&nbsp;
+        <span className={styles.highlight}>di cibo e bevande</span>
+        che vendono direttamente&nbsp;
+        <span className={styles.highlight}>online</span>
+      </h2>
 
       {/* Categories Grid Section */}
       <section className={styles.categoriesSection}>
