@@ -226,8 +226,8 @@ export default function PrivacyPage() {
           <h2>6. Trasferimento Dati Extra-UE</h2>
           <p>
             Tutti i fornitori di servizi utilizzati hanno sede nell&rsquo;Unione
-            Europea o in Polonia. I dati personali sono conservati
-            esclusivamente all&rsquo;interno del territorio dell&rsquo;UE.
+            Europea. I dati personali sono conservati esclusivamente
+            all&rsquo;interno del territorio dell&rsquo;UE.
           </p>
           <p>
             Nel caso in cui alcuni servizi dovessero trasferire dati al di fuori
@@ -246,7 +246,7 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>
-              <strong>Dati di navigazione (Ackee):</strong> 30 giorni in forma
+              <strong>Dati di navigazione (Ackee):</strong> 180 giorni in forma
               anonimizzata
             </li>
             <li>
