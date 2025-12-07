@@ -127,6 +127,17 @@ strong::-moz-selection {
   scrollbar-color: #7a8471 rgba(182, 192, 186, 0.15);
 }
 
+/* Layout visibility control */
+/* Desktop layout is visible by default */
+.desktop-layout {
+  display: block;
+}
+
+/* Mobile layout is hidden by default */
+.mobile-layout {
+  display: none;
+}
+
 /* Mobile-specific content */
 .mobile-main-content {
   display: none;
@@ -135,6 +146,7 @@ strong::-moz-selection {
 .mobile-footer-wrapper {
   display: none;
 }
+
 @media (max-width: 1060px) {
   .main-content {
     padding: var(--space-xs);
@@ -153,18 +165,19 @@ strong::-moz-selection {
   }
 }
 
-/* Mobile layout - max 600px */
+/* Mobile layout - max 650px */
 @media (max-width: 650px) {
-  /* Hide desktop headers */
-  .verticalHeader {
-    display: none !important;
-  }
-
-  .main-content-area {
+  /* Hide desktop layout completely */
+  .desktop-layout {
     display: none !important;
   }
 
   /* Show mobile layout */
+  .mobile-layout {
+    display: block !important;
+  }
+
+  /* Show mobile-specific content within mobile layout */
   .mobile-main-content {
     display: block;
     margin-top: calc(

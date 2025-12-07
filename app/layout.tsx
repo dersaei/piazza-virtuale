@@ -94,23 +94,27 @@ export default function RootLayout({
           <AckeeTracker />
         </Suspense>
         <ScrollToTop />
-        <div>
-          {/* Desktop headers */}
+
+        {/* Desktop layout - hidden on mobile via CSS */}
+        <div className="desktop-layout">
           <VerticalHeader />
           <div className="main-content-area">
             <HorizontalHeader />
             <main className="main-content">{children}</main>
             <Footer />
           </div>
+        </div>
 
-          {/* Mobile headers */}
+        {/* Mobile layout - hidden on desktop via CSS */}
+        <div className="mobile-layout">
           <MobileHeader />
           <MobileCategorySelector />
-          <main className="mobile-main-content">{children}</main>
+          <div className="mobile-main-content">{children}</div>
           <div className="mobile-footer-wrapper">
             <Footer />
           </div>
         </div>
+
         <AgeGateModal />
       </body>
     </html>
