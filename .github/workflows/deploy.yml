@@ -12,12 +12,18 @@ jobs:
     steps:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+          NEXT_PUBLIC_DIRECTUS_URL: ${{ secrets.NEXT_PUBLIC_DIRECTUS_URL }}
+          DIRECTUS_LOGO_FOLDER_ID: ${{ secrets.DIRECTUS_LOGO_FOLDER_ID }}
+          REVALIDATE_SECRET_TOKEN: ${{ secrets.REVALIDATE_SECRET_TOKEN }}
         with:
           host: 185.238.72.187
           port: 2222
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           timeout: 300s
+          envs: DIRECTUS_URL,NEXT_PUBLIC_DIRECTUS_URL,DIRECTUS_LOGO_FOLDER_ID,REVALIDATE_SECRET_TOKEN
           script: |
             # Colors for output formatting 
             RED='\033[0;31m'
@@ -60,13 +66,26 @@ jobs:
 
             # Step 4: Build the application in standalone mode
             echo -e "${YELLOW}🔨 Building application for standalone deployment...${NC}"
+
+            # Environment variables are already set by GitHub Actions via 'envs' parameter
+            # They are available as: $DIRECTUS_URL, $NEXT_PUBLIC_DIRECTUS_URL, etc.
+            echo "Using Directus URL: $DIRECTUS_URL"
+
             npm run build
 
             # Verify the standalone build was successful
-            if [ ! -f .next/standalone/server.js ]; then
+            # Check for server.js in various possible locations
+            if [ -f .next/standalone/server.js ]; then
+              echo -e "${GREEN}✅ Found server.js in .next/standalone/${NC}"
+            elif [ -f .next/standalone/piazza-virtuale/server.js ]; then
+              echo -e "${GREEN}✅ Found server.js in .next/standalone/piazza-virtuale/${NC}"
+              # Move it to expected location
+              mv .next/standalone/piazza-virtuale/server.js .next/standalone/server.js
+              mv .next/standalone/piazza-virtuale/* .next/standalone/ 2>/dev/null || true
+            else
               echo -e "${RED}❌ Standalone build failed - server.js not found${NC}"
-              echo "Checking build output..."
-              ls -la .next/ 2>/dev/null || echo "No .next directory found"
+              echo "Checking build output structure..."
+              ls -laR .next/standalone/ 2>/dev/null || echo "No standalone directory found"
               exit 1
             fi
 
@@ -97,7 +116,8 @@ jobs:
             if [ ! -f ecosystem.config.js ]; then
               echo -e "${RED}❌ PM2 ecosystem.config.js not found in workspace${NC}"
               echo "Creating basic ecosystem configuration..."
-              cat > ecosystem.config.js << 'EOF'
+              # Create ecosystem.config.js with environment variables from GitHub Secrets
+              cat > ecosystem.config.js << EOF
             module.exports = {
               apps: [
                 {
@@ -109,7 +129,11 @@ jobs:
                   env: {
                     NODE_ENV: 'production',
                     PORT: 3000,
-                    HOSTNAME: '0.0.0.0'
+                    HOSTNAME: '0.0.0.0',
+                    DIRECTUS_URL: '$DIRECTUS_URL',
+                    NEXT_PUBLIC_DIRECTUS_URL: '$NEXT_PUBLIC_DIRECTUS_URL',
+                    DIRECTUS_LOGO_FOLDER_ID: '$DIRECTUS_LOGO_FOLDER_ID',
+                    REVALIDATE_SECRET_TOKEN: '$REVALIDATE_SECRET_TOKEN'
                   },
                   watch: false,
                   max_memory_restart: '1G',
