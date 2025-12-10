@@ -35,6 +35,16 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# documentation and config examples (not needed in git)
+*.example
+DEPLOYMENT.md
+CACHE_SETUP.md
+BROWSERSLIST_OPTIMIZATION.md
+API_ROUTES_MIGRATION.md
+FORMS_MIGRATION_NEXTJS16.md
+VPS_ECOSYSTEM_CONFIG.txt
+nginx*.conf
+
 # vercel
 .vercel
 

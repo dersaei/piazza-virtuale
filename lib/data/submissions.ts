@@ -4,7 +4,7 @@ import { directusClient } from "./directus-client";
 import { createItem, uploadFiles } from "@directus/sdk";
 
 // Constants
-const LOGO_FOLDER_ID = "6117a847-6c58-489e-8b9e-61991620ad24";
+const LOGO_FOLDER_ID = process.env.DIRECTUS_LOGO_FOLDER_ID || "6117a847-6c58-489e-8b9e-61991620ad24";
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 const ALLOWED_FILE_TYPES = [
   "image/png",
@@ -103,13 +103,31 @@ async function uploadLogo(file: File): Promise<FileUploadResult> {
       uploadFiles(logoFormData)
     );
 
-    // Extract ID from response
+    // Validate upload response
+    if (!uploadedFiles) {
+      return {
+        success: false,
+        error: "Nessuna risposta dal server durante il caricamento del file.",
+      };
+    }
+
+    // Extract ID from response (handle different response structures)
     const fileId = uploadedFiles?.data?.id || uploadedFiles?.id;
 
     if (!fileId) {
+      console.error("Invalid upload response structure:", uploadedFiles);
       return {
         success: false,
-        error: "Errore durante il caricamento del file.",
+        error: "Risposta invalida dal server. Il file potrebbe non essere stato caricato.",
+      };
+    }
+
+    // Validate fileId is a non-empty string
+    if (typeof fileId !== "string" || fileId.trim() === "") {
+      console.error("Invalid fileId received:", fileId);
+      return {
+        success: false,
+        error: "ID file invalido ricevuto dal server.",
       };
     }
 

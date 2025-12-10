@@ -13,19 +13,13 @@ import { createDirectus, rest } from "@directus/sdk";
  * IMPORTANT: This is the ONLY function that should access process.env
  */
 function getDirectusUrl(): string {
-  // Check if we're running in production
-  if (process.env.NODE_ENV === "production") {
-    // If this code runs on the server (SSR/API routes), use internal connection
-    if (typeof window === "undefined") {
-      return "http://localhost:8055"; // Server-side: direct local connection
-    }
-
-    // If this code runs in the browser, use the public subdomain
-    return "https://cms.piazzavirtuale.it"; // Client-side: public subdomain
+  // Server-side: Use DIRECTUS_URL (internal connection, not exposed to client)
+  if (typeof window === "undefined") {
+    return process.env.DIRECTUS_URL || "http://localhost:8055";
   }
 
-  // Development environment - use direct IP access
-  return "http://185.238.72.187:8055";
+  // Client-side: Use NEXT_PUBLIC_DIRECTUS_URL (public URL, exposed to browser)
+  return process.env.NEXT_PUBLIC_DIRECTUS_URL || "http://localhost:8055";
 }
 
 /**
@@ -35,14 +29,6 @@ function getDirectusUrl(): string {
 export const directusClient = createDirectus(getDirectusUrl()).with(rest());
 
 /**
- * Type-safe Directus collections
- * Add your collection types here for better type safety
+ * Re-export Directus schema types for convenience
  */
-export type DirectusCollections = {
-  producers: unknown; // TODO: Add proper type
-  standard_submissions: unknown; // TODO: Add proper type
-  premium_inquiries: unknown; // TODO: Add proper type
-  contact_messages: unknown; // TODO: Add proper type
-  magazine_articles: unknown; // TODO: Add proper type
-  magazine_cards: unknown; // TODO: Add proper type
-};
+export type { DirectusSchema } from "@/types/directus";
