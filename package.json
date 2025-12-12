@@ -13,19 +13,19 @@
     "@directus/sdk": "^20.3.0",
     "ackee-tracker": "^5.1.2",
     "isomorphic-dompurify": "^2.34.0",
-    "next": "^16.0.8",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "server-only": "^0.0.1",
     "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@types/node": "^24.10.2",
+    "@types/node": "^24.10.3",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.1",
-    "eslint-config-next": "^16.0.8",
+    "eslint-config-next": "^16.0.10",
     "typescript": "^5.9.3"
   }
 }
