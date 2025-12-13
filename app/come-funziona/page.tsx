@@ -1,19 +1,16 @@
 // app/come-funziona/page.tsx
-import type { Metadata } from "next";
+'use client';
+
+import { useState } from "react";
+import Image from "next/image";
+import logotest from "@/public/android-chrome-192x192.png";
 import styles from "@/styles/ComeFunziona.module.css";
 import StandardSubmissionForm from "@/components/StandardSubmissionForm";
 import PremiumInquiryForm from "@/components/PremiumInquiryForm";
-
-export const metadata: Metadata = {
-  title: "Come Funziona | Piazza Virtuale",
-  description:
-    "Scopri come funziona Piazza Virtuale e come aggiungere il tuo e-shop al nostro catalogo",
-  alternates: {
-    canonical: "/come-funziona",
-  },
-};
+import PremiumModal from "@/components/PremiumModal";
 
 export default function ComeFunzionaPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={styles.comeFunzionaPage}>
       <main className={styles.heroSection}>
@@ -104,6 +101,48 @@ export default function ComeFunzionaPage() {
           </div>
         </div>
       </main>
+
+      {/* Premium Card Prototype */}
+      <section className={styles.premiumCardPrototype}>
+        <h2 className={styles.prototypeTitle}>Anteprima Scheda Premium</h2>
+        <article className={styles.premiumCard}>
+          <p className={styles.premiumCategoryName}>FARINA</p>
+          <p className={styles.premiumRegionName}>Toscana</p>
+          <h3 className={styles.premiumProducerName}>Mulino del Conte</h3>
+
+          <div className={styles.premiumLogoContainer}>
+            <Image src={logotest} alt="Mulino del Conte Logo" />
+          </div>
+
+          <button
+            type="button"
+            className={styles.premiumInfoButton}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Scopri di più
+          </button>
+
+          <div className={styles.premiumFeaturedProducts}>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+              deserunt fugit veritatis magni mollitia quos perferendis error
+              perspiciatis alias repudiandae aspernatur ab, quidem pariatur
+              laborum temporibus assumenda quaerat sed quod!
+            </p>
+          </div>
+
+          <a href="#" className={styles.premiumCtaButton}>
+            <div className={styles.premiumButtonInner}>
+              <span className={styles.premiumButtonText}>Visita lo Shop</span>
+            </div>
+          </a>
+        </article>
+      </section>
+
+      <PremiumModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

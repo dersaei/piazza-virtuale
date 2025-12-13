@@ -1,0 +1,264 @@
+/* Modal overlay */
+.mdOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1002;
+  opacity: 0;
+  background: rgba(233, 233, 227, 0.8);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.mdShow.mdOverlay {
+  opacity: 1;
+  visibility: visible;
+  background-color: var(--vertical-header-bg);
+}
+
+/* Modal container */
+.mdModal {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  width: 75%;
+  height: auto;
+  z-index: 2000;
+  visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.mdShow.mdModal {
+  visibility: visible;
+}
+
+/* Effect 12: Just Me - smooth scale with better timing */
+.mdEffect12 .mdContent {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mdShow.mdEffect12 .mdContent {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Modal content */
+.mdContent {
+  color: #2c2f2a;
+  background: #fdfbf7;
+  position: relative;
+  border-radius: 3px;
+  margin: 0 auto;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  border: 6px solid #2c2f2a;
+}
+
+/* Header - NAD kontenerem */
+.modalTitle {
+  margin: 0;
+  padding: 0.8em;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 600;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.03em;
+  text-shadow: 1px 1px 2px black;
+}
+
+/* Product Container - KONTENER z dwiema kolumnami */
+.productContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+}
+
+.productName {
+  font-size: 2em;
+  font-weight: 500;
+  color: #7a8471;
+  font-family: var(--font-didot);
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.productPrice {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #b8a281;
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+.productDescription {
+  font-size: 1.3vw;
+  line-height: 1.6;
+  color: #2c2f2a;
+  font-family: var(--font-futura);
+  margin: 0;
+  text-align: justify;
+}
+
+.productLink {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background: linear-gradient(135deg, #7a8471 0%, #6b7362 100%);
+  color: #fdfbf7;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  border-radius: 4px;
+  border: 4px solid #2c2f2a;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 0.95em;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  text-align: center;
+  align-self: flex-start;
+}
+
+/* PRAWA kolumna - mniejsza - placeholder zdjęcia */
+.leftColumn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 700px;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: rgba(182, 192, 186, 0.08);
+  border-right: 2px dashed #b8a281;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.5em;
+  color: #7a8471;
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+
+/* Close button - POD kontenerem */
+.mdClose {
+  display: block;
+  margin: var(--space-lg) auto;
+  padding: var(--space-md) var(--space-xl);
+  background: var(--refined-accent-gold);
+  color: black;
+  font-family: var(--font-sans);
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2001;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .mdModal {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .productContainer {
+    grid-template-columns: 1.5fr 1fr;
+    padding: var(--space-lg);
+  }
+
+  .rightColumn {
+    order: -1;
+  }
+
+  .imagePlaceholder {
+    margin: 0 auto;
+    border: none;
+  }
+
+  .mdContent h3 {
+    font-size: 1.5em;
+  }
+
+  .productName {
+    font-size: 1.4em;
+  }
+
+  .productPrice {
+    font-size: 1.2em;
+  }
+
+  .productDescription {
+    font-size: 0.95em;
+  }
+
+  .mdClose {
+    position: static;
+    transform: none;
+    margin: var(--space-md) auto var(--space-lg);
+  }
+
+  .mdClose:hover {
+    transform: translateY(-2px);
+  }
+
+  .mdClose:active {
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mdContent h3 {
+    font-size: 1.3em;
+    padding: 0.6em;
+  }
+
+  .productContainer {
+    padding: var(--space-md);
+  }
+
+  .productName {
+    font-size: 1.2em;
+  }
+
+  .productPrice {
+    font-size: 1.1em;
+  }
+}

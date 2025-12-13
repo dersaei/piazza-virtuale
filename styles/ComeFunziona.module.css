@@ -267,8 +267,8 @@
   letter-spacing: 0.03em;
 }
 @media (max-width: 1060px) {
-  .comeFunzionaPage {
-    padding: var(--space-lg);
+  .heroSection {
+    margin: var(--space-lg);
   }
 }
 
@@ -324,5 +324,274 @@
 @media (max-width: 650px) {
   .heroSection {
     padding: 50px 10px 30px;
+  }
+}
+
+/* Premium Card Prototype Section */
+.premiumCardPrototype {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.prototypeTitle {
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--refined-bg-primary);
+  font-family: var(--font-serif);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  display: inline-block;
+}
+
+.prototypeTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b8a281 20%,
+    #b8a281 80%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* Premium Card - 2.5x wider, slightly taller */
+.premiumCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xl) var(--space-lg);
+  position: relative;
+  margin: 0 auto;
+
+  /* Premium styling */
+  background: linear-gradient(
+    180deg,
+    rgba(182, 192, 186, 0.08) 0%,
+    rgba(253, 251, 247, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 8px;
+  border: 10px solid var(--refined-accent-gold);
+  box-shadow: rgba(0, 0, 0, 0.3) 15px 28px 25px -18px;
+
+  min-height: 450px;
+  width: 100%;
+  aspect-ratio: auto;
+}
+
+/* Decorative corner elements */
+.premiumCard::before,
+.premiumCard::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #b8a281;
+  opacity: 0.4;
+}
+
+.premiumCard::before {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.premiumCard::after {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Category Name */
+.premiumCategoryName {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: var(--space-sm) 0;
+}
+
+/* Producer Name */
+.premiumProducerName {
+  font-size: 6vw;
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-didot);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+/* Region Name */
+.premiumRegionName {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+  font-family: var(--font-futura);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+/* Logo Container */
+.premiumLogoContainer {
+  position: relative;
+  width: 150px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--space-md) 0;
+  margin-bottom: calc(var(--space-lg) + 12px);
+}
+
+/* Elegant underline under logo */
+.premiumLogoContainer::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b8a281 20%,
+    #b8a281 80%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+.premiumCard:hover .premiumLogo {
+  filter: grayscale(0%) opacity(1);
+}
+
+/* Premium Info Button */
+.premiumInfoButton {
+  display: block;
+  margin-top: 2rem;
+  width: calc(44px * 3.74);
+  height: 44px;
+  border-radius: calc(3px * 3.74);
+  border: none;
+  letter-spacing: calc(3 * 0.025em);
+  font-family: var(--font-serif);
+  color: #2c2f2a;
+  background-color: rgb(238, 241, 247);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0.0625rem solid transparent;
+  box-shadow: 0 0 0 0.125rem #fff, 0 0 0 0.2rem rgb(55, 65, 81);
+}
+
+/* Featured Products Section */
+.premiumFeaturedProducts {
+  width: 100%;
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: var(--font-futura);
+}
+
+/* CTA Button */
+.premiumCtaButton {
+  width: 90%;
+  background: linear-gradient(135deg, #2c2f2a 0%, #1a1c19 100%);
+  border: 1px solid var(--refined-accent-gold);
+  padding: var(--space-md);
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin: var(--space-lg) auto;
+}
+
+.premiumCtaButton::after {
+  content: "";
+  position: absolute;
+  inset: var(--space-sm);
+  border: 0.5px solid var(--refined-accent-gold);
+  opacity: 0.3;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.premiumCtaButton:hover::after {
+  opacity: 0.5;
+}
+
+.premiumButtonInner {
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(184, 162, 129, 0.05) 50%,
+    transparent
+  );
+}
+
+.premiumButtonText {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--refined-accent-gold);
+  text-transform: uppercase;
+  font-family: var(--font-didot);
+  text-align: center;
+}
+
+.premiumCtaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(184, 162, 129, 0.35);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .premiumCard {
+    padding: var(--space-lg) var(--space-md);
+    min-height: auto;
+    border: 6px solid var(--refined-accent-gold);
+  }
+
+  .premiumProducerName {
+    font-size: 8vw;
+  }
+
+  .premiumCardPrototype {
+    padding: var(--space-md);
+  }
+  .premiumFeaturedProducts {
+    font-size: 1.2rem;
   }
 }
