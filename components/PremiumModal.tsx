@@ -53,12 +53,7 @@ export default function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
               <p className={styles.productDescription}>
                 Farina bianca di alta qualità, macinata a pietra secondo la
                 tradizione antica. Ideale per pane, pizza e dolci. Prodotta con
-                grano 100% italiano coltivato nelle nostre terre toscane. <br />
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Explicabo maiores quisquam quo laudantium deserunt vel?
-                Provident, dolor quaerat iusto beatae quasi exercitationem illo
-                tempore nisi unde hic ratione quo rerum.
+                grano 100% italiano coltivato nelle nostre terre toscane.
               </p>
               <a href="#" className={styles.productLink}>
                 Visita Pagina Prodotto
