@@ -511,11 +511,13 @@
 /* Featured Products Section */
 .premiumFeaturedProducts {
   width: 100%;
-  padding: var(--space-lg);
-  margin: var(--space-lg) 0;
+  padding: var(--space-xl);
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.7;
   font-family: var(--font-futura);
+  text-align: justify;
 }
 
 /* CTA Button */

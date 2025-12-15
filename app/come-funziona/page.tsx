@@ -1,5 +1,5 @@
 // app/come-funziona/page.tsx
-'use client';
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -59,10 +59,10 @@ export default function ComeFunzionaPage() {
                 della scheda del negozio in una forma più sviluppata nella parte
                 superiore dell&apos;elenco della categoria scelta.
               </p>
-              
-              
+
               <p>
-                I produttori interessati sono invitati a inviarci la loro richiesta non vincolante.
+                I produttori interessati sono invitati a inviarci la loro
+                richiesta non vincolante.
               </p>
               <div className={styles.pricingBox}>
                 <p className={styles.pricingText}>
@@ -92,7 +92,7 @@ export default function ComeFunzionaPage() {
           <h3 className={styles.premiumProducerName}>Mulino del Conte</h3>
 
           <div className={styles.premiumLogoContainer}>
-            <Image src={logotest} alt="Mulino del Conte Logo" />
+            <Image src={logotest} alt="test image" />
           </div>
 
           <button
@@ -108,11 +108,15 @@ export default function ComeFunzionaPage() {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
               deserunt fugit veritatis magni mollitia quos perferendis error
               perspiciatis alias repudiandae aspernatur ab, quidem pariatur
-              laborum temporibus assumenda quaerat sed quod!
+              laborum temporibus assumenda quaerat sed quod! Lorem ipsum dolor,
+              sit amet consectetur adipisicing elit. Eaque cum libero veritatis
+              vitae eveniet! Libero repellendus consequuntur nam natus
+              temporibus dicta, consectetur ipsum expedita itaque recusandae at
+              beatae impedit officia?
             </p>
           </div>
 
-          <a href="#" className={styles.premiumCtaButton}>
+          <a className={styles.premiumCtaButton}>
             <div className={styles.premiumButtonInner}>
               <span className={styles.premiumButtonText}>Visita lo Shop</span>
             </div>

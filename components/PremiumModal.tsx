@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
+import imagetest from "@/public/test1.jpg";
+import imagetest1 from "@/public/test2.jpg";
 import styles from "@/styles/PremiumModal.module.css";
 
 interface PremiumModalProps {
@@ -43,21 +46,47 @@ export default function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
         <h3 className={styles.modalTitle}>Prodotti in Evidenza</h3>
 
         <div className={styles.mdContent}>
-          <div className={styles.productContainer}>
-            <div className={styles.leftColumn}>
-              <div className={styles.imagePlaceholder}>FOTO</div>
-            </div>
-            <div className={styles.rightColumn}>
-              <h4 className={styles.productName}>Farina Tipo 00</h4>
-              <p className={styles.productPrice}>€3.50</p>
-              <p className={styles.productDescription}>
-                Farina bianca di alta qualità, macinata a pietra secondo la
-                tradizione antica. Ideale per pane, pizza e dolci. Prodotta con
-                grano 100% italiano coltivato nelle nostre terre toscane.
-              </p>
-              <a href="#" className={styles.productLink}>
-                Visita Pagina Prodotto
-              </a>
+          <div className={styles.mdContent}>
+            <div className={styles.grid}>
+              <figure className={styles.effectJulia}>
+                <Image
+                  src={imagetest1}
+                  alt="Farina Tipo 00"
+                  fill
+                  className={styles.image}
+                />
+                <figcaption>
+                  <h2>
+                    Farina <span>Tipo 00</span>
+                  </h2>
+                  <div>
+                    <p>Alta qualità</p>
+                    <p>Macinata a pietra</p>
+                    <p>Grano 100% italiano</p>
+                  </div>
+                  <a href="#">Visita prodotto</a>
+                </figcaption>
+              </figure>
+
+              <figure className={styles.effectJulia}>
+                <Image
+                  src={imagetest}
+                  alt="Semola"
+                  fill
+                  className={styles.image}
+                />
+                <figcaption>
+                  <h2>
+                    Semola <span>Rimacinata</span>
+                  </h2>
+                  <div>
+                    <p>Ideale per pane</p>
+                    <p>Tradizione toscana</p>
+                    <p>Qualità premium</p>
+                  </div>
+                  <a href="#">Visita prodotto</a>
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>
