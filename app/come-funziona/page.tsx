@@ -84,9 +84,9 @@ export default function ComeFunzionaPage() {
       <section className={styles.premiumCardPrototype}>
         <h2 className={styles.prototypeTitle}>Anteprima Scheda Premium</h2>
         <article className={styles.premiumCard}>
-          <p className={styles.premiumCategoryName}>Pescare</p>
-          <h3 className={styles.premiumProducerName}>Pescatori del Genere</h3>
-          <p className={styles.premiumRegionName}>Campania</p>
+          <p className={styles.premiumCategoryName}>Pasta</p>
+          <h3 className={styles.premiumProducerName}>Pastificio Artigianale</h3>
+          <p className={styles.premiumRegionName}>Puglia</p>
 
           <div className={styles.premiumLogoContainer}>
             <Image src={logotest} alt="test image" />
