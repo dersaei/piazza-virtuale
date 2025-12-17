@@ -368,11 +368,11 @@
 .premiumCard {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-xl) var(--space-lg);
+  align-items: stretch;
+  justify-content: stretch;
   position: relative;
   margin: 0 auto;
+  padding: var(--space-xl);
 
   /* Premium styling */
   background: linear-gradient(
@@ -429,7 +429,7 @@
 
 /* Producer Name */
 .premiumProducerName {
-  font-size: 6vw;
+  font-size: 4vw;
   font-weight: 300;
   color: #7a8471;
   font-family: var(--font-didot);
@@ -445,7 +445,7 @@
 .premiumRegionName {
   font-size: 1rem;
   font-weight: 400;
-  color: #666;
+  color: #1a1c19;
   font-family: var(--font-futura);
   letter-spacing: 0.02em;
   margin-bottom: var(--space-md);
@@ -455,13 +455,12 @@
 /* Logo Container */
 .premiumLogoContainer {
   position: relative;
-  width: 150px;
+  width: 140px;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: var(--space-md) 0;
-  margin-bottom: calc(var(--space-lg) + 12px);
+  margin: 0 auto;
 }
 
 /* Elegant underline under logo */
@@ -487,49 +486,18 @@
   filter: grayscale(0%) opacity(1);
 }
 
-/* Premium Info Button */
-.premiumInfoButton {
-  display: block;
-  margin-top: 2rem;
-  width: calc(44px * 3.74);
-  height: 44px;
-  border-radius: calc(3px * 3.74);
-  border: none;
-  letter-spacing: calc(3 * 0.025em);
-  font-family: var(--font-serif);
-  color: #2c2f2a;
-  background-color: rgb(238, 241, 247);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: auto;
-  border: 0.0625rem solid transparent;
-  box-shadow: 0 0 0 0.125rem #fff, 0 0 0 0.2rem rgb(55, 65, 81);
-}
-
-/* Featured Products Section */
-.premiumFeaturedProducts {
-  width: 100%;
-  padding: var(--space-xl);
-  text-align: center;
-  font-size: 1.3rem;
-  font-weight: 400;
-  line-height: 1.7;
-  font-family: var(--font-futura);
-  text-align: justify;
-}
-
 /* CTA Button */
 .premiumCtaButton {
-  width: 90%;
+  width: 100%;
   background: linear-gradient(135deg, #2c2f2a 0%, #1a1c19 100%);
   border: 1px solid var(--refined-accent-gold);
-  padding: var(--space-md);
+  padding: var(--space-sm);
   position: relative;
   text-decoration: none;
   transition: all 0.3s ease;
   margin: var(--space-lg) auto;
+  display: block;
+  cursor: pointer;
 }
 
 .premiumCtaButton::after {
@@ -558,7 +526,7 @@
 
 .premiumButtonText {
   display: block;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0.25em;
   color: var(--refined-accent-gold);
@@ -574,17 +542,13 @@
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-  .productGrid {
-    grid-template-columns: 1fr;
-  }
-  .premiumFeaturedProducts {
-    font-size: 2.3vw;
+  .premiumProducerName {
+    font-size: 5vw;
   }
 }
-
 @media (max-width: 650px) {
   .premiumCard {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-lg);
     min-height: auto;
     border: 6px solid var(--refined-accent-gold);
   }
@@ -594,15 +558,13 @@
   }
 
   .premiumCardPrototype {
-    padding: var(--space-md);
+    padding: var(--space-sm);
   }
-  .premiumFeaturedProducts {
-    font-size: 1rem;
-  }
+
   .premiumCtaButton {
     padding: var(--space-sm);
   }
   .premiumButtonText {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }
