@@ -424,7 +424,7 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   text-align: center;
-  padding: var(--space-sm) 0;
+  padding: 0;
 }
 
 /* Producer Name */
@@ -439,6 +439,7 @@
   text-transform: uppercase;
   position: relative;
   display: inline-block;
+  margin-bottom: var(--space-md);
 }
 
 /* Region Name */
@@ -448,19 +449,55 @@
   color: var(--refined-bg-primary);
   font-family: var(--font-futura);
   letter-spacing: 0.02em;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   text-align: center;
+  position: relative;
+}
+
+/* Certifications Container */
+.premiumCertificationsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.premiumCertificationsContainer img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
 }
 
 /* Logo Container */
 .premiumLogoContainer {
   position: relative;
-  width: 140px;
+  width: 150px;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+/* Elegant underline belove region name */
+.premiumProducerName::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30vw;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b8a281 20%,
+    #b8a281 80%,
+    transparent
+  );
+  opacity: 0.6;
 }
 
 /* Elegant underline under logo */
@@ -560,5 +597,14 @@
   }
   .premiumButtonText {
     font-size: 0.8rem;
+  }
+
+  .premiumCertificationsContainer {
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .premiumCertificationsContainer img {
+    height: 45px;
   }
 }

@@ -38,9 +38,9 @@
   text-align: center;
   padding: 50px 50px;
   position: relative;
-  background-color: #fffaf3;
+  background-color: var(--refined-text-primary);
+  border: 5px solid var(--refined-accent-gold);
   border-radius: 8px;
-  border: 10px solid #31393b;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
@@ -151,7 +151,7 @@
   font-family: var(--font-futura);
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #333;
+  color: #fffaf3;
   text-align: justify;
   max-width: 800px;
   margin: 0 auto;
