@@ -147,7 +147,7 @@ strong::-moz-selection {
   display: none;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1200px) {
   .main-content {
     padding: var(--space-xs);
   }

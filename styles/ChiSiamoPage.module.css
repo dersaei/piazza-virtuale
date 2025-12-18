@@ -241,7 +241,7 @@
   margin-bottom: 20px;
   text-align: justify;
 }
-@media (max-width: 1060px) {
+@media (max-width: 1200px) {
   .chiSiamoPage {
     padding: var(--space-lg);
   }

@@ -45,26 +45,6 @@
   border-radius: 2px;
 }
 
-/* Right Column - Image */
-.heroImage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding-right: 1vw;
-}
-
-.mapImage {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.08));
-  transition: transform 0.4s ease;
-}
-
-.heroImage:hover .mapImage {
-  transform: scale(1.02);
-}
-
 /* Subtle accent decoration around image */
 .heroImage::before {
   content: "";
@@ -80,13 +60,9 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1060px) {
+@media (max-width: 1200px) {
   .homePage {
     padding: var(--space-sm) var(--space-lg);
-  }
-
-  .mapImage {
-    max-width: 350px;
   }
 }
 
@@ -190,7 +166,7 @@
 }
 
 /* Responsive Design for Catalog Section */
-@media (max-width: 1060px) {
+@media (max-width: 1100px) {
   .catalogIntro {
     padding: 40px 45px;
   }

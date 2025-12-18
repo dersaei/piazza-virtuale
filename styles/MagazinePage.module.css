@@ -208,16 +208,17 @@
 }
 
 /* Responsive */
-@media (max-width: 1110px) {
+@media (max-width: 1200px) {
   .articlesGrid {
-    padding: var(--space-xl) var(--space-md);
+    flex-wrap: wrap;
+    padding: var(--space-xl) var(--space-sm);
+  }
+  .articleCard {
+    width: 320px;
   }
 }
 
-@media (max-width: 850px) {
-  .articlesGrid {
-    flex-wrap: wrap;
-  }
+@media (max-width: 950px) {
   .articleCard {
     width: 85%;
   }
