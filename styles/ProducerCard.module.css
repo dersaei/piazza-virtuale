@@ -51,7 +51,7 @@
 .categoryName {
   font-size: clamp(0.85rem, 1.5vw, 1rem);
   font-weight: 300;
-  color: #7a8471;
+  color: var(--refined-bg-primary);
   font-family: var(--font-serif);
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -62,7 +62,7 @@
 .producerName {
   font-size: clamp(1.5rem, 2vw, 2rem);
   font-weight: 300;
-  color: #7a8471;
+  color: var(--refined-bg-primary);
   font-family: var(--font-serif);
   letter-spacing: 0.04em;
   line-height: 1.2;
@@ -73,7 +73,7 @@
   margin-bottom: calc(var(--space-lg) + 12px);
 }
 .producerName span {
-  font-size: 90%;
+  font-size: 85%;
 }
 
 /* Elegant underline (matching homepage h1) */
