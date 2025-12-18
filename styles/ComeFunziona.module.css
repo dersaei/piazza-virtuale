@@ -429,7 +429,7 @@
 
 /* Producer Name */
 .premiumProducerName {
-  font-size: 4vw;
+  font-size: 5vw;
   font-weight: 300;
   color: #7a8471;
   font-family: var(--font-didot);
@@ -445,7 +445,7 @@
 .premiumRegionName {
   font-size: 1rem;
   font-weight: 400;
-  color: #1a1c19;
+  color: var(--refined-bg-primary);
   font-family: var(--font-futura);
   letter-spacing: 0.02em;
   margin-bottom: var(--space-md);
@@ -488,7 +488,7 @@
 
 /* CTA Button */
 .premiumCtaButton {
-  width: 100%;
+  width: 90%;
   background: linear-gradient(135deg, #2c2f2a 0%, #1a1c19 100%);
   border: 1px solid var(--refined-accent-gold);
   padding: var(--space-sm);
@@ -540,12 +540,6 @@
   box-shadow: 0 4px 16px rgba(184, 162, 129, 0.35);
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .premiumProducerName {
-    font-size: 5vw;
-  }
-}
 @media (max-width: 650px) {
   .premiumCard {
     padding: var(--space-lg);
