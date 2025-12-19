@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     "eccellenze italiane",
     "vendita diretta",
   ],
-  authors: [{ name: "Piazza Virtuale" }],
-  creator: "Piazza Virtuale",
-  publisher: "Piazza Virtuale",
+  authors: [{ name: "Bogusław Siemiątkowski" }],
+  creator: "Bogusław Siemiątkowski",
+  publisher: "Spiżarnia Regio",
   formatDetection: {
     email: false,
     address: false,

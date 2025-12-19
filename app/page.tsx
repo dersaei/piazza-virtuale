@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title:
     "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
   description:
-    "Scopri i migliori produttori italiani di cibo e bevande che vendono online direttamente ai consumatori. Eccellenze, specialità regionali e prodotti tradizionali del Made in Italy.",
+    "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
 };
 
 export default function HomePage() {
