@@ -45,8 +45,17 @@ export default async function MagazinePage() {
       <section className={styles.articlesGrid}>
         {cards.length > 0 ? (
           cards.map(card => (
-            <Link key={card.id} href={`/magazine/${card.url}`} className={styles.articleCard}>
-              <div className={styles.tab}>{card.category}</div>
+            <Link
+              key={card.id}
+              href={`/magazine/${card.url}`}
+              className={styles.articleCard}
+              style={
+                {
+                  '--category-color': card.category.color,
+                } as React.CSSProperties
+              }
+            >
+              <div className={styles.tab}>{card.category.display_name}</div>
               <h2
                 className={styles.title}
                 dangerouslySetInnerHTML={{ __html: card.title }}

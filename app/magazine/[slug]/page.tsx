@@ -29,7 +29,7 @@ export async function generateMetadata({
     title: plainTitle,
     description: plainDescription,
     keywords: [
-      article.category,
+      article.category.name,
       'magazine',
       'produttori italiani',
       'cibo italiano',
@@ -47,7 +47,7 @@ export async function generateMetadata({
       publishedTime: article.date_created,
       modifiedTime: article.date_updated || article.date_created,
       authors: ['Piazza Virtuale'],
-      section: article.category,
+      section: article.category.display_name,
       images: [
         {
           url: `/magazine/${slug}/opengraph-image`,
@@ -98,7 +98,14 @@ export default async function ArticlePage({
 
   return (
     <div className={styles.articlePage}>
-      <article className={styles.articleCard}>
+      <article
+        className={styles.articleCard}
+        style={
+          {
+            '--category-color': article.category.color,
+          } as React.CSSProperties
+        }
+      >
         <Link href='/magazine' className={styles.backLink}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -127,7 +134,7 @@ export default async function ArticlePage({
           </svg>
         </Link>
         <header className={styles.articleHeader}>
-          <span className={styles.category}>{article.category}</span>
+          <span className={styles.category}>{article.category.display_name}</span>
           <h1 dangerouslySetInnerHTML={{ __html: article.title }} />
           <time className={styles.date}>
             {new Date(article.date_created).toLocaleDateString('it-IT', {

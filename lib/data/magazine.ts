@@ -4,16 +4,39 @@ import { directusClient } from "./directus-client";
 import { readItems } from "@directus/sdk";
 
 /**
+ * Category DTO
+ * Safe, public-facing category data structure
+ */
+export interface CategoryDTO {
+  name: string;
+  display_name: string;
+  color: string;
+}
+
+/**
  * Magazine Card DTO (for /magazine page)
  * Safe, public-facing data structure
  */
 export interface MagazineCardDTO {
   id: number;
-  category: string;
+  category: CategoryDTO;
   title: string;
   url: string;
   sort: number;
   date_created: string;
+}
+
+/**
+ * Raw Directus response type for magazine_cards
+ * Internal type used for API response transformation
+ */
+interface DirectusMagazineCardResponse {
+  id: number;
+  title: string;
+  url: string;
+  sort: number;
+  date_created: string;
+  magazine_category_id?: CategoryDTO | null;
 }
 
 /**
@@ -24,10 +47,24 @@ export interface MagazineArticleDTO {
   id: number;
   slug: string;
   title: string;
-  category: string;
+  category: CategoryDTO;
   content: string;
   date_created: string;
   date_updated?: string;
+}
+
+/**
+ * Raw Directus response type for magazine_articles
+ * Internal type used for API response transformation
+ */
+interface DirectusMagazineArticleResponse {
+  id: number;
+  slug: string;
+  title: string;
+  content: string;
+  date_created: string;
+  date_updated?: string;
+  magazine_category_id?: CategoryDTO | null;
 }
 
 /**
@@ -45,13 +82,35 @@ export async function getMagazineCards(): Promise<MagazineCardDTO[]> {
         filter: {
           status: { _eq: "published" },
         },
-        fields: ["id", "category", "title", "url", "sort", "date_created"],
+        fields: [
+          "id",
+          "title",
+          "url",
+          "sort",
+          "date_created",
+          {
+            magazine_category_id: ["name", "display_name", "color"],
+          },
+        ],
         sort: ["sort"], // Sort by manual order
         limit: -1,
       })
     );
 
-    return cards as MagazineCardDTO[];
+    return (cards as DirectusMagazineCardResponse[]).map((card) => {
+      return {
+        id: card.id,
+        category: card.magazine_category_id || {
+          name: "default",
+          display_name: "Categoria",
+          color: "#B8A281", // fallback color
+        },
+        title: card.title,
+        url: card.url,
+        sort: card.sort,
+        date_created: card.date_created,
+      };
+    }) as MagazineCardDTO[];
   } catch (error) {
     console.error("Error fetching magazine cards:", error);
     return [];
@@ -126,16 +185,36 @@ export async function getArticleBySlug(
           "id",
           "slug",
           "title",
-          "category",
           "content",
           "date_created",
           "date_updated",
+          {
+            magazine_category_id: ["name", "display_name", "color"],
+          },
         ],
         limit: 1,
       })
     );
 
-    return articles.length > 0 ? (articles[0] as MagazineArticleDTO) : null;
+    if (articles.length === 0) {
+      return null;
+    }
+
+    const article = articles[0] as DirectusMagazineArticleResponse;
+
+    return {
+      id: article.id,
+      slug: article.slug,
+      title: article.title,
+      category: article.magazine_category_id || {
+        name: "default",
+        display_name: "Categoria",
+        color: "#B8A281", // fallback color
+      },
+      content: article.content,
+      date_created: article.date_created,
+      date_updated: article.date_updated,
+    };
   } catch (error) {
     console.error("Error fetching article:", error);
     return null;

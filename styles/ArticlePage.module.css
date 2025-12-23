@@ -38,7 +38,7 @@
   text-align: center;
   padding: 50px 50px;
   position: relative;
-  background-color: var(--refined-text-primary);
+  background-color: var(--category-color, var(--refined-text-primary));
   border: 5px solid var(--refined-accent-gold);
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
@@ -78,7 +78,7 @@
 /* Category Tag - Hero Style */
 .category {
   display: inline-block;
-  color: var(--refined-bg-primary);
+  color: var(--refined-accent-gold);
   font-style: italic;
   font-weight: 400;
   padding: 6px 20px;
@@ -142,7 +142,7 @@
 }
 
 .date {
-  color: #666;
+  color: var(--vertical-header-bg);
   font-size: 15px;
   font-style: italic;
   font-family: var(--font-didot);
