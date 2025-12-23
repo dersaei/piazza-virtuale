@@ -74,7 +74,7 @@ export default async function Image({
               letterSpacing: '0.05em',
             }}
           >
-            {article.category}
+            {article.category.display_name}
           </span>
 
           <span
