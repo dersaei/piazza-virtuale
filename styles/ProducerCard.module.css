@@ -60,7 +60,7 @@
 
 /* Producer Name */
 .producerName {
-  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
   font-weight: 300;
   color: var(--refined-bg-primary);
   font-family: var(--font-serif);
@@ -73,7 +73,7 @@
   margin-bottom: calc(var(--space-lg) + 12px);
 }
 .producerName span {
-  font-size: 85%;
+  font-size: 80%;
 }
 
 /* Elegant underline (matching homepage h1) */
