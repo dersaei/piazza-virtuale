@@ -60,7 +60,7 @@
 
 /* Producer Name */
 .producerName {
-  font-size: clamp(1.3rem, 1.8vw, 1.8rem);
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
   font-weight: 300;
   color: var(--refined-bg-primary);
   font-family: var(--font-serif);
