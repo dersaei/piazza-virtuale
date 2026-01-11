@@ -9,6 +9,7 @@ import { cacheTag, cacheLife } from "next/cache";
 import {
   getProducersByCategory as getProducersFromDAL,
   getAllCategoryCounts as getAllCategoryCountsFromDAL,
+  getAllRegionCounts as getAllRegionCountsFromDAL,
   type ProducerDTO,
 } from "@/lib/data";
 
@@ -47,8 +48,23 @@ export async function getAllCategoryCounts(): Promise<
   return getAllCategoryCountsFromDAL();
 }
 
+/**
+ * Get counts for all regions (with caching)
+ * This is a cached wrapper around the DAL function
+ */
+export async function getAllRegionCounts(): Promise<Array<{region: string; count: number}>> {
+  cacheLife("hours");
+  // Cache tag for region counts
+  cacheTag("producers"); // Global tag for all producers
+  cacheTag("region-counts"); // Specific tag for region counts
+
+  // Delegate to Data Access Layer
+  return getAllRegionCountsFromDAL();
+}
+
 // Cache configuration: automatically revalidates every 1 hour
 // Can be invalidated immediately via webhook using tags:
 // - 'producers' (all producers)
 // - 'producers-{categorySlug}' (specific category)
 // - 'category-counts' (all category counts)
+// - 'region-counts' (all region counts)

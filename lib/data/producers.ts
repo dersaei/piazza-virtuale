@@ -145,3 +145,43 @@ export async function getAllCategoryCounts(): Promise<
     return {};
   }
 }
+
+/**
+ * Get counts for all regions
+ * Returns an array of objects with region name and producer count, sorted by count descending
+ */
+export async function getAllRegionCounts(): Promise<Array<{region: string; count: number}>> {
+  try {
+    const producers = await directusClient.request(
+      readItems("producers", {
+        filter: {
+          status: { _eq: "published" },
+        },
+        fields: [
+          "id",
+          "region",
+        ],
+        limit: -1,
+      })
+    );
+
+    // Count producers by region
+    const counts: Record<string, number> = {};
+
+    for (const producer of producers) {
+      const region = producer.region;
+
+      if (region && typeof region === 'string') {
+        counts[region] = (counts[region] || 0) + 1;
+      }
+    }
+
+    // Convert to array and sort by count descending
+    return Object.entries(counts)
+      .map(([region, count]) => ({ region, count }))
+      .sort((a, b) => b.count - a.count);
+  } catch (error) {
+    console.error("Error fetching region counts:", error);
+    return [];
+  }
+}

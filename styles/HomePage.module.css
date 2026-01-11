@@ -221,3 +221,39 @@
     padding: 1.5rem 20px 3rem 20px;
   }
 }
+
+/* Regions Section */
+.regionsSection {
+  padding: 3rem 40px 4rem 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 249, 250, 0.5) 0%,
+    rgba(248, 249, 250, 0.8) 100%
+  );
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #495057;
+  font-family: var(--font-sans);
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .regionsSection {
+    padding: 2rem 20px 3rem 20px;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 1.25rem;
+  }
+}

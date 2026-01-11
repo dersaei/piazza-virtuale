@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import styles from "@/styles/HomePage.module.css";
 import { CategoryGrid } from "@/components/CategoryGrid";
+import { RegionList } from "@/components/RegionList";
 
 export const metadata: Metadata = {
   title:
@@ -33,6 +34,16 @@ export default function HomePage() {
           fallback={<div className={styles.loading}>Caricamento...</div>}
         >
           <CategoryGrid />
+        </Suspense>
+      </section>
+
+      {/* Regions Section */}
+      <section className={styles.regionsSection}>
+        <h2 className={styles.sectionTitle}>Produttori per Regione</h2>
+        <Suspense
+          fallback={<div className={styles.loading}>Caricamento...</div>}
+        >
+          <RegionList />
         </Suspense>
       </section>
     </div>

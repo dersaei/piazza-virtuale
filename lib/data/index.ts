@@ -21,6 +21,7 @@ export {
   getProducersByCategory,
   getProducersCountByCategory,
   getAllCategoryCounts,
+  getAllRegionCounts,
   type ProducerDTO,
 } from "./producers";
 
