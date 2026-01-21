@@ -8,9 +8,14 @@ export async function CategoryGrid() {
   const categoryCounts = await getAllCategoryCounts();
 
   // Filter out parent categories (Bevande, Condimenti) - show only leaf categories
+  // Sort by shop count descending
   const displayCategories = CATEGORY_LIST.filter(
     (category) => !category.subcategories
-  );
+  ).sort((a, b) => {
+    const countA = categoryCounts[a.slug] || 0;
+    const countB = categoryCounts[b.slug] || 0;
+    return countB - countA;
+  });
 
   return (
     <div className={styles.categoryGrid}>

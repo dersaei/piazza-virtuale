@@ -5,7 +5,7 @@ import styles from "@/styles/Footer.module.css";
 export default function Footer() {
   // Static year - updated at build time
   // For Cache Components compatibility, we use a static value
-  const currentYear = 2025;
+  const currentYear = 2026;
 
   return (
     <footer className={styles.footer}>
