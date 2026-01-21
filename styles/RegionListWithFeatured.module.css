@@ -1,0 +1,148 @@
+/* styles/RegionListWithFeatured.module.css */
+
+.regionList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.regionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  transition: all 0.3s ease;
+}
+
+.regionRow:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: #009246;
+}
+
+/* Left side: Region info */
+.regionInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.regionNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #009246;
+  min-width: 50px;
+  text-align: center;
+  font-family: var(--font-futura);
+}
+
+.regionDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.regionName {
+  font-size: 4vw;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.regionRow:hover .regionName {
+  color: #009246;
+}
+
+.regionCount {
+  font-size: 1rem;
+  color: #666;
+  margin-left: 2vw;
+}
+
+/* Right side: Logo link */
+.logoLink {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logoLink:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  object-fit: contain;
+  filter: grayscale(20%) opacity(0.85);
+  transition: filter 0.3s ease;
+}
+
+.logoLink:hover .logo,
+.regionRow:hover .logo {
+  filter: grayscale(0%) opacity(1);
+}
+
+/* Responsive */
+@media (max-width: 888px) {
+  .regionRow {
+    padding: 1.25rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .regionNumber {
+    font-size: 1.5rem;
+    min-width: 40px;
+  }
+
+  .regionName {
+    font-size: 3vw;
+  }
+
+  .logoLink {
+    width: 100px;
+    height: 65px;
+  }
+}
+
+@media (max-width: 650px) {
+  .regionList {
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .regionRow {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .regionInfo {
+    gap: 1rem;
+  }
+
+  .regionNumber {
+    font-size: 1.25rem;
+    min-width: 30px;
+  }
+
+  .regionName {
+    font-size: 6vw;
+  }
+
+  .regionCount {
+    font-size: 0.85rem;
+  }
+
+  .logoLink {
+    width: 80px;
+    height: 55px;
+  }
+}

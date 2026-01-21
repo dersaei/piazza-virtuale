@@ -30,6 +30,7 @@ export interface Producer {
   region: string;
   logo?: string | null;
   shop_url: string;
+  is_featured?: boolean;
   status: 'published' | 'draft' | 'archived';
   date_created: string;
   date_updated?: string;

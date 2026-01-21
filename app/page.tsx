@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import styles from "@/styles/HomePage.module.css";
 import { CategoryGrid } from "@/components/CategoryGrid";
-import { RegionList } from "@/components/RegionList";
+import { ShopCounter } from "@/components/ShopCounter";
+import { RegionListWithFeatured } from "@/components/RegionListWithFeatured";
 
 export const metadata: Metadata = {
   title:
@@ -37,13 +38,21 @@ export default function HomePage() {
         </Suspense>
       </section>
 
-      {/* Regions Section */}
-      <section className={styles.regionsSection}>
-        <h2 className={styles.sectionTitle}>Produttori per Regione</h2>
+      {/* Shop Counter Section */}
+      <section className={styles.counterSection}>
         <Suspense
           fallback={<div className={styles.loading}>Caricamento...</div>}
         >
-          <RegionList />
+          <ShopCounter />
+        </Suspense>
+      </section>
+
+      {/* Regions with Featured Producers Section */}
+      <section className={styles.regionsSection}>
+        <Suspense
+          fallback={<div className={styles.loading}>Caricamento...</div>}
+        >
+          <RegionListWithFeatured />
         </Suspense>
       </section>
     </div>

@@ -22,7 +22,11 @@ export {
   getProducersCountByCategory,
   getAllCategoryCounts,
   getAllRegionCounts,
+  getTotalProducersCount,
+  getRegionsWithFeaturedProducers,
   type ProducerDTO,
+  type FeaturedProducerDTO,
+  type RegionWithFeaturedDTO,
 } from "./producers";
 
 export {

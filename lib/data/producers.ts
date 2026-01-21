@@ -185,3 +185,167 @@ export async function getAllRegionCounts(): Promise<Array<{region: string; count
     return [];
   }
 }
+
+/**
+ * Get total count of all published producers
+ * Returns the total number of shops in the catalog
+ */
+export async function getTotalProducersCount(): Promise<number> {
+  try {
+    const producers = await directusClient.request(
+      readItems("producers", {
+        filter: {
+          status: { _eq: "published" },
+        },
+        fields: ["id"],
+        limit: -1,
+      })
+    );
+
+    return producers.length;
+  } catch (error) {
+    console.error("Error fetching total producers count:", error);
+    return 0;
+  }
+}
+
+/**
+ * Featured Producer DTO for region list
+ */
+export interface FeaturedProducerDTO {
+  id: string;
+  name: string;
+  name_alt: string;
+  category: {
+    name: string;
+  };
+  region: string;
+  logo?: string;
+  shop_url: string;
+}
+
+/**
+ * Region with featured producer DTO
+ */
+export interface RegionWithFeaturedDTO {
+  region: string;
+  count: number;
+  featuredProducer: FeaturedProducerDTO | null;
+}
+
+/**
+ * Get regions with their counts and featured producers
+ * Returns top 20 regions sorted by count descending, each with one featured producer
+ * Featured producer is selected by is_featured flag, or first by name if none featured
+ */
+export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeaturedDTO[]> {
+  try {
+    // First try with is_featured field
+    let producers;
+    let hasFeaturedField = true;
+
+    try {
+      producers = await directusClient.request(
+        readItems("producers", {
+          filter: {
+            status: { _eq: "published" },
+          },
+          fields: [
+            "id",
+            "name",
+            "name_alt",
+            "category.name",
+            "region",
+            "logo",
+            "shop_url",
+            "is_featured",
+          ],
+          sort: ["-is_featured", "name"],
+          limit: -1,
+        })
+      );
+    } catch {
+      // Fallback: fetch without is_featured field if it doesn't exist yet
+      hasFeaturedField = false;
+      producers = await directusClient.request(
+        readItems("producers", {
+          filter: {
+            status: { _eq: "published" },
+          },
+          fields: [
+            "id",
+            "name",
+            "name_alt",
+            "category.name",
+            "region",
+            "logo",
+            "shop_url",
+          ],
+          sort: ["name"],
+          limit: -1,
+        })
+      );
+    }
+
+    // Group producers by region and count them
+    const regionMap: Record<string, {
+      count: number;
+      featuredProducer: FeaturedProducerDTO | null;
+      hasFeatured: boolean;
+    }> = {};
+
+    for (const producer of producers) {
+      const region = producer.region;
+
+      if (region && typeof region === "string") {
+        if (!regionMap[region]) {
+          regionMap[region] = {
+            count: 0,
+            featuredProducer: null,
+            hasFeatured: false,
+          };
+        }
+
+        regionMap[region].count++;
+
+        // Set featured producer
+        // Priority: is_featured=true first, then first alphabetically
+        // Check for truthy value (handles boolean true, string "true", 1, etc.)
+        const isFeatured = hasFeaturedField && (
+          producer.is_featured === true ||
+          producer.is_featured === "true" ||
+          producer.is_featured === 1
+        );
+
+        // Replace if: no featured yet, OR this one is featured and current one isn't
+        if (!regionMap[region].featuredProducer || (isFeatured && !regionMap[region].hasFeatured)) {
+          regionMap[region].featuredProducer = {
+            id: producer.id,
+            name: producer.name,
+            name_alt: producer.name_alt,
+            category: {
+              name: producer.category?.name || "",
+            },
+            region: producer.region,
+            logo: producer.logo || undefined,
+            shop_url: producer.shop_url,
+          };
+          regionMap[region].hasFeatured = isFeatured;
+        }
+      }
+    }
+
+    // Convert to array, sort by count descending, and take top 20
+    return Object.entries(regionMap)
+      .map(([region, data]) => ({
+        region,
+        count: data.count,
+        featuredProducer: data.featuredProducer,
+      }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 20);
+  } catch (error) {
+    console.error("Error fetching regions with featured producers:", error);
+    return [];
+  }
+}

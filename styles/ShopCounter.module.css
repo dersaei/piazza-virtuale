@@ -1,0 +1,58 @@
+/* styles/ShopCounter.module.css */
+
+.shopCounter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.label {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #5d6358;
+  font-family: var(--font-didot);
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin: 0;
+}
+
+.countWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.count {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #7a8471;
+  font-family: var(--font-futura);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #7a8471 0%, #5d6358 50%, #7a8471 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 768px) {
+  .label {
+    font-size: 1.25rem;
+  }
+
+  .count {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .label {
+    font-size: 1.1rem;
+  }
+
+  .count {
+    font-size: 3rem;
+  }
+}

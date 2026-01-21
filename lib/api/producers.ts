@@ -10,7 +10,10 @@ import {
   getProducersByCategory as getProducersFromDAL,
   getAllCategoryCounts as getAllCategoryCountsFromDAL,
   getAllRegionCounts as getAllRegionCountsFromDAL,
+  getTotalProducersCount as getTotalProducersCountFromDAL,
+  getRegionsWithFeaturedProducers as getRegionsWithFeaturedProducersFromDAL,
   type ProducerDTO,
+  type RegionWithFeaturedDTO,
 } from "@/lib/data";
 
 // Re-export type for backward compatibility
@@ -62,9 +65,39 @@ export async function getAllRegionCounts(): Promise<Array<{region: string; count
   return getAllRegionCountsFromDAL();
 }
 
+/**
+ * Get total count of all published producers (with caching)
+ * This is a cached wrapper around the DAL function
+ */
+export async function getTotalProducersCount(): Promise<number> {
+  cacheLife("hours");
+  // Cache tag for total count
+  cacheTag("producers"); // Global tag for all producers
+  cacheTag("total-count"); // Specific tag for total count
+
+  // Delegate to Data Access Layer
+  return getTotalProducersCountFromDAL();
+}
+
+/**
+ * Get regions with their counts and featured producers (with caching)
+ * This is a cached wrapper around the DAL function
+ */
+export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeaturedDTO[]> {
+  cacheLife("hours");
+  // Cache tags for regions with featured
+  cacheTag("producers"); // Global tag for all producers
+  cacheTag("regions-featured"); // Specific tag for regions with featured
+
+  // Delegate to Data Access Layer
+  return getRegionsWithFeaturedProducersFromDAL();
+}
+
 // Cache configuration: automatically revalidates every 1 hour
 // Can be invalidated immediately via webhook using tags:
 // - 'producers' (all producers)
 // - 'producers-{categorySlug}' (specific category)
 // - 'category-counts' (all category counts)
 // - 'region-counts' (all region counts)
+// - 'total-count' (total producers count)
+// - 'regions-featured' (regions with featured producers)
