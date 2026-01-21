@@ -10,6 +10,7 @@
 }
 
 .regionRow {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -67,12 +68,35 @@
   margin-left: 2vw;
 }
 
-/* Right side: Logo link */
+/* Right side: Featured wrapper with label */
+.featuredWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.featuredLabel {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #009246;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid #009246;
+  border-radius: 4px;
+  background: #fff;
+  z-index: 1;
+}
+
 .logoLink {
   position: relative;
   width: 120px;
   height: 80px;
-  flex-shrink: 0;
   transition: transform 0.3s ease;
 }
 
@@ -107,6 +131,12 @@
     font-size: 3vw;
   }
 
+  .featuredLabel {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    right: 30px;
+  }
+
   .logoLink {
     width: 100px;
     height: 65px;
@@ -139,6 +169,12 @@
 
   .regionCount {
     font-size: 0.85rem;
+  }
+
+  .featuredLabel {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.4rem;
+    right: 20px;
   }
 
   .logoLink {

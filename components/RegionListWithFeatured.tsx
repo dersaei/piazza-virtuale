@@ -15,6 +15,11 @@ export async function RegionListWithFeatured() {
     <div className={styles.regionList}>
       {regions.map(({ region, count, featuredProducer }, index) => (
         <div key={region} className={styles.regionRow}>
+          {/* Label on top edge of row, above logo */}
+          {featuredProducer?.logo && (
+            <span className={styles.featuredLabel}>Consigliato</span>
+          )}
+
           {/* Left side: Number and Region info */}
           <div className={styles.regionInfo}>
             <span className={styles.regionNumber}>{index + 1}</span>
@@ -28,20 +33,22 @@ export async function RegionListWithFeatured() {
 
           {/* Right side: Featured Producer Logo */}
           {featuredProducer?.logo && (
-            <Link
-              href={featuredProducer.shop_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.logoLink}
-              title={featuredProducer.name_alt}
-            >
-              <Image
-                src={`/${featuredProducer.logo}`}
-                alt={featuredProducer.name_alt}
-                fill
-                className={styles.logo}
-              />
-            </Link>
+            <div className={styles.featuredWrapper}>
+              <Link
+                href={featuredProducer.shop_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.logoLink}
+                title={featuredProducer.name_alt}
+              >
+                <Image
+                  src={`/${featuredProducer.logo}`}
+                  alt={featuredProducer.name_alt}
+                  fill
+                  className={styles.logo}
+                />
+              </Link>
+            </div>
           )}
         </div>
       ))}
