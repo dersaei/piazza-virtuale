@@ -208,25 +208,6 @@
 
 /* Responsive */
 @media (max-width: 960px) {
-  .articleCard {
-    padding: 40px 25px;
-  }
-
-  .articleCard::before,
-  .articleCard::after {
-    width: 30px;
-    height: 30px;
-  }
-
-  .articleCard::before {
-    top: 15px;
-    left: 15px;
-  }
-
-  .articleCard::after {
-    bottom: 15px;
-    right: 15px;
-  }
   .articleContent {
     font-size: 2vw;
   }
