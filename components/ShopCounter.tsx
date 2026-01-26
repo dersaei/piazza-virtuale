@@ -7,7 +7,7 @@ export async function ShopCounter() {
 
   return (
     <div className={styles.shopCounter}>
-      <p className={styles.label}>Negozi nel nostro catalogo</p>
+      <p className={styles.label}>Voci nel nostro catalogo</p>
       <div className={styles.countWrapper}>
         <span className={styles.count}>{totalCount}</span>
       </div>
