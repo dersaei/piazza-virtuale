@@ -122,14 +122,14 @@
   display: block;
 }
 
-/* Elegant underline */
+/* Animated underline */
 .articleHeader h1::after {
   content: "";
   position: absolute;
   bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
+  width: 0;
   height: 2px;
   background: linear-gradient(
     90deg,
@@ -139,6 +139,13 @@
     transparent
   );
   opacity: 0.6;
+  animation: expandLine 1s ease-out 0.3s forwards;
+}
+
+@keyframes expandLine {
+  to {
+    width: 120px;
+  }
 }
 
 .date {
@@ -163,6 +170,18 @@
 
 .articleContent p {
   margin-bottom: 28px;
+}
+
+/* Drop cap - first letter magazine style */
+.articleContent p:first-of-type::first-letter {
+  font-family: var(--font-didot);
+  font-size: 4em;
+  float: left;
+  line-height: 0.8;
+  margin-right: 10px;
+  margin-top: 6px;
+  color: var(--refined-accent-gold);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .articleContent h2 {
@@ -242,5 +261,8 @@
   }
   .articleContent h2 {
     font-size: 5vw;
+  }
+  .articleContent p:first-of-type::first-letter {
+    font-size: 3em;
   }
 }
