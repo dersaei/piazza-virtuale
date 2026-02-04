@@ -73,7 +73,7 @@
   margin-bottom: calc(var(--space-lg) + 12px);
 }
 .producerName span {
-  font-size: 90%;
+  font-size: 85%;
 }
 
 /* Elegant underline (matching homepage h1) */
