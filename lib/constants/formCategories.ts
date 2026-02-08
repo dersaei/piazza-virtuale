@@ -109,7 +109,7 @@ export const FORM_CATEGORIES: FormCategoryInfo[] = [
   },
   {
     id: "frutta-secca",
-    label: "Frutta Secca",
+    label: "Frutta Secca e Fresca",
   },
 ];
 

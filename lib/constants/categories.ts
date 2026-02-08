@@ -201,7 +201,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   "frutta-secca": {
     id: "frutta-secca",
-    label: "Frutta Secca",
+    label: "Frutta Secca e Fresca",
     slug: "frutta-secca",
     title: "Produttori di Frutta Secca",
     href: "/frutta-secca",
