@@ -87,8 +87,15 @@ export default function ComeFunzionaPage() {
       <section className={styles.premiumCardPrototype}>
         <h2 className={styles.prototypeTitle}>Anteprima Scheda Premium</h2>
         <article className={styles.premiumCard}>
-          <p className={styles.premiumCategoryName}>Puglia</p>
-          <p className={styles.premiumRegionName}>Pasta</p>
+          <span className={styles.featuredLabel}>
+            <span>Puglia</span>
+            <span>Pasta</span>
+          </span>
+          <div className={styles.premiumCertificationsContainer}>
+            <Image src={gamberoRosso} alt="Gambero Rosso" />
+            <Image src={slowFoodItalia} alt="Slow Food Italia" />
+            <Image src={aopIt} alt="AOP Italia" />
+          </div>
           <h3 className={styles.premiumProducerName}>Pastificio Artigianale</h3>
           <div className={styles.premiumLogoContainer}>
             <Image src={logotest} alt="test image" />
@@ -98,11 +105,6 @@ export default function ComeFunzionaPage() {
               <span className={styles.premiumButtonText}>Visita lo Shop</span>
             </div>
           </a>{" "}
-          <div className={styles.premiumCertificationsContainer}>
-            <Image src={slowFoodItalia} alt="Slow Food Italia" />
-            <Image src={gamberoRosso} alt="Gambero Rosso" />
-            <Image src={aopIt} alt="AOP Italia" />
-          </div>
         </article>
       </section>
     </div>

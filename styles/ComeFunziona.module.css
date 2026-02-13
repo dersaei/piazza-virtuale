@@ -336,7 +336,7 @@
 }
 
 .prototypeTitle {
-  font-size: 3rem;
+  font-size: 4vw;
   font-weight: 300;
   color: var(--refined-bg-primary);
   font-family: var(--font-serif);
@@ -346,22 +346,39 @@
   display: inline-block;
 }
 
-.prototypeTitle::after {
-  content: "";
+/* Featured Label */
+.featuredLabel {
   position: absolute;
-  bottom: -12px;
+  top: 0;
   left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #b8a281 20%,
-    #b8a281 80%,
-    transparent
-  );
-  opacity: 0.6;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #7a8471;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid #7a8471;
+  border-radius: 4px;
+  background: #fdfbf7;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.featuredLabel span:first-child {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: var(--font-serif);
+}
+
+.featuredLabel span:last-child {
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-sens);
+  letter-spacing: 0.04em;
 }
 
 /* Premium Card - 2.5x wider, slightly taller */
@@ -443,6 +460,18 @@
   text-shadow: 1px 1px 1px black;
 }
 
+/* Category Name */
+.premiumCategoryName {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #7a8471;
+  font-family: var(--font-serif);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0;
+}
+
 /* Region Name */
 .premiumRegionName {
   font-size: 1rem;
@@ -461,12 +490,21 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
   margin-bottom: var(--space-lg);
 }
 
-.premiumCertificationsContainer img {
-  height: 40px;
+/* Nieparzyste obrazki (1, 3, 5...) - 60px */
+.premiumCertificationsContainer img:nth-child(odd) {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Parzyste obrazki (2, 4, 6...) - 100px */
+.premiumCertificationsContainer img:nth-child(even) {
+  height: 80px;
   width: auto;
   object-fit: contain;
 }
@@ -541,7 +579,10 @@
 .premiumCtaButton::after {
   content: "";
   position: absolute;
-  inset: var(--space-sm);
+  top: var(--space-sm);
+  right: var(--space-sm);
+  bottom: var(--space-sm);
+  left: var(--space-sm);
   border: 0.5px solid var(--refined-accent-gold);
   opacity: 0.3;
   pointer-events: none;
@@ -598,14 +639,5 @@
   }
   .premiumButtonText {
     font-size: 0.8rem;
-  }
-
-  .premiumCertificationsContainer {
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-  }
-
-  .premiumCertificationsContainer img {
-    height: 45px;
   }
 }
