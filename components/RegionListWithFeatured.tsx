@@ -33,22 +33,26 @@ export async function RegionListWithFeatured() {
 
           {/* Right side: Featured Producer Logo */}
           {featuredProducer?.logo && (
-            <div className={styles.featuredWrapper}>
+            <>
               <Link
                 href={featuredProducer.shop_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.logoLink}
+                className={styles.stretchedLink}
                 title={featuredProducer.name_alt}
-              >
-                <Image
-                  src={`/${featuredProducer.logo}`}
-                  alt={featuredProducer.name_alt}
-                  fill
-                  className={styles.logo}
-                />
-              </Link>
-            </div>
+                aria-label={featuredProducer.name_alt}
+              />
+              <div className={styles.featuredWrapper}>
+                <div className={styles.logoLink}>
+                  <Image
+                    src={`/${featuredProducer.logo}`}
+                    alt={featuredProducer.name_alt}
+                    fill
+                    className={styles.logo}
+                  />
+                </div>
+              </div>
+            </>
           )}
         </div>
       ))}

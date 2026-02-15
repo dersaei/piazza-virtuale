@@ -19,12 +19,13 @@
   border: 2px solid #e0e0e0;
   border-radius: 12px;
   padding: 1.5rem 2rem;
-  transition: all 0.3s ease;
+  transition: all 1s ease-in-out;
 }
 
 .regionRow:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 30px inset;
   border-color: #009246;
+  cursor: pointer;
 }
 
 /* Left side: Region info */
@@ -55,7 +56,7 @@
   font-weight: 600;
   color: #333;
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color 0.5s ease;
 }
 
 .regionRow:hover .regionName {
@@ -93,14 +94,20 @@
   z-index: 1;
 }
 
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 .logoLink {
   position: relative;
   width: 120px;
   height: 80px;
-  transition: transform 0.3s ease;
+  transition: transform 1s ease-in-out;
 }
 
-.logoLink:hover {
+.regionRow:hover .logoLink {
   transform: scale(1.05);
 }
 
@@ -110,7 +117,6 @@
   transition: filter 0.3s ease;
 }
 
-.logoLink:hover .logo,
 .regionRow:hover .logo {
   filter: grayscale(0%) opacity(1);
 }
