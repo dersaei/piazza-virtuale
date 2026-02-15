@@ -20,12 +20,12 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 30px inset;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .categoryCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 10px inset;
   border-color: #009246;
 }
 
