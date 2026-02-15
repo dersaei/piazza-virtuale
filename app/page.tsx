@@ -55,6 +55,18 @@ export default function HomePage() {
           <RegionListWithFeatured />
         </Suspense>
       </section>
+
+      {/* About Section */}
+      <section className={styles.aboutSection}>
+        <h2 className={styles.aboutTitle}>Piazza Virtuale</h2>
+        <p className={styles.aboutDescription}>
+          Scopri insieme a noi i produttori italiani di cibo e bevande che
+          vendono i loro prodotti online. Trova specialità difficili da reperire
+          nella tua zona: prodotti artigianali, regionali e di nicchia. Piazza
+          Virtuale è la tua guida dove raccogliamo in un unico posto gli
+          e-shop alimentari dei produttori di tutta Italia.
+        </p>
+      </section>
     </div>
   );
 }

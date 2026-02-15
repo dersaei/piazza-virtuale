@@ -8,6 +8,7 @@
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: var(--space-lg);
 }
 
 /* Hero-Style Card */
@@ -214,14 +215,13 @@
 @media (max-width: 1200px) {
   .articlesGrid {
     flex-wrap: wrap;
-    padding: var(--space-xl) var(--space-sm);
   }
   .articleCard {
     width: 320px;
   }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 960px) {
   .articleCard {
     width: 85%;
   }

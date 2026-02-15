@@ -331,7 +331,7 @@
 .premiumCardPrototype {
   max-width: 1200px;
   margin: 30px auto;
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   text-align: center;
 }
 
@@ -624,15 +624,10 @@
   .premiumCard {
     padding: var(--space-lg);
     min-height: auto;
-    border: 6px solid var(--refined-accent-gold);
   }
 
   .premiumProducerName {
     font-size: 8vw;
-  }
-
-  .premiumCardPrototype {
-    padding: var(--space-sm);
   }
 
   .premiumCtaButton {

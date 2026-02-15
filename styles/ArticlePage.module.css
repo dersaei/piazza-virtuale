@@ -3,7 +3,7 @@
 .articlePage {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 20px;
+  padding: var(--space-lg);
 }
 
 .backLink {
@@ -110,7 +110,7 @@
 }
 
 .articleHeader h1 {
-  font-size: 5vw;
+  font-size: 6vw;
   font-weight: 300;
   color: var(--refined-bg-primary);
   text-shadow: 1px 2px 2px black;
@@ -159,9 +159,7 @@
 
 .articleContent {
   font-family: var(--font-futura);
-  font-size: 1.5vw;
   line-height: 1.8;
-  color: #fffaf3;
   text-align: justify;
   max-width: 800px;
   margin: 0 auto;
@@ -170,6 +168,8 @@
 
 .articleContent p {
   margin-bottom: 28px;
+  font-size: 2vw;
+  color: #fffaf3;
 }
 
 /* Drop cap - first letter magazine style */
@@ -185,7 +185,7 @@
 }
 
 .articleContent h2 {
-  font-size: 1.8rem;
+  font-size: 4vw;
   font-weight: 600;
   color: var(--refined-bg-primary);
   margin-top: 40px;
@@ -194,8 +194,8 @@
   text-align: center;
 }
 .articleContent h3 {
-  font-size: 1.4rem;
-  font-weight: 400;
+  font-size: 3.6vw;
+  font-weight: 700;
   color: var(--vertical-header-bg);
   margin-top: 40px;
   margin-bottom: 20px;
@@ -208,11 +208,17 @@
   margin-left: 32px;
   margin-bottom: 28px;
   list-style: disc;
+  color: #fffaf3;
 }
 
 .articleContent li {
   margin-bottom: 12px;
   padding-left: 8px;
+  color: #fffaf3;
+}
+.articleContent blockquote {
+  color: #fffaf3;
+  font-size: 1rem;
 }
 
 .articleContent a {
@@ -242,13 +248,13 @@
 }
 
 /* Responsive */
-@media (max-width: 960px) {
-  .articleContent {
-    font-size: 2vw;
+@media (max-width: 840px) {
+  .articleContent p {
+    font-size: 2.5vw;
   }
 
   .articleContent h2 {
-    font-size: 1.5rem;
+    font-size: 4.5vw;
     margin-top: 32px;
   }
 }
@@ -256,11 +262,11 @@
   .articleHeader h1 {
     font-size: 8vw;
   }
-  .articleContent {
-    font-size: 3.2vw;
+  .articleContent p {
+    font-size: 3.4vw;
   }
   .articleContent h2 {
-    font-size: 5vw;
+    font-size: 5.5vw;
   }
   .articleContent p:first-of-type::first-letter {
     font-size: 3em;

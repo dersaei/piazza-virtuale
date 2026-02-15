@@ -60,11 +60,6 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .homePage {
-    padding: var(--space-sm) var(--space-lg);
-  }
-}
 
 @media (max-width: 768px) {
   .heroHeading {
@@ -88,7 +83,7 @@
 
 /* Catalog Introduction Section */
 .catalogIntro {
-  margin: 10px 0 50px;
+  margin: var(--space-xl);
   padding: 38px 50px;
   background: linear-gradient(
     168deg,
@@ -250,5 +245,37 @@
 @media (max-width: 768px) {
   .regionsSection {
     padding: 1.5rem 20px 3rem 20px;
+  }
+}
+
+/* About Section */
+.aboutSection {
+  padding: 6vh 10vw;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #4a4f45;
+}
+
+.aboutTitle {
+  font-size: 6vw;
+  font-weight: 700;
+  color: #fff8e1;
+  font-family: var(--font-futura);
+  margin: 0 0 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.aboutDescription {
+  font-size: 1.5vw;
+  line-height: 1.8;
+  color: #fff8e1;
+  margin: 0;
+}
+
+@media (max-width: 868px) {
+  .aboutDescription {
+    font-size: 1.05rem;
+    line-height: 1.7;
   }
 }
