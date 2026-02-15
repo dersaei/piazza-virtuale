@@ -400,7 +400,7 @@
     transparent 100%
   );
   border-radius: 8px;
-  border: 10px solid var(--refined-accent-gold);
+  border: 10px solid var(--refined-text-primary);
   box-shadow: rgba(0, 0, 0, 0.3) 15px 28px 25px -18px;
 
   min-height: 450px;
@@ -459,30 +459,6 @@
   display: inline-block;
   margin-bottom: var(--space-md);
   text-shadow: 1px 1px 1px black;
-}
-
-/* Category Name */
-.premiumCategoryName {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #7a8471;
-  font-family: var(--font-serif);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 0;
-}
-
-/* Region Name */
-.premiumRegionName {
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--refined-bg-primary);
-  font-family: var(--font-futura);
-  letter-spacing: 0.02em;
-  margin-bottom: var(--space-sm);
-  text-align: center;
-  position: relative;
 }
 
 /* Certifications Container */
@@ -565,7 +541,7 @@
 
 /* CTA Button */
 .premiumCtaButton {
-  width: 90%;
+  width: 30vw;
   background: linear-gradient(135deg, #2c2f2a 0%, #1a1c19 100%);
   border: 1px solid var(--refined-accent-gold);
   padding: var(--space-sm);
@@ -606,8 +582,8 @@
 
 .premiumButtonText {
   display: block;
-  font-size: 0.85rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 500;
   letter-spacing: 0.25em;
   color: var(--refined-accent-gold);
   text-transform: uppercase;
@@ -620,20 +596,29 @@
   box-shadow: 0 4px 16px rgba(184, 162, 129, 0.35);
 }
 
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .premiumCard {
     padding: var(--space-lg);
     min-height: auto;
+  }
+  .premiumCertificationsContainer img:nth-child(odd) {
+    height: 35px;
+  }
+  .premiumCertificationsContainer img:nth-child(even) {
+    height: 55px;
   }
 
   .premiumProducerName {
     font-size: 8vw;
   }
+  .premiumLogoContainer {
+    width: 120px;
+  }
 
   .premiumCtaButton {
-    padding: var(--space-sm);
+    width: 90%;
   }
   .premiumButtonText {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
