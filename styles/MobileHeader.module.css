@@ -151,13 +151,16 @@
     var(--refined-bg-secondary) 100%
   );
   padding: var(--space-sm);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   border: none;
   width: 100%;
   opacity: 0;
   transform: translate3d(0, -350px, 0);
-  transition: transform 0.9s ease-out,
+  transition:
+    transform 0.9s ease-out,
     box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
   outline: none;
@@ -240,13 +243,17 @@
   text-transform: uppercase;
   text-align: center;
   font-family: var(--font-didot);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.1);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1),
+    0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .navButton:active,
 .navButton.active {
   transform: translate3d(0, -2px, 0);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navButton:active .buttonInnerFrame::before,
@@ -285,7 +292,7 @@
 }
 
 /* Show mobile header only on mobile devices */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .mobileHeader {
     display: flex;
   }

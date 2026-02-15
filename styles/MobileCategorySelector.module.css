@@ -262,7 +262,7 @@
 }
 
 /* Show selector bar only on mobile devices */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .selectorBar {
     display: flex;
   }

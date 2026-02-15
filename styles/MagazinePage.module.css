@@ -228,13 +228,6 @@
 }
 
 @media (max-width: 768px) {
-  .articleCard {
-    min-width: unset;
-    padding: 40px 25px;
-  }
-}
-
-@media (max-width: 650px) {
   .articlesGrid {
     gap: 10px;
   }
@@ -246,7 +239,7 @@
     font-size: 1.1rem;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .articlesGrid {
     gap: 20px;
   }

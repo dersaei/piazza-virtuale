@@ -146,14 +146,8 @@ strong::-moz-selection {
   display: none;
 }
 
-@media (max-width: 768px) {
-  :root {
-    --vertical-header-width: 200px;
-  }
-}
-
 /* Mobile layout - max 650px */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   /* Hide desktop layout completely */
   .desktop-layout {
     display: none !important;
