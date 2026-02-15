@@ -25,7 +25,6 @@
 
 .categoryCard:hover {
   transform: translateY(-4px);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 10px inset;
   border-color: #009246;
 }
 

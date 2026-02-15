@@ -252,30 +252,48 @@
 .aboutSection {
   padding: 6vh 10vw;
   text-align: center;
-  max-width: 1200px;
   margin: 0 auto;
   background-color: #4a4f45;
+  border: 10px solid black;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 110px inset;
 }
 
 .aboutTitle {
   font-size: 6vw;
   font-weight: 700;
   color: #fff8e1;
-  font-family: var(--font-futura);
+  font-family: var(--font-didot);
   margin: 0 0 1.5rem;
   letter-spacing: 0.02em;
 }
 
 .aboutDescription {
   font-size: 1.5vw;
-  line-height: 1.8;
-  color: #fff8e1;
+  line-height: 1.3;
+  color: wheat;
   margin: 0;
+  font-family: var(--font-sans);
+}
+
+.aboutFlag {
+  display: block;
+  margin: 3rem auto 0;
+  width: 120px;
+  height: auto;
+  opacity: 0.6;
 }
 
 @media (max-width: 868px) {
+  .aboutTitle {
+    font-size: 8vw;
+  }
   .aboutDescription {
     font-size: 1.05rem;
     line-height: 1.7;
+  }
+
+  .aboutFlag {
+    width: 80px;
+    margin-top: 2rem;
   }
 }
