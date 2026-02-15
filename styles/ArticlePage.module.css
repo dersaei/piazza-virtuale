@@ -158,7 +158,6 @@
 }
 
 .articleContent {
-  font-family: var(--font-serif);
   line-height: 1.8;
   text-align: justify;
   max-width: 800px;
@@ -168,9 +167,10 @@
 
 .articleContent p {
   margin-bottom: 28px;
-  font-size: 2vw;
+  font-size: 1.3rem;
   color: #fffaf3;
   font-weight: 300;
+  font-family: var(--font-serif);
 }
 
 /* Drop cap - first letter magazine style */
@@ -186,7 +186,7 @@
 }
 
 .articleContent h2 {
-  font-size: 4vw;
+  font-size: 3rem;
   font-weight: 700;
   color: var(--refined-bg-primary);
   margin-top: 40px;
@@ -249,20 +249,9 @@
     color 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 840px) {
-  .articleContent p {
-    font-size: 2.5vw;
-  }
-
-  .articleContent h2 {
-    font-size: 4.5vw;
-    margin-top: 32px;
-  }
-}
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .articleHeader h1 {
-    font-size: 8vw;
+    font-size: 9vw;
   }
   .articleContent p {
     font-size: 3.4vw;
