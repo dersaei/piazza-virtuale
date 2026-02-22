@@ -9,7 +9,6 @@
 /* Hero Section - based on HomePage heroVersion */
 .heroSection {
   text-align: center;
-  padding: 60px 20px;
   margin-bottom: 20px;
   position: relative;
   background: linear-gradient(
@@ -49,15 +48,16 @@
 }
 
 .heroSection h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 300;
+  font-size: 5vw;
+  font-weight: 700;
   color: #7a8471;
-  font-family: var(--font-serif);
+  font-family: var(--font-didot);
   margin-bottom: 32px;
   letter-spacing: 0.04em;
   line-height: 1.15;
   position: relative;
   display: inline-block;
+  padding: 10vh 8vw 2vh;
 }
 
 /* Elegant underline */
@@ -80,15 +80,17 @@
 }
 
 .heroSection h2 {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-size: 1.5rem;
   margin-bottom: 24px;
-  font-weight: 300;
+  text-shadow: 1px 2px 2px white;
+  font-weight: 400;
   color: #666;
-  font-family: var(--font-didot);
+  font-family: var(--font-senf);
+  padding: 1vh 3vw;
 }
 
 .heroDescription {
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-size: 1.2rem;
   color: #666;
   font-family: var(--font-futura);
   font-weight: 400;
@@ -180,14 +182,11 @@
 
 .italiaMap {
   display: block;
-  margin-top: var(--space-md);
-  padding-left: var(--space-sm);
-  padding-right: var(--space-sm);
+  margin: 0 auto;
   position: relative;
-  width: 250px;
+  width: 40vw;
   height: auto;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 3vh var(--space-sm);
 }
 
 /* Content Section */
@@ -201,14 +200,66 @@
 }
 
 .contentSection .intro {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  color: #7a8471;
-  font-family: var(--font-didot);
-  font-weight: 400;
-  line-height: 1.6;
-  margin-bottom: 40px;
-  text-align: center;
-  font-style: italic;
+  font-size: 1.2rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  padding: 38px 50px;
+  background: linear-gradient(
+    168deg,
+    rgba(122, 132, 113, 0.06) 0%,
+    rgba(184, 162, 129, 0.14) 48%,
+    rgba(182, 192, 186, 0.05) 100%
+  );
+  border-left: 20px solid rgba(184, 162, 129, 0.18);
+  position: relative;
+  box-shadow:
+    0 4px 16px rgba(122, 132, 113, 0.09),
+    0 12px 32px rgba(122, 132, 113, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.intro:hover {
+  box-shadow:
+    0 2px 12px rgba(122, 132, 113, 0.06),
+    0 8px 24px rgba(122, 132, 113, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Decorative corner pattern */
+.intro::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle at top right,
+    rgba(184, 162, 129, 0.18) 0%,
+    rgba(184, 162, 129, 0.08) 40%,
+    transparent 75%
+  );
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Subtle bottom-left decoration */
+.intro::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(
+    circle at bottom left,
+    rgba(122, 132, 113, 0.06) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
 }
 
 .contentSection h2 {
@@ -245,29 +296,28 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .heroSection {
-    padding: 40px 20px;
-  }
-
   .heroSection h1 {
     margin-bottom: 24px;
+    font-size: 10vw;
   }
 
   .heroSection h2 {
     margin-bottom: 16px;
   }
 
-  .heroDescription {
-    padding: 0 20px;
-  }
-
   .accentWrapper::before,
   .accentWrapper::after {
     display: none; /* Hide decorative dots on mobile */
   }
+  .italiaMap {
+    width: 60vw;
+  }
 
   .contentSection {
     padding: 40px 20px;
+  }
+  .contentSection .intro {
+    font-size: 1rem;
   }
 
   .contentSection p {
