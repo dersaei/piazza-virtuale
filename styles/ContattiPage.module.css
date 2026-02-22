@@ -3,6 +3,7 @@
 .contattiPage {
   max-width: 1000px;
   margin: 0 auto;
+  padding: var(--space-lg);
 }
 
 .header {
@@ -108,11 +109,6 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-}
-@media (max-width: 1200px) {
-  .contattiPage {
-    padding: var(--space-lg);
-  }
 }
 
 /* Responsive Design */

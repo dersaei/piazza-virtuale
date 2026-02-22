@@ -45,20 +45,6 @@
   border-radius: 2px;
 }
 
-/* Subtle accent decoration around image */
-.heroImage::before {
-  content: "";
-  position: absolute;
-  width: 80%;
-  height: 80%;
-  border: 1px solid rgba(184, 162, 129, 0.15);
-  border-radius: 4px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-2deg);
-  z-index: -1;
-}
-
 /* Responsive Design */
 
 @media (max-width: 768px) {

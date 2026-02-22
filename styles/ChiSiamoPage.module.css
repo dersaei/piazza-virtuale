@@ -3,6 +3,7 @@
 .chiSiamoPage {
   max-width: 1200px;
   margin: 0 auto;
+  padding: var(--space-lg);
 }
 
 /* Hero Section - based on HomePage heroVersion */
@@ -241,11 +242,7 @@
   margin-bottom: 20px;
   text-align: justify;
 }
-@media (max-width: 1200px) {
-  .chiSiamoPage {
-    padding: var(--space-lg);
-  }
-}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .heroSection {

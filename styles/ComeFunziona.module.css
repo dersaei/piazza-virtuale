@@ -3,6 +3,7 @@
 .comeFunzionaPage {
   max-width: 1000px;
   margin: 0 auto;
+  padding: var(--space-lg);
 }
 
 .heroSection {
