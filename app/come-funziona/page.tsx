@@ -1,6 +1,4 @@
 // app/come-funziona/page.tsx
-"use client";
-
 import Image from "next/image";
 import logotest from "@/public/android-chrome-192x192.png";
 import slowFoodItalia from "@/public/slow-food-italia-white.png";
