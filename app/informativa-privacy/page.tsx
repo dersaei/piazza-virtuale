@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Informativa Privacy | Piazza Virtuale",
+  title: "Informativa Privacy",
   description:
     "Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)",
   alternates: {

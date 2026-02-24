@@ -4,7 +4,7 @@ import styles from "@/styles/LegalPage.module.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Note Legali | Piazza Virtuale",
+  title: "Note Legali",
   description:
     "Note legali e informazioni sul sito Piazza Virtuale - Catalogo degli e-shop dei produttori italiani",
   alternates: {

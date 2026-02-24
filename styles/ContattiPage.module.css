@@ -160,9 +160,6 @@
     margin: var(--space-xl) var(--space-md);
   }
   .header::after {
-    bottom: 20px;
     right: 10px;
-    border-left: none;
-    border-top: none;
   }
 }

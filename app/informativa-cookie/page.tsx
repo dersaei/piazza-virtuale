@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | Piazza Virtuale",
+  title: "Cookie Policy",
   description:
     "Informativa sull'utilizzo dei cookie e tecnologie similari ai sensi del Regolamento UE 2016/679 e delle Linee Guida del Garante Privacy",
   alternates: {

@@ -4,7 +4,7 @@ import ContactForm from "@/components/ContactForm";
 import styles from "@/styles/ContattiPage.module.css";
 
 export const metadata: Metadata = {
-  title: "Contatti | Piazza Virtuale",
+  title: "Contatti",
   description:
     "Contattaci per qualsiasi domanda o informazione su Piazza Virtuale",
   alternates: {

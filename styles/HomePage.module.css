@@ -239,7 +239,7 @@
   padding: 6vh 10vw;
   text-align: center;
   margin: 0 auto;
-  background-color: #4a4f45;
+  background-color: var(--refined-border-primary);
   border: 10px solid black;
   box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 110px inset;
 }

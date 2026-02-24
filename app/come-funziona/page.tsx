@@ -10,6 +10,16 @@ import pastaImg from "@/public/pasta.jpg";
 import styles from "@/styles/ComeFunziona.module.css";
 import StandardSubmissionForm from "@/components/StandardSubmissionForm";
 import PremiumInquiryForm from "@/components/PremiumInquiryForm";
+import { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
+
+export const metadata: Metadata = {
+  title: "Come Funziona",
+  description:
+    "Scopri come funziona Piazza Virtuale e come puoi aggiungere il tuo e-shop al catalogo",
+  alternates: {
+    canonical: "/come-funziona",
+  },
+};
 
 export default function ComeFunzionaPage() {
   return (
