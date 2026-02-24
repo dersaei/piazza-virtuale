@@ -3,9 +3,10 @@
 
 import Image from "next/image";
 import logotest from "@/public/android-chrome-192x192.png";
-import slowFoodItalia from "@/public/slow-food-italia.png";
+import slowFoodItalia from "@/public/slow-food-italia-white.png";
 import gamberoRosso from "@/public/gambero-rosso.png";
 import aopIt from "@/public/aop-it.png";
+import pastaImg from "@/public/pasta.jpg";
 import styles from "@/styles/ComeFunziona.module.css";
 import StandardSubmissionForm from "@/components/StandardSubmissionForm";
 import PremiumInquiryForm from "@/components/PremiumInquiryForm";
@@ -87,24 +88,45 @@ export default function ComeFunzionaPage() {
       <section className={styles.premiumCardPrototype}>
         <h2 className={styles.prototypeTitle}>Anteprima Scheda Premium</h2>
         <article className={styles.premiumCard}>
-          <span className={styles.featuredLabel}>
-            <span>Puglia</span>
-            <span>Pasta</span>
-          </span>
-          <div className={styles.premiumCertificationsContainer}>
-            <Image src={gamberoRosso} alt="Gambero Rosso" />
-            <Image src={slowFoodItalia} alt="Slow Food Italia" />
-            <Image src={aopIt} alt="AOP Italia" />
-          </div>
-          <h3 className={styles.premiumProducerName}>Pastificio Artigianale</h3>
-          <div className={styles.premiumLogoContainer}>
-            <Image src={logotest} alt="test image" />
-          </div>
-          <a className={styles.premiumCtaButton}>
-            <div className={styles.premiumButtonInner}>
-              <span className={styles.premiumButtonText}>Visita lo Shop</span>
+          {/* Left column — content */}
+          <div className={styles.premiumCardLeft}>
+            <div>
+              <span className={styles.featuredLabel}>
+                <span>Puglia</span>
+                <span>Pasta</span>
+              </span>
+              <h3 className={styles.premiumProducerName}>
+                Pastificio Artigianale
+              </h3>
+              <div className={styles.premiumLogoContainer}>
+                <Image src={logotest} alt="Logo Pastificio Artigianale" />
+              </div>
+              <a className={styles.premiumCtaButton}>
+                <div className={styles.premiumButtonInner}>
+                  <span className={styles.premiumButtonText}>
+                    Visita lo Shop
+                  </span>
+                </div>
+              </a>
             </div>
-          </a>{" "}
+            <div className={styles.premiumCertificationsContainer}>
+              <Image src={slowFoodItalia} alt="Slow Food Italia" />
+              <Image src={aopIt} alt="AOP Italia" />
+              <Image src={gamberoRosso} alt="Gambero Rosso" />
+            </div>
+          </div>
+
+          {/* Right column — photo */}
+          <div className={styles.premiumCardImageCol}>
+            <Image
+              className={styles.premiumCardImage}
+              src={pastaImg}
+              alt="Pasta artigianale"
+              fill
+              sizes="320px"
+              priority
+            />
+          </div>
         </article>
       </section>
     </div>

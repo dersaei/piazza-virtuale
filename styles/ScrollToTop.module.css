@@ -10,8 +10,8 @@
   border: 1px solid rgba(184, 162, 129, 0.4);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   display: flex;
