@@ -318,7 +318,11 @@
     padding: 0;
   }
 }
-
+@media (max-width: 485px) {
+  .formContainer {
+    margin: var(--space-md);
+  }
+}
 /* Premium Card Prototype Section */
 .premiumCardPrototype {
   max-width: 1400px;
@@ -596,6 +600,11 @@
 }
 
 @media (max-width: 1075px) {
+  .premiumCardPrototype {
+    padding: var(--space-xs);
+  }
+}
+@media (max-width: 988px) {
   .premiumCard {
     grid-template-columns: 1fr;
     grid-template-rows: auto 260px;

@@ -155,3 +155,8 @@
     padding: var(--space-lg);
   }
 }
+@media (max-width: 485px) {
+  .formSection {
+    margin: var(--space-xl) var(--space-md);
+  }
+}
