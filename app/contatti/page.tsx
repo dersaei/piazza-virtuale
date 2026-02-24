@@ -6,9 +6,9 @@ import styles from "@/styles/ContattiPage.module.css";
 export const metadata: Metadata = {
   title: "Contatti",
   description:
-    "Contattaci per qualsiasi domanda o informazione su Piazza Virtuale",
+    "Contatta il team di Piazza Virtuale per domande sul catalogo, per segnalare un produttore italiano o per informazioni sui servizi premium riservati agli e-shop.",
   alternates: {
-    canonical: "/contatti",
+    canonical: "https://piazzavirtuale.it/contatti",
   },
 };
 

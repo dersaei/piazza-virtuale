@@ -13,9 +13,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Come Funziona",
   description:
-    "Scopri come funziona Piazza Virtuale e come puoi aggiungere il tuo e-shop al catalogo",
+    "Scopri come funziona Piazza Virtuale: aggiungi gratuitamente il tuo e-shop al catalogo dei produttori italiani di alimenti e bevande o richiedi il servizio premium per una maggiore visibilità.",
   alternates: {
-    canonical: "/come-funziona",
+    canonical: "https://piazzavirtuale.it/come-funziona",
   },
 };
 

@@ -7,7 +7,7 @@ import { getMagazineCards } from '@/lib/api/magazine';
 export const metadata: Metadata = {
   title: 'Magazine',
   description:
-    'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+    'Leggi guide pratiche, approfondimenti e consigli su come acquistare alimenti e bevande online direttamente dai produttori italiani. Scopri specialità regionali, prodotti artigianali e Made in Italy.',
   keywords: [
     'magazine',
     'guide',
@@ -17,9 +17,12 @@ export const metadata: Metadata = {
     'consigli acquisto',
   ],
   openGraph: {
+    type: 'website',
+    locale: 'it_IT',
+    siteName: 'Piazza Virtuale',
     title: 'Magazine | Piazza Virtuale',
     description:
-      'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+      'Leggi guide pratiche, approfondimenti e consigli su come acquistare alimenti e bevande online direttamente dai produttori italiani. Scopri specialità regionali, prodotti artigianali e Made in Italy.',
     url: 'https://piazzavirtuale.it/magazine',
     images: ['/opengraph-image'],
   },
@@ -27,11 +30,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Magazine | Piazza Virtuale',
     description:
-      'Scopri guide, approfondimenti e consigli per acquistare i migliori prodotti italiani online direttamente dai produttori.',
+      'Leggi guide pratiche, approfondimenti e consigli su come acquistare alimenti e bevande online direttamente dai produttori italiani. Scopri specialità regionali, prodotti artigianali e Made in Italy.',
     images: ['/opengraph-image'],
   },
   alternates: {
-    canonical: '/magazine',
+    canonical: 'https://piazzavirtuale.it/magazine',
   },
 };
 

@@ -59,7 +59,7 @@ export async function generateMetadata({
       images: ['/opengraph-image'],
     },
     alternates: {
-      canonical: `/${categorySlug}`,
+      canonical: `https://piazzavirtuale.it/${categorySlug}`,
     },
   };
 }

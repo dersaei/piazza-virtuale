@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   alternates: {
-    canonical: "/chi-siamo",
+    canonical: "https://piazzavirtuale.it/chi-siamo",
   },
 };
 

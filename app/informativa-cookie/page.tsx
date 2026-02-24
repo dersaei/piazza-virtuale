@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Informativa sull'utilizzo dei cookie e tecnologie similari ai sensi del Regolamento UE 2016/679 e delle Linee Guida del Garante Privacy",
   alternates: {
-    canonical: "/informativa-cookie",
+    canonical: "https://piazzavirtuale.it/informativa-cookie",
   },
 };
 

@@ -11,6 +11,26 @@ export const metadata: Metadata = {
     "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
   description:
     "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
+  openGraph: {
+    type: "website",
+    locale: "it_IT",
+    url: "https://piazzavirtuale.it",
+    siteName: "Piazza Virtuale",
+    title: "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
+    description:
+      "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
+    description:
+      "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
+    images: ["/opengraph-image"],
+  },
+  alternates: {
+    canonical: "https://piazzavirtuale.it",
+  },
 };
 
 export default function HomePage() {

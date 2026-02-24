@@ -70,7 +70,7 @@ export async function generateMetadata({
       images: ['/opengraph-image'],
     },
     alternates: {
-      canonical: `/bevande/${subcategory}`,
+      canonical: `https://piazzavirtuale.it/bevande/${subcategory}`,
     },
   };
 }

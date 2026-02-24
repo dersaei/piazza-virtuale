@@ -70,7 +70,7 @@ export async function generateMetadata({
       images: ['/opengraph-image'],
     },
     alternates: {
-      canonical: `/condimenti/${subcategory}`,
+      canonical: `https://piazzavirtuale.it/condimenti/${subcategory}`,
     },
   };
 }
