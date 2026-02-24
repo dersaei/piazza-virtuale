@@ -17,6 +17,9 @@ export default function ContattiPage() {
     <div className={styles.contattiPage}>
       <main className={styles.header}>
         <h1>Contatti</h1>
+        <h2 className={styles.keyWord}>
+          Spiżarnia Regio, ul. Napoleońska 49, 06-500 Mława, Polonia
+        </h2>
         <section className={styles.formSection}>
           <h2>Inviaci un messaggio</h2>
           <p className={styles.formIntro}>

@@ -212,8 +212,15 @@ export default function PrivacyPage() {
 
           <h3>Software di analisi</h3>
           <p>
-            <strong>Ackee Analytics</strong> - per analisi statistiche anonime
-            del traffico web, senza tracciamento individuale degli utenti.
+            <a
+              href="https://ackee.electerious.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>Ackee Analytics</strong>
+            </a>{" "}
+            - per analisi statistiche anonime del traffico web, senza
+            tracciamento individuale degli utenti.
           </p>
 
           <p className={styles.highlight}>
