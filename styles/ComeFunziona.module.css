@@ -320,7 +320,13 @@
 }
 @media (max-width: 485px) {
   .formContainer {
-    margin: var(--space-md);
+    margin: var(--space-xl) var(--space-md);
+  }
+  .heroSection::after {
+    bottom: 20px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
   }
 }
 /* Premium Card Prototype Section */
