@@ -65,9 +65,6 @@ export const metadata: Metadata = {
       "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande. Scopri i migliori produttori che vendono online direttamente ai consumatori.",
     images: ["/opengraph-image"],
   },
-  alternates: {
-    canonical: "/",
-  },
 };
 
 export const viewport: Viewport = {

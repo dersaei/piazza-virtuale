@@ -7,6 +7,21 @@ import { getAllArticles, getArticleBySlug } from '@/lib/api/magazine';
 
 // Note: Revalidation handled by Cache Components with "use cache" directive in lib/api/magazine.ts
 
+function cleanHtmlText(html: string): string {
+  if (!html) return '';
+  let text = html.replace(/<[^>]*>?/gm, ' ');
+  const entities: { [key: string]: string } = {
+    '&nbsp;': ' ', '&amp;': '&', '&quot;': '"', '&apos;': "'",
+    '&lt;': '<', '&gt;': '>', '&egrave;': 'è', '&eacute;': 'é',
+    '&agrave;': 'à', '&igrave;': 'ì', '&ograve;': 'ò', '&ugrave;': 'ù',
+    '&Egrave;': 'È', '&Agrave;': 'À', '&Igrave;': 'Ì', '&Ograve;': 'Ò',
+    '&Ugrave;': 'Ù', '&rsquo;': "'", '&lsquo;': "'", '&ldquo;': '"',
+    '&rdquo;': '"', '&ndash;': '-', '&mdash;': '—', '&Eacute;': 'É',
+  };
+  text = text.replace(/&[a-zA-Z0-9#]+;/g, match => entities[match] || '');
+  return text.replace(/\s+/g, ' ').trim();
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -22,8 +37,11 @@ export async function generateMetadata({
     };
   }
 
-  const plainTitle = article.title.replace(/<[^>]*>/g, '');
-  const plainDescription = article.content.substring(0, 160).replace(/<[^>]*>/g, '').trim() + '...';
+  const plainTitle = cleanHtmlText(article.title);
+  let plainDescription = cleanHtmlText(article.content);
+  if (plainDescription.length > 160) {
+    plainDescription = plainDescription.substring(0, 157).trim() + '...';
+  }
 
   return {
     title: plainTitle,
@@ -50,7 +68,7 @@ export async function generateMetadata({
       section: article.category.display_name,
       images: [
         {
-          url: `/magazine/${slug}/opengraph-image`,
+          url: `https://piazzavirtuale.it/magazine/${slug}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: plainTitle,
@@ -61,10 +79,10 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: `${plainTitle} | Magazine - Piazza Virtuale`,
       description: plainDescription,
-      images: [`/magazine/${slug}/opengraph-image`],
+      images: [`https://piazzavirtuale.it/magazine/${slug}/opengraph-image`],
     },
     alternates: {
-      canonical: `/magazine/${slug}`,
+      canonical: `https://piazzavirtuale.it/magazine/${slug}`,
     },
   };
 }
