@@ -211,6 +211,7 @@
   margin-bottom: 28px;
   list-style: disc;
   color: #fffaf3;
+  font-size: 1.2rem;
 }
 
 .articleContent li {
@@ -218,9 +219,10 @@
   padding-left: 8px;
   color: #fffaf3;
 }
-.articleContent blockquote {
+.articleContent blockquote p {
   color: #fffaf3;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-family: var(--font-sans);
 }
 
 .articleContent a {
