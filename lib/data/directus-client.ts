@@ -1,6 +1,7 @@
 // lib/data/directus-client.ts
 import "server-only";
 import { createDirectus, rest, staticToken } from "@directus/sdk";
+import type { DirectusSchema } from "@/types/directus";
 
 /**
  * Directus Client Configuration
@@ -26,15 +27,10 @@ const submissionToken = process.env.DIRECTUS_SUBMISSION_TOKEN || "";
  * Directus client instance
  * Use this for ALL database operations
  */
-export const directusClient = createDirectus(directusUrl)
+export const directusClient = createDirectus<DirectusSchema>(directusUrl)
   .with(staticToken(submissionToken))
   .with(
     rest({
       onRequest: (options) => ({ ...options, cache: "no-store" }),
     })
   );
-
-/**
- * Re-export Directus schema types for convenience
- */
-export type { DirectusSchema } from "@/types/directus";
