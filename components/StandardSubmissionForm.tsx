@@ -6,6 +6,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
 import { GROUPED_FORM_CATEGORIES } from "@/lib/constants/formCategories";
+import { MAX_LOGO_FILE_SIZE } from "@/lib/constants/upload";
 import { submitStandardForm } from "@/app/actions/submissions";
 import SubmitButton from "@/components/shared/SubmitButton";
 import FormStatus from "@/components/shared/FormStatus";
@@ -69,14 +70,10 @@ export default function StandardSubmissionForm() {
     if (state?.success && !prevSuccessRef.current) {
       prevSuccessRef.current = true;
       formRef.current?.reset();
-
-      // Use setTimeout to avoid cascading renders
-      setTimeout(() => {
-        setSelectedCategories([]);
-        setSelectedRegion("");
-        setPrivacyAccepted(false);
-        setClientError(null);
-      }, 0);
+      setSelectedCategories([]);
+      setSelectedRegion("");
+      setPrivacyAccepted(false);
+      setClientError(null);
     } else if (!state?.success) {
       prevSuccessRef.current = false;
     }
@@ -100,9 +97,8 @@ export default function StandardSubmissionForm() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 
-    if (file && file.size > MAX_FILE_SIZE) {
+    if (file && file.size > MAX_LOGO_FILE_SIZE) {
       setClientError("Il file logo è troppo grande. Dimensione massima: 1MB.");
       e.target.value = ""; // Clear the file input
     } else {

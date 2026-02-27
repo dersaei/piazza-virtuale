@@ -26,11 +26,7 @@ export default function PremiumInquiryForm() {
     if (state?.success && !prevSuccessRef.current) {
       prevSuccessRef.current = true;
       formRef.current?.reset();
-
-      // Use setTimeout to avoid cascading renders
-      setTimeout(() => {
-        setPrivacyAccepted(false);
-      }, 0);
+      setPrivacyAccepted(false);
     } else if (!state?.success) {
       prevSuccessRef.current = false;
     }

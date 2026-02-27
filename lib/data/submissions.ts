@@ -2,17 +2,10 @@
 import "server-only";
 import { directusClient } from "./directus-client";
 import { createItem, uploadFiles } from "@directus/sdk";
+import { MAX_LOGO_FILE_SIZE, ALLOWED_LOGO_FILE_TYPES } from "@/lib/constants/upload";
 
 // Constants
 const LOGO_FOLDER_ID = process.env.DIRECTUS_LOGO_FOLDER_ID || "6117a847-6c58-489e-8b9e-61991620ad24";
-const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
-const ALLOWED_FILE_TYPES = [
-  "image/png",
-  "image/jpeg",
-  "image/jpg",
-  "image/svg+xml",
-  "image/webp",
-];
 
 /**
  * Standard Submission DTO
@@ -69,7 +62,7 @@ interface FileUploadResult {
 async function uploadLogo(file: File): Promise<FileUploadResult> {
   try {
     // Validate file type
-    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+    if (!ALLOWED_LOGO_FILE_TYPES.includes(file.type)) {
       return {
         success: false,
         error:
@@ -78,7 +71,7 @@ async function uploadLogo(file: File): Promise<FileUploadResult> {
     }
 
     // Validate file size
-    if (file.size > MAX_FILE_SIZE) {
+    if (file.size > MAX_LOGO_FILE_SIZE) {
       return {
         success: false,
         error: "File troppo grande. Dimensione massima: 1MB.",

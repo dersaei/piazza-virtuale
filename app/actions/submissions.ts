@@ -1,7 +1,5 @@
 // app/actions/submissions.ts
 "use server";
-
-import "server-only";
 import {
   createStandardSubmission,
   createPremiumInquiry,
