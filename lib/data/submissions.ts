@@ -111,8 +111,8 @@ async function uploadLogo(file: File): Promise<FileUploadResult> {
       };
     }
 
-    // Extract ID from response (handle different response structures)
-    const fileId = uploadedFiles?.data?.id || uploadedFiles?.id;
+    // Extract ID from response (SDK v21+ returns the file object directly)
+    const fileId = uploadedFiles?.id;
 
     if (!fileId) {
       console.error("Invalid upload response structure:", uploadedFiles);

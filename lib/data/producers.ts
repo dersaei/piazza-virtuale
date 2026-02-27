@@ -1,7 +1,7 @@
 // lib/data/producers.ts
 import "server-only";
 import { directusClient } from "./directus-client";
-import { readItems } from "@directus/sdk";
+import { readItems, aggregate } from "@directus/sdk";
 
 /**
  * Producer Data Transfer Object (DTO)
@@ -99,8 +99,28 @@ export async function getProducersCountByCategory(
   categorySlug: string
 ): Promise<number> {
   try {
-    const producers = await getProducersByCategory(categorySlug);
-    return producers.length;
+    if (!categorySlug || typeof categorySlug !== "string") {
+      return 0;
+    }
+
+    const safeCategorySlug = categorySlug.trim().toLowerCase();
+
+    const result = await directusClient.request(
+      aggregate("producers", {
+        aggregate: { count: "*" },
+        query: {
+          filter: {
+            _or: [
+              { category: { slug: { _eq: safeCategorySlug } } },
+              { category: { parent_category: { slug: { _eq: safeCategorySlug } } } },
+            ],
+            status: { _eq: "published" },
+          },
+        },
+      })
+    );
+
+    return Number(result[0]?.count ?? 0);
   } catch (error) {
     console.error("Error counting producers:", error);
     return 0;
@@ -108,32 +128,35 @@ export async function getProducersCountByCategory(
 }
 
 /**
+ * Fetch all published producers with category and region fields.
+ * Single shared query used by getAllCategoryCounts and getAllRegionCounts
+ * to avoid duplicate round-trips to Directus.
+ */
+async function getAllPublishedProducersSummary(): Promise<
+  Array<{ category: { slug: string } | null; region: string | null }>
+> {
+  return directusClient.request(
+    readItems("producers", {
+      filter: {
+        status: { _eq: "published" },
+      },
+      fields: ["id", "category.slug", "region"],
+      limit: -1,
+    })
+  ) as Promise<Array<{ category: { slug: string } | null; region: string | null }>>;
+}
+
+/**
  * Get counts for all categories
  * Returns a map of category slug to producer count
  */
-export async function getAllCategoryCounts(): Promise<
-  Record<string, number>
-> {
+export async function getAllCategoryCounts(): Promise<Record<string, number>> {
   try {
-    const producers = await directusClient.request(
-      readItems("producers", {
-        filter: {
-          status: { _eq: "published" },
-        },
-        fields: [
-          "id",
-          "category.slug",
-        ],
-        limit: -1,
-      })
-    );
+    const producers = await getAllPublishedProducersSummary();
 
-    // Count producers by their actual category
     const counts: Record<string, number> = {};
-
     for (const producer of producers) {
       const categorySlug = producer.category?.slug;
-
       if (categorySlug) {
         counts[categorySlug] = (counts[categorySlug] || 0) + 1;
       }
@@ -150,33 +173,18 @@ export async function getAllCategoryCounts(): Promise<
  * Get counts for all regions
  * Returns an array of objects with region name and producer count, sorted by count descending
  */
-export async function getAllRegionCounts(): Promise<Array<{region: string; count: number}>> {
+export async function getAllRegionCounts(): Promise<Array<{ region: string; count: number }>> {
   try {
-    const producers = await directusClient.request(
-      readItems("producers", {
-        filter: {
-          status: { _eq: "published" },
-        },
-        fields: [
-          "id",
-          "region",
-        ],
-        limit: -1,
-      })
-    );
+    const producers = await getAllPublishedProducersSummary();
 
-    // Count producers by region
     const counts: Record<string, number> = {};
-
     for (const producer of producers) {
       const region = producer.region;
-
-      if (region && typeof region === 'string') {
+      if (region && typeof region === "string") {
         counts[region] = (counts[region] || 0) + 1;
       }
     }
 
-    // Convert to array and sort by count descending
     return Object.entries(counts)
       .map(([region, count]) => ({ region, count }))
       .sort((a, b) => b.count - a.count);
@@ -192,17 +200,18 @@ export async function getAllRegionCounts(): Promise<Array<{region: string; count
  */
 export async function getTotalProducersCount(): Promise<number> {
   try {
-    const producers = await directusClient.request(
-      readItems("producers", {
-        filter: {
-          status: { _eq: "published" },
+    const result = await directusClient.request(
+      aggregate("producers", {
+        aggregate: { count: "*" },
+        query: {
+          filter: {
+            status: { _eq: "published" },
+          },
         },
-        fields: ["id"],
-        limit: -1,
       })
     );
 
-    return producers.length;
+    return Number(result[0]?.count ?? 0);
   } catch (error) {
     console.error("Error fetching total producers count:", error);
     return 0;

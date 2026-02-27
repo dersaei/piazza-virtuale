@@ -1,7 +1,7 @@
 // lib/data/magazine.ts
 import "server-only";
 import { directusClient } from "./directus-client";
-import { readItems } from "@directus/sdk";
+import { readItems, aggregate } from "@directus/sdk";
 
 /**
  * Category DTO
@@ -227,8 +227,18 @@ export async function getArticleBySlug(
  */
 export async function getPublishedArticlesCount(): Promise<number> {
   try {
-    const articles = await getAllPublishedArticles();
-    return articles.length;
+    const result = await directusClient.request(
+      aggregate("magazine_articles", {
+        aggregate: { count: "*" },
+        query: {
+          filter: {
+            status: { _eq: "published" },
+          },
+        },
+      })
+    );
+
+    return Number(result[0]?.count ?? 0);
   } catch (error) {
     console.error("Error counting articles:", error);
     return 0;
