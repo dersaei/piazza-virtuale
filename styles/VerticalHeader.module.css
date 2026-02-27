@@ -137,6 +137,18 @@
   opacity: 0.5;
   transition: opacity 0.3s ease;
 }
+@media (max-width: 930px) {
+  .verticalHeader {
+    width: var(--vertical-tablet-header-width);
+  }
+  .buttonText {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+  }
+  .buttonInnerFrame {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
 
 @media (max-width: 768px) {
   .verticalHeader {

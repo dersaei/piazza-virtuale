@@ -49,7 +49,7 @@
 
 /* Category Name */
 .categoryName {
-  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-size: clamp(0.95rem, 1.5vw, 1rem);
   font-weight: 300;
   color: var(--refined-bg-primary);
   font-family: var(--font-serif);
@@ -97,7 +97,7 @@
 
 /* Region Name */
 .regionName {
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-size: clamp(1rem, 2vw, 1.15rem);
   font-weight: 400;
   color: #666;
   font-family: var(--font-sans);
@@ -189,7 +189,7 @@
     font-size: 100%;
   }
 }
-@media (max-width: 900px) {
+@media (max-width: 800px) {
   .shopCard {
     width: 300px;
   }

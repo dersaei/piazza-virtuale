@@ -264,6 +264,11 @@
   margin-bottom: var(--space-xl);
   letter-spacing: 0.03em;
 }
+@media (max-width: 930px) {
+  .formContainer {
+    margin: var(--space-xl) var(--space-md);
+  }
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -312,6 +317,7 @@
 
   .formContainer {
     padding: var(--space-lg);
+    margin: var(--space-xl);
   }
 
   .contentWrapper {

@@ -177,21 +177,19 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 930px) {
+  .horizontalHeader {
+    left: var(--vertical-header-tablet-width);
+  }
   .navContainer {
     padding: 0 var(--space-sm);
   }
 
-  .categoryButton {
-    padding: var(--space-sm);
-  }
-
-  .categoryText {
-    font-size: 0.8rem;
-  }
-
   .navContainer.twoRows {
     grid-template-columns: repeat(2, auto);
+  }
+  .categoryText {
+    font-size: 0.8rem;
   }
 }
 

@@ -17,6 +17,7 @@
 
   /* Layout dimensions */
   --vertical-header-width: 250px;
+  --vertical-tablet-header-width: 200px;
   --horizontal-header-height: auto;
 
   /* Spacing */
@@ -144,6 +145,12 @@ strong::-moz-selection {
 
 .mobile-footer-wrapper {
   display: none;
+}
+
+@media (max-width: 930px) {
+  .main-content-area {
+    margin-left: var(--vertical-tablet-header-width);
+  }
 }
 
 /* Mobile layout - max 650px */

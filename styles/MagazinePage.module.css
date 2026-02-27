@@ -5,8 +5,9 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
+  flex-wrap: wrap;
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: var(--space-lg);
 }
@@ -26,7 +27,7 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 280px;
-  width: 500px;
+  width: 350px;
 }
 
 .articleCard:hover {
@@ -212,16 +213,13 @@
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
-  .articlesGrid {
-    flex-wrap: wrap;
-  }
+@media (max-width: 1060px) {
   .articleCard {
     width: 320px;
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 990px) {
   .articleCard {
     width: 85%;
   }
@@ -239,12 +237,12 @@
     font-size: 1.1rem;
   }
 }
-@media (max-width: 550px) {
+@media (max-width: 585px) {
   .articlesGrid {
     gap: 20px;
   }
   .articleCard {
-    width: 320px;
+    width: 390px;
   }
   .title {
     font-size: 1.5rem;
