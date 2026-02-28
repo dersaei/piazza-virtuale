@@ -47,16 +47,16 @@
 }
 
 .mainTitle {
-  font-size: 5vw;
+  font-size: 4rem;
   font-weight: 700;
-  color: #7a8471;
+  color: var(--refined-bg-primary);
   font-family: var(--font-didot);
   margin-bottom: 32px;
   letter-spacing: 0.04em;
   line-height: 1.15;
   position: relative;
   display: inline-block;
-  padding: 10vh 8vw 2vh;
+  padding: 4.3rem 2rem 0.9rem;
 }
 
 .mainTitle::after {

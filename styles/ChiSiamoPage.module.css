@@ -50,7 +50,7 @@
 .heroSection h1 {
   font-size: 4rem;
   font-weight: 700;
-  color: #7a8471;
+  color: var(--refined-bg-primary);
   font-family: var(--font-didot);
   margin-bottom: 32px;
   letter-spacing: 0.04em;
@@ -201,9 +201,10 @@
 
 .contentSection .intro {
   font-size: 1.2rem;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-futura);
+  font-weight: 300;
   padding: 38px 50px;
+  text-align: center;
   background: linear-gradient(
     168deg,
     rgba(122, 132, 113, 0.06) 0%,
@@ -298,11 +299,15 @@
 @media (max-width: 768px) {
   .heroSection h1 {
     margin-bottom: 24px;
-    font-size: 3.4rem;
+    font-size: 10vw;
   }
 
   .heroSection h2 {
+    font-size: 1.125rem;
     margin-bottom: 16px;
+  }
+  .heroDescription {
+    font-size: 1.05rem;
   }
 
   .accentWrapper::before,
