@@ -38,15 +38,8 @@ export async function getPageSeo(slug: string): Promise<SeoDTO | null> {
         },
         fields: [
           "slug",
-          {
-            seo: [
-              "title",
-              "meta_description",
-              "canonical_url",
-              "no_index",
-              "og_image",
-            ],
-          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { seo: ["title", "meta_description", "canonical_url", "no_index", "og_image"] } as any,
         ],
         limit: 1,
       })

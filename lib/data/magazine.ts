@@ -208,18 +208,10 @@ export async function getArticleBySlug(
           "content",
           "date_created",
           "date_updated",
-          {
-            magazine_category_id: ["name", "display_name", "color"],
-          },
-          {
-            seo: [
-              "title",
-              "meta_description",
-              "canonical_url",
-              "no_index",
-              "og_image",
-            ],
-          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { magazine_category_id: ["name", "display_name", "color"] } as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { seo: ["title", "meta_description", "canonical_url", "no_index", "og_image"] } as any,
         ],
         limit: 1,
       })
