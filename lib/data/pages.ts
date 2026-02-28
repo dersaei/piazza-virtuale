@@ -49,7 +49,7 @@ export async function getPageSeo(slug: string): Promise<SeoDTO | null> {
       return null;
     }
 
-    const page = pages[0] as DirectusPageResponse;
+    const page = pages[0] as unknown as DirectusPageResponse;
 
     if (!page.seo) {
       return null;

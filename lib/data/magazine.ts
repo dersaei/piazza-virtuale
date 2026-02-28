@@ -221,7 +221,7 @@ export async function getArticleBySlug(
       return null;
     }
 
-    const article = articles[0] as DirectusMagazineArticleResponse;
+    const article = articles[0] as unknown as DirectusMagazineArticleResponse;
 
     return {
       id: article.id,
