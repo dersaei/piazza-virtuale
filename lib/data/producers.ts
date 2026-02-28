@@ -71,9 +71,8 @@ export async function getProducersByCategory(
           "id",
           "name",
           "name_alt",
-          "category.slug",
-          "category.name",
-          "category.parent_category.slug",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { category: ["slug", "name", { parent_category: ["slug"] }] } as any,
           "region",
           "logo",
           "shop_url",
@@ -84,7 +83,7 @@ export async function getProducersByCategory(
     );
 
     // Return as DTOs (already filtered by fields above)
-    return producers as ProducerDTO[];
+    return producers as unknown as ProducerDTO[];
   } catch (error) {
     console.error("Error fetching producers:", error);
     return [];
@@ -140,10 +139,11 @@ async function getAllPublishedProducersSummary(): Promise<
       filter: {
         status: { _eq: "published" },
       },
-      fields: ["id", "category.slug", "region"],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      fields: ["id", { category: ["slug"] } as any, "region"],
       limit: -1,
     })
-  ) as Promise<Array<{ category: { slug: string } | null; region: string | null }>>;
+  ) as unknown as Promise<Array<{ category: { slug: string } | null; region: string | null }>>;
 }
 
 /**
@@ -263,7 +263,8 @@ export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeatu
             "id",
             "name",
             "name_alt",
-            "category.name",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            { category: ["name"] } as any,
             "region",
             "logo",
             "shop_url",
@@ -285,7 +286,8 @@ export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeatu
             "id",
             "name",
             "name_alt",
-            "category.name",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            { category: ["name"] } as any,
             "region",
             "logo",
             "shop_url",
