@@ -272,8 +272,21 @@
     font-size: 3em;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 570px) {
   .articleCard {
-    padding: 50px 25px;
+    padding: 100px 50px 50px;
+    position: relative;
+  }
+  .backLink {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+}
+@media (max-width: 450px) {
+  .articleCard {
+    padding: 100px 25px 50px;
   }
 }

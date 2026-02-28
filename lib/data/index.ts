@@ -36,6 +36,7 @@ export {
   getPublishedArticlesCount,
   type MagazineCardDTO,
   type MagazineArticleDTO,
+  type SeoDTO,
 } from "./magazine";
 
 export {
@@ -46,5 +47,9 @@ export {
   type PremiumInquiryDTO,
   type ContactMessageDTO,
 } from "./submissions";
+
+export {
+  getPageSeo,
+} from "./pages";
 
 // DO NOT export directusClient - it should only be used within this layer

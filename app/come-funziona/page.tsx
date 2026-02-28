@@ -9,15 +9,44 @@ import styles from "@/styles/ComeFunziona.module.css";
 import StandardSubmissionForm from "@/components/StandardSubmissionForm";
 import PremiumInquiryForm from "@/components/PremiumInquiryForm";
 import type { Metadata } from "next";
+import { getPageSeo } from "@/lib/api/pages";
 
-export const metadata: Metadata = {
-  title: "Come Funziona",
-  description:
-    "Scopri come funziona Piazza Virtuale: aggiungi gratuitamente il tuo e-shop al catalogo dei produttori italiani di alimenti e bevande o richiedi il servizio premium per una maggiore visibilità.",
-  alternates: {
-    canonical: "https://piazzavirtuale.it/come-funziona",
-  },
-};
+const FALLBACK_TITLE = "Come Funziona | Piazza Virtuale";
+const FALLBACK_DESCRIPTION = "Scopri come funziona Piazza Virtuale: aggiungi gratuitamente il tuo e-shop al catalogo dei produttori italiani di alimenti e bevande o richiedi il servizio premium per una maggiore visibilità.";
+const PAGE_URL = "https://piazzavirtuale.it/come-funziona";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("come-funziona");
+
+  const title = seo?.title ?? FALLBACK_TITLE;
+  const description = seo?.meta_description ?? FALLBACK_DESCRIPTION;
+  const canonicalUrl = seo?.canonical_url ?? PAGE_URL;
+  const ogImageUrl = seo?.og_image ?? "/opengraph-image";
+
+  return {
+    title,
+    description,
+    robots: seo?.no_index ? { index: false, follow: true } : undefined,
+    openGraph: {
+      type: "website",
+      locale: "it_IT",
+      url: PAGE_URL,
+      siteName: "Piazza Virtuale",
+      title,
+      description,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
+}
 
 export default function ComeFunzionaPage() {
   return (

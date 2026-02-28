@@ -5,6 +5,7 @@ import { getCategoryBySlug } from '@/lib/constants/categories';
 import ProducerCard from '@/components/ProducerCard';
 import styles from '@/styles/CategoryPage.module.css';
 import { getProducersByCategory } from '@/lib/api/producers';
+import { getPageSeo } from '@/lib/api/pages';
 
 const VALID_SUBCATEGORIES = ['birre', 'vini', 'distillati', 'caffe', 'succhi'];
 
@@ -32,12 +33,21 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${category.label} - ${category.title} Italiani`;
-  const description = `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori. Prodotti artigianali e tradizionali del Made in Italy.`;
+  const fallbackTitle = `${category.label} - ${category.title} Italiani`;
+  const fallbackDescription = `Scopri i ${category.title.toLowerCase()} italiani che vendono online direttamente ai consumatori. Prodotti artigianali e tradizionali del Made in Italy.`;
+  const pageUrl = `https://piazzavirtuale.it/bevande/${subcategory}`;
+
+  const seo = await getPageSeo(fullSlug);
+
+  const title = seo?.title ?? fallbackTitle;
+  const description = seo?.meta_description ?? fallbackDescription;
+  const canonicalUrl = seo?.canonical_url ?? pageUrl;
+  const ogImageUrl = seo?.og_image ?? '/opengraph-image';
 
   return {
     title,
     description,
+    robots: seo?.no_index ? { index: false, follow: true } : undefined,
     keywords: [
       category.label.toLowerCase(),
       category.title.toLowerCase(),
@@ -50,27 +60,20 @@ export async function generateMetadata({
     openGraph: {
       type: 'website',
       locale: 'it_IT',
-      url: `https://piazzavirtuale.it/bevande/${subcategory}`,
+      url: pageUrl,
       siteName: 'Piazza Virtuale',
       title: `${title} | Piazza Virtuale`,
       description,
-      images: [
-        {
-          url: '/opengraph-image',
-          width: 1200,
-          height: 630,
-          alt: `${title} - Piazza Virtuale`,
-        },
-      ],
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${title} - Piazza Virtuale` }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${title} | Piazza Virtuale`,
       description,
-      images: ['/opengraph-image'],
+      images: [ogImageUrl],
     },
     alternates: {
-      canonical: `https://piazzavirtuale.it/bevande/${subcategory}`,
+      canonical: canonicalUrl,
     },
   };
 }

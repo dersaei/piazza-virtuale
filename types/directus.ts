@@ -83,6 +83,21 @@ export interface ContactMessage {
 }
 
 /**
+ * SEO metadata (shared collection)
+ */
+export interface SeoItem {
+  id: string;
+  title?: string | null;
+  meta_description?: string | null;
+  canonical_url?: string | null;
+  no_index?: boolean | null;
+  og_image?: string | null;
+  status: 'published' | 'draft' | 'archived';
+  date_created: string;
+  date_updated?: string;
+}
+
+/**
  * Magazine Article
  */
 export interface MagazineArticle {
@@ -91,6 +106,7 @@ export interface MagazineArticle {
   title: string;
   category: string;
   content: string;
+  seo?: SeoItem | string | null;
   status: 'published' | 'draft' | 'archived';
   date_created: string;
   date_updated?: string;
@@ -114,6 +130,18 @@ export interface MagazineCard {
  * Directus Collections Schema
  * Use this type with Directus SDK for full type safety
  */
+/**
+ * Page (for static page SEO management)
+ */
+export interface PageItem {
+  id: string;
+  slug: string;
+  seo?: SeoItem | string | null;
+  status: 'published' | 'draft' | 'archived';
+  date_created: string;
+  date_updated?: string;
+}
+
 export interface DirectusSchema {
   categories: Category[];
   producers: Producer[];
@@ -122,4 +150,6 @@ export interface DirectusSchema {
   contact_messages: ContactMessage[];
   magazine_articles: MagazineArticle[];
   magazine_cards: MagazineCard[];
+  seo: SeoItem[];
+  pages: PageItem[];
 }

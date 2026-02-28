@@ -38,14 +38,35 @@ export async function generateMetadata({
   }
 
   const plainTitle = cleanHtmlText(article.title);
-  let plainDescription = cleanHtmlText(article.content);
-  if (plainDescription.length > 160) {
-    plainDescription = plainDescription.substring(0, 157).trim() + '...';
+
+  // SEO title: Directus field > article title
+  const seoTitle = article.seo?.title
+    ? cleanHtmlText(article.seo.title)
+    : plainTitle;
+
+  // SEO description: Directus field > auto-extracted from content
+  let seoDescription: string;
+  if (article.seo?.meta_description) {
+    seoDescription = article.seo.meta_description;
+  } else {
+    seoDescription = cleanHtmlText(article.content);
+    if (seoDescription.length > 160) {
+      seoDescription = seoDescription.substring(0, 157).trim() + '...';
+    }
   }
 
+  // Canonical URL: Directus field > default
+  const canonicalUrl = article.seo?.canonical_url
+    ?? `https://piazzavirtuale.it/magazine/${slug}`;
+
+  // OG image: path from public/og-images/ > generated opengraph image
+  const ogImageUrl = article.seo?.og_image
+    ?? `https://piazzavirtuale.it/magazine/${slug}/opengraph-image`;
+
   return {
-    title: plainTitle,
-    description: plainDescription,
+    title: seoTitle,
+    description: seoDescription,
+    robots: article.seo?.no_index ? { index: false, follow: true } : undefined,
     keywords: [
       article.category.name,
       'magazine',
@@ -60,29 +81,29 @@ export async function generateMetadata({
       locale: 'it_IT',
       url: `https://piazzavirtuale.it/magazine/${slug}`,
       siteName: 'Piazza Virtuale',
-      title: `${plainTitle} | Magazine - Piazza Virtuale`,
-      description: plainDescription,
+      title: `${seoTitle} | Magazine - Piazza Virtuale`,
+      description: seoDescription,
       publishedTime: article.date_created,
       modifiedTime: article.date_updated || article.date_created,
       authors: ['Piazza Virtuale'],
       section: article.category.display_name,
       images: [
         {
-          url: `https://piazzavirtuale.it/magazine/${slug}/opengraph-image`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: plainTitle,
+          alt: seoTitle,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${plainTitle} | Magazine - Piazza Virtuale`,
-      description: plainDescription,
-      images: [`https://piazzavirtuale.it/magazine/${slug}/opengraph-image`],
+      title: `${seoTitle} | Magazine - Piazza Virtuale`,
+      description: seoDescription,
+      images: [ogImageUrl],
     },
     alternates: {
-      canonical: `https://piazzavirtuale.it/magazine/${slug}`,
+      canonical: canonicalUrl,
     },
   };
 }

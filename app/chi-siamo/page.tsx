@@ -3,29 +3,44 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "@/styles/ChiSiamoPage.module.css";
 import italia from "@/public/territorio-italiano.png";
+import { getPageSeo } from "@/lib/api/pages";
 
-export const metadata: Metadata = {
-  title: "Chi Siamo",
-  description:
-    "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
-  openGraph: {
-    title: "Chi Siamo | Piazza Virtuale",
-    description:
-      "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
-    url: "https://piazzavirtuale.it/chi-siamo",
-    images: ["/opengraph-image"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Chi Siamo | Piazza Virtuale",
-    description:
-      "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.",
-    images: ["/opengraph-image"],
-  },
-  alternates: {
-    canonical: "https://piazzavirtuale.it/chi-siamo",
-  },
-};
+const FALLBACK_TITLE = "Chi Siamo | Piazza Virtuale";
+const FALLBACK_DESCRIPTION = "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.";
+const PAGE_URL = "https://piazzavirtuale.it/chi-siamo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("chi-siamo");
+
+  const title = seo?.title ?? FALLBACK_TITLE;
+  const description = seo?.meta_description ?? FALLBACK_DESCRIPTION;
+  const canonicalUrl = seo?.canonical_url ?? PAGE_URL;
+  const ogImageUrl = seo?.og_image ?? "/opengraph-image";
+
+  return {
+    title,
+    description,
+    robots: seo?.no_index ? { index: false, follow: true } : undefined,
+    openGraph: {
+      type: "website",
+      locale: "it_IT",
+      url: PAGE_URL,
+      siteName: "Piazza Virtuale",
+      title,
+      description,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
+}
 
 export default function ChiSiamoPage() {
   return (

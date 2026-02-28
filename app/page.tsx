@@ -5,33 +5,44 @@ import styles from "@/styles/HomePage.module.css";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { ShopCounter } from "@/components/ShopCounter";
 import { RegionListWithFeatured } from "@/components/RegionListWithFeatured";
+import { getPageSeo } from "@/lib/api/pages";
 
-export const metadata: Metadata = {
-  title:
-    "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
-  description:
-    "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
-  openGraph: {
-    type: "website",
-    locale: "it_IT",
-    url: "https://piazzavirtuale.it",
-    siteName: "Piazza Virtuale",
-    title: "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
-    description:
-      "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
-    images: ["/opengraph-image"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale",
-    description:
-      "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.",
-    images: ["/opengraph-image"],
-  },
-  alternates: {
-    canonical: "https://piazzavirtuale.it",
-  },
-};
+const FALLBACK_TITLE = "Catalogo degli e-shop di produttori italiani di cibo e bevande | Piazza Virtuale";
+const FALLBACK_DESCRIPTION = "Comprare cibo online in Italia. Trova i negozi online dei produttori italiani di alimenti e bevande.";
+const PAGE_URL = "https://piazzavirtuale.it";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("home");
+
+  const title = seo?.title ?? FALLBACK_TITLE;
+  const description = seo?.meta_description ?? FALLBACK_DESCRIPTION;
+  const canonicalUrl = seo?.canonical_url ?? PAGE_URL;
+  const ogImageUrl = seo?.og_image ?? "/opengraph-image";
+
+  return {
+    title,
+    description,
+    robots: seo?.no_index ? { index: false, follow: true } : undefined,
+    openGraph: {
+      type: "website",
+      locale: "it_IT",
+      url: PAGE_URL,
+      siteName: "Piazza Virtuale",
+      title,
+      description,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
+}
 
 export default function HomePage() {
   return (

@@ -40,6 +40,18 @@ interface DirectusMagazineCardResponse {
 }
 
 /**
+ * SEO DTO
+ * Safe, public-facing SEO data structure
+ */
+export interface SeoDTO {
+  title: string | null;
+  meta_description: string | null;
+  canonical_url: string | null;
+  no_index: boolean;
+  og_image: string | null;
+}
+
+/**
  * Magazine Article DTO (for /magazine/[slug] page)
  * Safe, public-facing data structure
  */
@@ -49,6 +61,7 @@ export interface MagazineArticleDTO {
   title: string;
   category: CategoryDTO;
   content: string;
+  seo: SeoDTO | null;
   date_created: string;
   date_updated?: string;
 }
@@ -65,6 +78,13 @@ interface DirectusMagazineArticleResponse {
   date_created: string;
   date_updated?: string;
   magazine_category_id?: CategoryDTO | null;
+  seo?: {
+    title?: string | null;
+    meta_description?: string | null;
+    canonical_url?: string | null;
+    no_index?: boolean | null;
+    og_image?: string | null;
+  } | null;
 }
 
 /**
@@ -191,6 +211,15 @@ export async function getArticleBySlug(
           {
             magazine_category_id: ["name", "display_name", "color"],
           },
+          {
+            seo: [
+              "title",
+              "meta_description",
+              "canonical_url",
+              "no_index",
+              "og_image",
+            ],
+          },
         ],
         limit: 1,
       })
@@ -212,6 +241,15 @@ export async function getArticleBySlug(
         color: "#B8A281", // fallback color
       },
       content: article.content,
+      seo: article.seo
+        ? {
+            title: article.seo.title ?? null,
+            meta_description: article.seo.meta_description ?? null,
+            canonical_url: article.seo.canonical_url ?? null,
+            no_index: article.seo.no_index ?? false,
+            og_image: article.seo.og_image ?? null,
+          }
+        : null,
       date_created: article.date_created,
       date_updated: article.date_updated,
     };
