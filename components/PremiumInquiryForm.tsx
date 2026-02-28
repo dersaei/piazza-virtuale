@@ -1,7 +1,7 @@
 // components/PremiumInquiryForm.tsx
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useActionState } from "react";
 import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
@@ -13,31 +13,14 @@ export default function PremiumInquiryForm() {
   // Server action state management
   const [state, formAction] = useActionState(submitPremiumInquiry, null);
 
-  // Local state for privacy checkbox
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
-
-  // Form reference for reset
-  const formRef = useRef<HTMLFormElement>(null);
-  const prevSuccessRef = useRef(false);
-
-  // Reset form on successful submission
-  useEffect(() => {
-    // Only reset if this is a new success (not the same success state)
-    if (state?.success && !prevSuccessRef.current) {
-      prevSuccessRef.current = true;
-      formRef.current?.reset();
-      setPrivacyAccepted(false);
-    } else if (!state?.success) {
-      prevSuccessRef.current = false;
-    }
-  }, [state]);
 
   const handlePrivacyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrivacyAccepted(e.target.checked);
   };
 
   return (
-    <form ref={formRef} action={formAction} className={styles.form}>
+    <form key={state?.submissionId ?? 0} action={formAction} className={styles.form}>
       {/* Producer Name */}
       <div className={styles.formGroup}>
         <label htmlFor="producer_name" className={styles.label}>

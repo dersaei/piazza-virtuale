@@ -20,6 +20,7 @@ export type FormSubmissionState = {
   success: boolean;
   message: string;
   formData?: Record<string, unknown>;
+  submissionId?: number;
 } | null;
 
 /**
@@ -94,6 +95,7 @@ export async function submitStandardForm(
       success: true,
       message:
         "Grazie! La tua richiesta è stata inviata con successo. Ti contatteremo presto.",
+      submissionId: Date.now(),
     };
   } catch (error) {
     console.error("Standard submission error:", error);
@@ -162,6 +164,7 @@ export async function submitPremiumInquiry(
       success: true,
       message:
         "Grazie! La tua richiesta premium è stata inviata con successo. Ti contatteremo presto per discutere i dettagli.",
+      submissionId: Date.now(),
     };
   } catch (error) {
     console.error("Premium inquiry error:", error);
@@ -230,6 +233,7 @@ export async function submitContactForm(
       success: true,
       message:
         "Grazie per averci contattato! Abbiamo ricevuto il tuo messaggio e ti risponderemo al più presto.",
+      submissionId: Date.now(),
     };
   } catch (error) {
     console.error("Contact form error:", error);
