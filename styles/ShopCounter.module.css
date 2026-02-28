@@ -27,7 +27,7 @@
 .count {
   font-size: 5rem;
   font-weight: 700;
-  color: #7a8471;
+  color: var(--refined-bg-primary);
   font-family: var(--font-futura);
   line-height: 1;
   letter-spacing: -0.02em;

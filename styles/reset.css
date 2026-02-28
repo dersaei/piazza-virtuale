@@ -4,8 +4,6 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  visibility: visible;
-  opacity: 1;
 }
 
 *,
@@ -87,7 +85,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   font-size: 100%;
   vertical-align: baseline;
 }
@@ -124,14 +121,6 @@ q {
   quotes: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
 /* Link styles */
 a {
   margin: 0;
@@ -140,11 +129,6 @@ a {
   vertical-align: baseline;
   background: transparent;
   text-decoration: none;
-}
-
-a:hover,
-a:focus {
-  outline: none;
 }
 
 a[data-nextjs-scroll-focus-boundary] {
@@ -166,7 +150,6 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  -webkit-appearance: button;
   appearance: button;
   cursor: pointer;
   background: none;
@@ -236,10 +219,6 @@ p {
 img {
   max-width: 100%;
   height: auto;
-}
-
-img[style*="object-fit"] {
-  object-fit: var(--object-fit);
 }
 
 /* Utility classes */

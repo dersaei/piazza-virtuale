@@ -45,7 +45,9 @@
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.12),
     0 1px 3px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   border: none;
   width: 100%;
@@ -140,6 +142,10 @@
 @media (max-width: 930px) {
   .verticalHeader {
     width: var(--vertical-tablet-header-width);
+  }
+  .nav {
+    padding: var(--space-md);
+    gap: var(--space-md);
   }
   .buttonText {
     font-size: 0.8rem;
