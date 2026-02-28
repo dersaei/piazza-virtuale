@@ -71,8 +71,7 @@ export async function getProducersByCategory(
           "id",
           "name",
           "name_alt",
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { category: ["slug", "name", { parent_category: ["slug"] }] } as any,
+          { category: ["slug", "name", { parent_category: ["slug"] }] },
           "region",
           "logo",
           "shop_url",
@@ -83,7 +82,7 @@ export async function getProducersByCategory(
     );
 
     // Return as DTOs (already filtered by fields above)
-    return producers as unknown as ProducerDTO[];
+    return producers as ProducerDTO[];
   } catch (error) {
     console.error("Error fetching producers:", error);
     return [];
@@ -139,11 +138,10 @@ async function getAllPublishedProducersSummary(): Promise<
       filter: {
         status: { _eq: "published" },
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fields: ["id", { category: ["slug"] } as any, "region"],
+      fields: ["id", { category: ["slug"] }, "region"],
       limit: -1,
     })
-  ) as unknown as Promise<Array<{ category: { slug: string } | null; region: string | null }>>;
+  ) as Promise<Array<{ category: { slug: string } | null; region: string | null }>>;
 }
 
 /**
@@ -249,8 +247,19 @@ export interface RegionWithFeaturedDTO {
  */
 export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeaturedDTO[]> {
   try {
+    type RawProducer = {
+      id: string;
+      name: string;
+      name_alt: string;
+      category: { name: string } | null;
+      region: string;
+      logo?: string | null;
+      shop_url: string;
+      is_featured?: boolean | string | number | null;
+    };
+
     // First try with is_featured field
-    let producers;
+    let producers: RawProducer[];
     let hasFeaturedField = true;
 
     try {
@@ -263,8 +272,7 @@ export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeatu
             "id",
             "name",
             "name_alt",
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            { category: ["name"] } as any,
+            { category: ["name"] },
             "region",
             "logo",
             "shop_url",
@@ -273,7 +281,7 @@ export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeatu
           sort: ["-is_featured", "name"],
           limit: -1,
         })
-      );
+      ) as unknown as RawProducer[];
     } catch {
       // Fallback: fetch without is_featured field if it doesn't exist yet
       hasFeaturedField = false;
@@ -286,8 +294,7 @@ export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeatu
             "id",
             "name",
             "name_alt",
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            { category: ["name"] } as any,
+            { category: ["name"] },
             "region",
             "logo",
             "shop_url",
@@ -295,7 +302,7 @@ export async function getRegionsWithFeaturedProducers(): Promise<RegionWithFeatu
           sort: ["name"],
           limit: -1,
         })
-      );
+      ) as unknown as RawProducer[];
     }
 
     // Group producers by region and count them

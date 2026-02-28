@@ -108,9 +108,7 @@ export async function getMagazineCards(): Promise<MagazineCardDTO[]> {
           "url",
           "sort",
           "date_created",
-          {
-            magazine_category_id: ["name", "display_name", "color"],
-          },
+          { magazine_category_id: ["name", "display_name", "color"] },
         ],
         sort: ["sort"], // Sort by manual order
         limit: -1,
@@ -208,10 +206,8 @@ export async function getArticleBySlug(
           "content",
           "date_created",
           "date_updated",
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { magazine_category_id: ["name", "display_name", "color"] } as any,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { seo: ["title", "meta_description", "canonical_url", "no_index", "og_image"] } as any,
+          { magazine_category_id: ["name", "display_name", "color"] },
+          { seo: ["title", "meta_description", "canonical_url", "no_index", "og_image"] },
         ],
         limit: 1,
       })
@@ -221,7 +217,7 @@ export async function getArticleBySlug(
       return null;
     }
 
-    const article = articles[0] as unknown as DirectusMagazineArticleResponse;
+    const article = articles[0] as DirectusMagazineArticleResponse;
 
     return {
       id: article.id,

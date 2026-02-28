@@ -38,8 +38,7 @@ export async function getPageSeo(slug: string): Promise<SeoDTO | null> {
         },
         fields: [
           "slug",
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { seo: ["title", "meta_description", "canonical_url", "no_index", "og_image"] } as any,
+          { seo: ["title", "meta_description", "canonical_url", "no_index", "og_image"] },
         ],
         limit: 1,
       })
@@ -49,7 +48,7 @@ export async function getPageSeo(slug: string): Promise<SeoDTO | null> {
       return null;
     }
 
-    const page = pages[0] as unknown as DirectusPageResponse;
+    const page = pages[0] as DirectusPageResponse;
 
     if (!page.seo) {
       return null;

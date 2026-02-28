@@ -98,13 +98,24 @@ export interface SeoItem {
 }
 
 /**
+ * Magazine Category
+ */
+export interface MagazineCategory {
+  id: string;
+  name: string;
+  display_name: string;
+  color: string;
+  status: 'published' | 'draft' | 'archived';
+}
+
+/**
  * Magazine Article
  */
 export interface MagazineArticle {
   id: number;
   slug: string;
   title: string;
-  category: string;
+  magazine_category_id: MagazineCategory | string | null;
   content: string;
   seo?: SeoItem | string | null;
   status: 'published' | 'draft' | 'archived';
@@ -117,7 +128,7 @@ export interface MagazineArticle {
  */
 export interface MagazineCard {
   id: number;
-  category: string;
+  magazine_category_id: MagazineCategory | string | null;
   title: string;
   url: string;
   sort: number;
@@ -148,6 +159,7 @@ export interface DirectusSchema {
   standard_submissions: StandardSubmission[];
   premium_inquiries: PremiumInquiry[];
   contact_messages: ContactMessage[];
+  magazine_categories: MagazineCategory[];
   magazine_articles: MagazineArticle[];
   magazine_cards: MagazineCard[];
   seo: SeoItem[];
