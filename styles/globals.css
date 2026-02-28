@@ -109,7 +109,6 @@ strong::-moz-selection {
   background: linear-gradient(180deg, #7a8471 0%, #6b7362 100%);
   border-radius: 12px;
   border: 2px solid rgba(253, 251, 247, 0.3);
-  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -123,7 +122,7 @@ strong::-moz-selection {
 
 /* Firefox Scrollbar */
 * {
-  scrollbar-width: auto;
+  scrollbar-width: thin;
   scrollbar-color: #7a8471 rgba(182, 192, 186, 0.15);
 }
 
@@ -187,7 +186,6 @@ strong::-moz-selection {
   /* Prevent overscroll bounce on iOS */
   body {
     overscroll-behavior-y: none;
-    -webkit-overflow-scrolling: touch;
   }
 
   /* Enable smooth scrolling */
@@ -196,19 +194,19 @@ strong::-moz-selection {
     /* Add scroll padding to account for fixed mobile headers */
     scroll-padding-top: calc(150px + env(safe-area-inset-top));
   }
+}
 
-  /* Accessibility: Respect reduced motion preference */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+/* Accessibility: Respect reduced motion preference — applies to all screen sizes */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
