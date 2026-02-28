@@ -189,7 +189,7 @@
     font-size: 100%;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 838px) {
   .shopCard {
     width: 300px;
   }

@@ -48,7 +48,7 @@
 }
 
 .heroSection h1 {
-  font-size: 5vw;
+  font-size: 4rem;
   font-weight: 700;
   color: #7a8471;
   font-family: var(--font-didot);
@@ -57,7 +57,7 @@
   line-height: 1.15;
   position: relative;
   display: inline-block;
-  padding: 10vh 8vw 2vh;
+  padding: 4.3rem 2rem 0.9rem;
 }
 
 /* Elegant underline */
@@ -80,7 +80,7 @@
 }
 
 .heroSection h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: 24px;
   text-shadow: 1px 2px 2px white;
   font-weight: 400;
@@ -298,7 +298,7 @@
 @media (max-width: 768px) {
   .heroSection h1 {
     margin-bottom: 24px;
-    font-size: 10vw;
+    font-size: 3.4rem;
   }
 
   .heroSection h2 {

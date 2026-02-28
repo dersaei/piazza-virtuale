@@ -26,6 +26,7 @@
 .categoryCard:hover {
   transform: translateY(-4px);
   border-color: #009246;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .categoryCard:active {
@@ -45,7 +46,7 @@
   font-weight: 600;
   color: #333;
   margin: 0;
-  transition: color 1s ease;
+  transition: color 1s ease-in-out;
 }
 
 .categoryCard:hover .categoryLabel {

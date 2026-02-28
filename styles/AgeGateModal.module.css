@@ -5,8 +5,6 @@
   position: fixed;
   inset: 0;
   background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 100%);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   z-index: 10000;
   animation: fadeIn 0.3s ease-out;
 }
@@ -299,16 +297,6 @@
   }
 }
 
-@media (max-width: 480px) {
-  .modalContent {
-    padding: var(--space-md);
-  }
-
-  .description p {
-    font-size: 0.95rem;
-  }
-}
-
 /* Mobile devices - ensure proper positioning with safe area and above mobile header */
 @media (max-width: 650px) {
   .backdrop {
@@ -331,11 +319,20 @@
   .modalContent {
     max-height: 90vh;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
   }
 
   .button {
     min-height: 48px;
     min-width: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: var(--space-md);
+  }
+
+  .description p {
+    font-size: 0.95rem;
   }
 }
