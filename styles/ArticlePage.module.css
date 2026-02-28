@@ -13,7 +13,9 @@
   color: var(--refined-bg-primary);
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
   width: 10%;
 }
 
@@ -82,8 +84,8 @@
   font-style: italic;
   font-weight: 400;
   padding: 6px 20px;
-  font-size: 16px;
-  letter-spacing: 1px;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
   font-family: var(--font-serif);
   margin-bottom: 24px;
   position: relative;
@@ -150,10 +152,10 @@
 
 .date {
   color: var(--vertical-header-bg);
-  font-size: 15px;
+  font-size: 1rem;
   font-style: italic;
   font-family: var(--font-didot);
-  letter-spacing: 1px;
+  letter-spacing: 0.08rem;
   text-shadow: 1px 2px 2px black;
 }
 

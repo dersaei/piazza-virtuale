@@ -81,6 +81,7 @@ export default function RootLayout({
   return (
     <html
       lang="it"
+      data-scroll-behavior="smooth"
       className={`${fontSerif.variable} ${fontSans.variable} ${fontFutura.variable} ${fontDidot.variable}`}
     >
       {/* Note: Hydration warnings from browser extensions (e.g., Grammarly) are expected.

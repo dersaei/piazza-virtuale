@@ -21,7 +21,9 @@
   border: 5px solid var(--refined-accent-gold);
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.5s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +34,7 @@
 
 .articleCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 1);
 }
 
 /* Decorative corner elements */
@@ -73,8 +75,8 @@
   font-style: italic;
   font-weight: 400;
   padding: 5px 18px;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
   font-family: var(--font-serif);
   margin-bottom: 22px;
   position: relative;
@@ -102,7 +104,7 @@
 
 /* Article Title */
 .title {
-  font-size: clamp(1.2rem, 1.4rem, 3.5vw);
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
   color: ghostwhite;
   text-shadow: 1px 2px 2px black;
   text-align: center;
@@ -136,10 +138,10 @@
 
 /* Read More Link with animated underline */
 .readMore {
-  font-size: 15px;
+  font-size: 1rem;
   font-style: italic;
   color: var(--vertical-header-bg);
-  letter-spacing: 1px;
+  letter-spacing: 0.1em;
   position: relative;
   cursor: pointer;
   transition: color 0.5s ease;
@@ -233,18 +235,12 @@
     width: 48%;
     padding: 40px 15px;
   }
-  .title {
-    font-size: 1.1rem;
-  }
 }
-@media (max-width: 585px) {
+@media (max-width: 630px) {
   .articlesGrid {
     gap: 20px;
   }
   .articleCard {
     width: 390px;
-  }
-  .title {
-    font-size: 1.5rem;
   }
 }

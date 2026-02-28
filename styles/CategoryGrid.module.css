@@ -93,7 +93,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .categoryGrid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 0.75rem;

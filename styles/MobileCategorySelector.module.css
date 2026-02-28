@@ -4,9 +4,7 @@
   position: fixed;
   top: calc(100px + env(safe-area-inset-top));
   left: 0;
-  left: env(safe-area-inset-left);
   right: 0;
-  right: env(safe-area-inset-right);
   height: 50px;
   background-color: var(--horizontal-header-bg);
   display: none; /* Hidden by default, shown on mobile */
@@ -33,11 +31,10 @@
   text-transform: uppercase;
   font-family: var(--font-futura);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   position: relative;
   -webkit-tap-highlight-color: transparent;
   border: none;
-  outline: none;
   background: transparent;
 }
 
@@ -89,14 +86,13 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-content: start;
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-  -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   will-change: transform, opacity;
   backface-visibility: hidden;
   padding: 1px;
+  padding-left: max(1px, env(safe-area-inset-left));
+  padding-right: max(1px, env(safe-area-inset-right));
+  padding-bottom: max(1px, env(safe-area-inset-bottom));
 }
 
 .gridOpen {
@@ -117,12 +113,10 @@
   background: white;
   border: 1.5px solid var(--vertical-header-bg);
   padding: var(--space-md);
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
   cursor: pointer;
   min-height: 60px;
   -webkit-tap-highlight-color: transparent;
-  outline: none;
-  will-change: background, transform;
   backface-visibility: hidden;
   transform: translateZ(0);
   margin: 1px;
