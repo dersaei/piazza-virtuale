@@ -9,7 +9,7 @@
   background-color: var(--vertical-header-bg);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-sm);
   z-index: 1000;
   overflow-y: auto;
 }
@@ -29,6 +29,7 @@
   flex-direction: column;
   gap: var(--space-lg);
   padding: var(--space-lg);
+  margin-top: var(--space-sm);
 }
 
 /* Refined button styles (from your design) */
@@ -139,13 +140,52 @@
   opacity: 0.5;
   transition: opacity 0.3s ease;
 }
-@media (max-width: 930px) {
+
+/* Add Shop button — subtle, small */
+.addShopSection {
+  padding: 0 var(--space-lg) var(--space-lg);
+  margin-top: auto;
+  position: relative;
+}
+
+.addShopButton {
+  display: block;
+  position: absolute;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: #18222f;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-didot);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fdfbf7;
+  opacity: 0.75;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.addShopButton:hover {
+  opacity: 1;
+  border-color: rgba(184, 162, 129, 0.6);
+}
+
+@media (max-width: 880px) {
+  .addShopSection {
+    padding: 0 var(--space-md) var(--space-md);
+  }
   .verticalHeader {
     width: var(--vertical-tablet-header-width);
   }
   .nav {
     padding: var(--space-md);
     gap: var(--space-md);
+    margin-top: var(--space-xl);
   }
   .buttonText {
     font-size: 0.8rem;

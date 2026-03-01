@@ -6,8 +6,6 @@ import gamberoRosso from "@/public/gambero-rosso.png";
 import aopIt from "@/public/aop-it.png";
 import pastaImg from "@/public/pasta.jpg";
 import styles from "@/styles/ComeFunziona.module.css";
-import StandardSubmissionForm from "@/components/StandardSubmissionForm";
-import PremiumInquiryForm from "@/components/PremiumInquiryForm";
 import type { Metadata } from "next";
 import { getPageSeo } from "@/lib/api/pages";
 
@@ -76,16 +74,12 @@ export default function ComeFunzionaPage() {
             <div className={styles.textContent}>
               <p>
                 Ogni e-shop gestito da un produttore italiano di alimenti o
-                bevande può essere aggiunto gratuitamente al nostro catalogo.
-                Basta compilare il seguente modulo:
+                bevande può essere aggiunto gratuitamente al nostro catalogo
+                utilizzando il pulsante &ldquo;Aggiungi Negozio&rdquo; presente
+                nella barra laterale.
               </p>
             </div>
           </section>
-
-          {/* Standard Submission Form */}
-          <div className={styles.formContainer}>
-            <StandardSubmissionForm />
-          </div>
 
           {/* Section 3 */}
           <section className={styles.contentSection}>
@@ -112,12 +106,6 @@ export default function ComeFunzionaPage() {
               </div>
             </div>
           </section>
-
-          {/* Premium Inquiry Form */}
-          <div className={styles.formContainer}>
-            <h2 className={styles.formTitle}>Richiesta Servizio Premium</h2>
-            <PremiumInquiryForm />
-          </div>
         </div>
       </main>
 

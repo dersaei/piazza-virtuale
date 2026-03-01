@@ -37,37 +37,6 @@ export interface Producer {
 }
 
 /**
- * Standard Submission (form submission from users)
- */
-export interface StandardSubmission {
-  id: string;
-  producer_name: string;
-  shop_url: string;
-  categories: string[];
-  region: string;
-  logo?: string | null;
-  submission_status: 'pending' | 'approved' | 'rejected';
-  submitted_at: string;
-  date_created: string;
-  date_updated?: string;
-}
-
-/**
- * Premium Inquiry
- */
-export interface PremiumInquiry {
-  id: string;
-  producer_name: string;
-  contact_name: string;
-  email: string;
-  message?: string | null;
-  status: 'pending' | 'contacted' | 'completed';
-  submitted_at: string;
-  date_created: string;
-  date_updated?: string;
-}
-
-/**
  * Contact Message
  */
 export interface ContactMessage {
@@ -153,12 +122,22 @@ export interface PageItem {
   date_updated?: string;
 }
 
+/**
+ * Quick Submission (from modal in header)
+ */
+export interface QuickSubmission {
+  id: string;
+  company_name?: string | null;
+  shop_url: string;
+  status: 'pending' | 'reviewed';
+  date_created: string;
+}
+
 export interface DirectusSchema {
   categories: Category[];
   producers: Producer[];
-  standard_submissions: StandardSubmission[];
-  premium_inquiries: PremiumInquiry[];
   contact_messages: ContactMessage[];
+  quick_submissions: QuickSubmission[];
   magazine_categories: MagazineCategory[];
   magazine_articles: MagazineArticle[];
   magazine_cards: MagazineCard[];

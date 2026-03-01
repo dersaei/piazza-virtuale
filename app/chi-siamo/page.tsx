@@ -6,7 +6,8 @@ import italia from "@/public/territorio-italiano.png";
 import { getPageSeo } from "@/lib/api/pages";
 
 const FALLBACK_TITLE = "Chi Siamo | Piazza Virtuale";
-const FALLBACK_DESCRIPTION = "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.";
+const FALLBACK_DESCRIPTION =
+  "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.";
 const PAGE_URL = "https://piazzavirtuale.it/chi-siamo";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -70,7 +71,7 @@ export default function ChiSiamoPage() {
           </span>
         </h3>
         <div className={styles.italiaMap}>
-          <Image src={italia} alt="territorio italiano" />
+          <Image loading="eager" src={italia} alt="territorio italiano" />
         </div>
       </section>
 
@@ -108,8 +109,8 @@ export default function ChiSiamoPage() {
           produttori che offrono la vendita online nel segmento specifico,
           permettendo di scoprire i loro negozi ufficiali. Il sito dispone anche
           di sezioni informative (magazine, descrizione del progetto, come
-          funziona, contatti) e collegamenti all&rsquo;informativa sulla privacy,
-          ai cookie e alle informazioni legali.
+          funziona, contatti) e collegamenti all&rsquo;informativa sulla
+          privacy, ai cookie e alle informazioni legali.
         </p>
       </section>
     </div>

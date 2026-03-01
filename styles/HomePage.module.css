@@ -207,15 +207,15 @@
   padding: 6vh 10vw;
   text-align: center;
   margin: 0 auto;
-  background-color: var(--refined-border-primary);
-  border: 10px solid black;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 110px inset;
+  background-color: #fdfbf7;
+  border: 10px solid whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 310px inset;
 }
 
 .aboutTitle {
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 700;
-  color: #fff8e1;
+  color: var(--refined-border-primary);
   font-family: var(--font-didot);
   margin: 0 0 1.5rem;
   letter-spacing: 0.02em;
@@ -224,9 +224,9 @@
 .aboutDescription {
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
   line-height: 1.3;
-  color: wheat;
+  color: black;
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
 }
 
 .aboutFlag {

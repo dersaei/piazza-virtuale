@@ -3,76 +3,10 @@ import { z } from "zod";
 
 /**
  * Email validation schema
- * Uses Zod's built-in email validation which is more robust than regex
  */
 export const emailSchema = z
   .email({ error: "Per favore, inserisci un indirizzo email valido." })
   .max(254, { error: "Email troppo lunga (max 254 caratteri)." });
-
-/**
- * Standard Submission Form Schema
- */
-export const standardSubmissionSchema = z.object({
-  producer_name: z
-    .string()
-    .min(1, { error: "Nome del produttore è obbligatorio." })
-    .max(200, {
-      error: "Nome del produttore troppo lungo (max 200 caratteri).",
-    }),
-
-  shop_url: z
-    .url({ error: "Per favore, inserisci un URL valido." })
-    .max(500, { error: "URL troppo lungo (max 500 caratteri)." }),
-
-  categories: z
-    .array(z.string())
-    .min(1, { error: "Seleziona almeno una categoria." })
-    .max(20, { error: "Troppe categorie selezionate (max 20)." }),
-
-  region: z
-    .string()
-    .min(1, { error: "Regione è obbligatoria." })
-    .max(100, { error: "Nome regione troppo lungo (max 100 caratteri)." }),
-
-  privacy_accepted: z.string().refine((val) => val === "on", {
-    message:
-      "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-  }),
-});
-
-export type StandardSubmissionInput = z.infer<typeof standardSubmissionSchema>;
-
-/**
- * Premium Inquiry Form Schema
- */
-export const premiumInquirySchema = z.object({
-  producer_name: z
-    .string()
-    .min(1, { error: "Nome del produttore è obbligatorio." })
-    .max(200, {
-      error: "Nome del produttore troppo lungo (max 200 caratteri).",
-    }),
-
-  contact_name: z
-    .string()
-    .min(1, { error: "Nome di contatto è obbligatorio." })
-    .max(200, { error: "Nome di contatto troppo lungo (max 200 caratteri)." }),
-
-  email: emailSchema,
-
-  message: z
-    .string()
-    .max(5000, { error: "Messaggio troppo lungo (max 5000 caratteri)." })
-    .optional()
-    .or(z.literal("")),
-
-  privacy_accepted: z.string().refine((val) => val === "on", {
-    message:
-      "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
-  }),
-});
-
-export type PremiumInquiryInput = z.infer<typeof premiumInquirySchema>;
 
 /**
  * Contact Form Schema
@@ -102,6 +36,34 @@ export const contactFormSchema = z.object({
 });
 
 export type ContactFormInput = z.infer<typeof contactFormSchema>;
+
+/**
+ * Quick Submission Schema (modal in header)
+ * URL accepts plain domains (e.g. negozio.it) — https:// is added if missing.
+ * company_name is optional.
+ */
+export const quickSubmissionSchema = z.object({
+  company_name: z
+    .string()
+    .max(200, { error: "Nome troppo lungo (max 200 caratteri)." })
+    .optional()
+    .or(z.literal("")),
+
+  shop_url: z
+    .string()
+    .min(1, { error: "L'URL del negozio è obbligatorio." })
+    .max(500, { error: "URL troppo lungo (max 500 caratteri)." })
+    .transform((val) => {
+      const trimmed = val.trim();
+      if (trimmed && !/^https?:\/\//i.test(trimmed)) {
+        return `https://${trimmed}`;
+      }
+      return trimmed;
+    })
+    .pipe(z.url({ error: "Inserisci un URL valido (es. negozio.it)." })),
+});
+
+export type QuickSubmissionInput = z.infer<typeof quickSubmissionSchema>;
 
 /**
  * Helper function to format Zod errors into user-friendly messages

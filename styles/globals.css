@@ -147,7 +147,7 @@ strong::-moz-selection {
   display: none;
 }
 
-@media (max-width: 930px) {
+@media (max-width: 880px) {
   .main-content-area {
     margin-left: var(--vertical-tablet-header-width);
   }

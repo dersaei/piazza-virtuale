@@ -13,7 +13,7 @@
  * - Prevents accidental exposure of sensitive data
  *
  * Usage:
- * import { getProducersByCategory, createStandardSubmission } from '@/lib/data'
+ * import { getProducersByCategory, createContactMessage } from '@/lib/data'
  */
 
 // Export all data access functions
@@ -40,12 +40,10 @@ export {
 } from "./magazine";
 
 export {
-  createStandardSubmission,
-  createPremiumInquiry,
   createContactMessage,
-  type StandardSubmissionDTO,
-  type PremiumInquiryDTO,
+  createQuickSubmission,
   type ContactMessageDTO,
+  type QuickSubmissionDTO,
 } from "./submissions";
 
 export {

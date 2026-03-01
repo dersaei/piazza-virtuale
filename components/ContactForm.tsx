@@ -7,19 +7,42 @@ import Link from "next/link";
 import styles from "@/styles/Forms.module.css";
 import { submitContactForm } from "@/app/actions/submissions";
 import SubmitButton from "@/components/shared/SubmitButton";
-import FormStatus from "@/components/shared/FormStatus";
+import FormSuccessScreen from "@/components/shared/FormSuccessScreen";
 
 export default function ContactForm() {
   const [state, formAction] = useActionState(submitContactForm, null);
-
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  // dismissedId tracks which submissionId the user has already dismissed.
+  // When state.submissionId differs, the success screen is shown.
+  const [dismissedId, setDismissedId] = useState<number | undefined>(undefined);
 
-  const handlePrivacyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPrivacyAccepted(e.target.checked);
+  const isSuccess =
+    state?.success === true &&
+    state.submissionId !== undefined &&
+    state.submissionId !== dismissedId;
+
+  const handleReset = () => {
+    setDismissedId(state?.submissionId);
+    setPrivacyAccepted(false);
   };
 
+  if (isSuccess) {
+    return (
+      <FormSuccessScreen
+        title="Messaggio inviato!"
+        message="Grazie per averci contattato! Abbiamo ricevuto il Tuo messaggio e Ti risponderemo al più presto."
+        onReset={handleReset}
+        resetLabel="Invia un altro messaggio"
+      />
+    );
+  }
+
   return (
-    <form key={state?.submissionId ?? 0} action={formAction} className={styles.form}>
+    <form
+      key={state?.submissionId ?? 0}
+      action={formAction}
+      className={styles.form}
+    >
       {/* Nome e Cognome */}
       <div className={styles.formGroup}>
         <label htmlFor="full_name" className={styles.label}>
@@ -96,7 +119,7 @@ export default function ContactForm() {
             id="privacy_accepted"
             name="privacy_accepted"
             checked={privacyAccepted}
-            onChange={handlePrivacyChange}
+            onChange={(e) => setPrivacyAccepted(e.target.checked)}
             required
             className={styles.privacyCheckbox}
             autoComplete="off"
@@ -111,15 +134,17 @@ export default function ContactForm() {
         </label>
       </div>
 
-      {/* Submit Status */}
-      <FormStatus state={state} />
-
       {/* Submit Button */}
       <SubmitButton
         idleText="Invia Messaggio"
         pendingText="Invio in corso..."
         disabled={!privacyAccepted}
       />
+      <div className={styles.requiredNote}>
+        <p>
+          <span className={styles.required}>*</span> Campi obbligatori
+        </p>
+      </div>
     </form>
   );
 }
