@@ -247,3 +247,16 @@ img {
   outline: 2px solid #005fcc;
   outline-offset: 2px;
 }
+
+/* Keyboard focus styles for links and buttons */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--refined-accent-gold, #b8a281);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
+}
