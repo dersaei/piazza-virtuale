@@ -133,11 +133,23 @@ export interface QuickSubmission {
   date_created: string;
 }
 
+/**
+ * Premium Interest (from modal on come-funziona page)
+ */
+export interface PremiumInterest {
+  id: string;
+  full_name: string;
+  email: string;
+  status: 'pending' | 'reviewed';
+  date_created: string;
+}
+
 export interface DirectusSchema {
   categories: Category[];
   producers: Producer[];
   contact_messages: ContactMessage[];
   quick_submissions: QuickSubmission[];
+  premium_interests: PremiumInterest[];
   magazine_categories: MagazineCategory[];
   magazine_articles: MagazineArticle[];
   magazine_cards: MagazineCard[];

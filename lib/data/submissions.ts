@@ -42,7 +42,6 @@ export async function createPremiumInterest(
         full_name: sanitizeText(data.full_name),
         email: data.email.trim().toLowerCase(),
         status: "pending",
-        submitted_at: new Date().toISOString(),
       })
     );
 
