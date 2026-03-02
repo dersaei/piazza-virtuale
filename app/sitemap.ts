@@ -40,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/informativa-privacy`,
-      lastModified: new Date("2026-03-02s"),
+      lastModified: new Date("2026-03-02"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
