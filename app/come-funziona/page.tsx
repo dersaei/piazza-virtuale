@@ -141,7 +141,7 @@ export default function ComeFunzionaPage() {
                       <br /> illimitate
                     </strong>
                   </p>
-                  <p className={styles.price}>&euro;320</p>
+                  <p className={styles.price}>&euro;325</p>
                   <p className={styles.priceNote}>all&apos;anno + IVA</p>
                   <ul className={styles.benefitList}>
                     <li>
