@@ -1,7 +1,7 @@
 // components/PremiumInterestModal.tsx
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useActionState } from "react";
 import Link from "next/link";
 import styles from "@/styles/AddShopModal.module.css";
@@ -13,38 +13,69 @@ interface PremiumInterestModalProps {
   onClose: () => void;
 }
 
+const CLOSE_DURATION = 200; // ms — match CSS animation duration
+
 export default function PremiumInterestModal({
   isOpen,
   onClose,
 }: PremiumInterestModalProps) {
   const [state, formAction] = useActionState(submitPremiumInterestForm, null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
+  // Sync visibility with isOpen — open immediately, close with animation
   useEffect(() => {
     if (isOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
+      setIsVisible(true);
+      setIsClosing(false);
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [isOpen]);
 
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    // Read saved scroll position before clearing styles
+    const savedTop = document.body.style.top;
+    setTimeout(() => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      if (savedTop) {
+        window.scrollTo(0, parseInt(savedTop) * -1);
+      }
+      setIsVisible(false);
+      setIsClosing(false);
+      onClose();
+    }, CLOSE_DURATION);
+  }, [onClose]);
+
+  // Close on Escape key
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isVisible) return;
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") handleClose();
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [isOpen, onClose]);
+  }, [isVisible, handleClose]);
 
-  if (!isOpen) return null;
+  if (!isVisible) return null;
 
   return (
     <>
-      <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
+      <div
+        className={`${styles.backdrop} ${isClosing ? styles.closing : ""}`}
+        onClick={handleClose}
+        aria-hidden="true"
+      />
 
       <div
-        className={styles.modal}
+        className={`${styles.modal} ${isClosing ? styles.closing : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="premium-interest-title"
@@ -53,7 +84,7 @@ export default function PremiumInterestModal({
           <button
             type="button"
             className={styles.closeButton}
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Chiudi"
           >
             ✕
@@ -63,7 +94,7 @@ export default function PremiumInterestModal({
             <FormSuccessScreen
               title="Richiesta inviata!"
               message="Grazie per il Tuo interesse! Ti contatteremo al più presto con tutti i dettagli."
-              onReset={onClose}
+              onReset={handleClose}
               resetLabel="Chiudi"
             />
           ) : (

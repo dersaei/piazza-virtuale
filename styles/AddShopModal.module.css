@@ -5,7 +5,13 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   z-index: 2000;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.25s ease;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.backdrop.closing {
+  animation: fadeOut 0.2s ease forwards;
 }
 
 .modal {
@@ -23,6 +29,10 @@
   border: 10px solid whitesmoke;
   box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 110px inset;
   animation: slideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.closing {
+  animation: slideOut 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .modalInner {
@@ -234,6 +244,15 @@
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -242,6 +261,25 @@
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .modal {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
