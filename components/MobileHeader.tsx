@@ -20,49 +20,45 @@ export default function MobileHeader() {
   const [isChanging, setIsChanging] = useState(false);
   const pathname = usePathname();
 
-  // Lock body scroll when menu is open
+  const lockScroll = () => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    document.documentElement.classList.add('scroll-locked');
+  };
+
+  const unlockScroll = () => {
+    document.documentElement.classList.remove('scroll-locked');
+    document.documentElement.style.removeProperty('--scrollbar-width');
+  };
+
+  // Lock scroll when menu opens
   useEffect(() => {
     if (isMenuOpen) {
-      // Save current scroll position
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Restore scroll position
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
+      lockScroll();
     }
-
-    return () => {
-      // Cleanup on unmount
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-    };
+    // No cleanup here — closing is handled in callbacks below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMenuOpen]);
 
   const toggleMenu = () => {
-    // Start fade out animation
     setIsChanging(true);
-
-    // After fade out completes, change state and fade in
-    setTimeout(() => {
-      setIsMenuOpen(!isMenuOpen);
-      setIsChanging(false);
-    }, 200); // Match CSS transition duration
+    if (isMenuOpen) {
+      unlockScroll();
+      setTimeout(() => {
+        setIsMenuOpen(false);
+        setIsChanging(false);
+      }, 200);
+    } else {
+      setTimeout(() => {
+        setIsMenuOpen(true);
+        setIsChanging(false);
+      }, 200);
+    }
   };
 
   const handleLinkClick = () => {
     setIsChanging(true);
+    unlockScroll();
     setTimeout(() => {
       setIsMenuOpen(false);
       setIsChanging(false);
@@ -71,6 +67,7 @@ export default function MobileHeader() {
 
   const handleBackdropClick = () => {
     setIsChanging(true);
+    unlockScroll();
     setTimeout(() => {
       setIsMenuOpen(false);
       setIsChanging(false);

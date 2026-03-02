@@ -22,28 +22,20 @@ export default function AddShopModal({ isOpen, onClose }: AddShopModalProps) {
   // Sync visibility with isOpen — open immediately, close with animation
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
+      document.documentElement.classList.add("scroll-locked");
       setIsVisible(true);
       setIsClosing(false);
     }
+    // No cleanup here — scroll restore is handled explicitly in handleClose
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
     setIsClosing(true);
-    // Read saved scroll position before clearing styles
-    const savedTop = document.body.style.top;
+    document.documentElement.classList.remove("scroll-locked");
+    document.documentElement.style.removeProperty("--scrollbar-width");
     setTimeout(() => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      if (savedTop) {
-        window.scrollTo(0, parseInt(savedTop) * -1);
-      }
       setIsVisible(false);
       setIsClosing(false);
       onClose();

@@ -13,47 +13,36 @@ export default function MobileCategorySelector() {
   const [selectedParentCategory, setSelectedParentCategory] = useState<string | null>(null);
   const pathname = usePathname();
 
-  // Lock body scroll when category selector is open
+  const lockScroll = () => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    document.documentElement.classList.add('scroll-locked');
+  };
+
+  const unlockScroll = () => {
+    document.documentElement.classList.remove('scroll-locked');
+    document.documentElement.style.removeProperty('--scrollbar-width');
+  };
+
+  // Lock scroll when overlay opens
   useEffect(() => {
     if (isOverlayOpen) {
-      // Save current scroll position
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Restore scroll position
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
+      lockScroll();
     }
-
-    return () => {
-      // Cleanup on unmount
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-    };
+    // No cleanup here — closing is handled in callbacks below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOverlayOpen]);
 
   const toggleOverlay = () => {
     if (isOverlayOpen) {
-      // Start closing animation
       setIsClosing(true);
+      unlockScroll();
       setTimeout(() => {
         setIsOverlayOpen(false);
         setIsClosing(false);
         setSelectedParentCategory(null);
-      }, 400); // Match animation duration
+      }, 400);
     } else {
-      // Open immediately
       setIsOverlayOpen(true);
       setSelectedParentCategory(null);
     }
@@ -73,13 +62,13 @@ export default function MobileCategorySelector() {
   };
 
   const handleSubcategoryClick = () => {
-    // Start closing animation
     setIsClosing(true);
+    unlockScroll();
     setTimeout(() => {
       setIsOverlayOpen(false);
       setIsClosing(false);
       setSelectedParentCategory(null);
-    }, 400); // Match animation duration
+    }, 400);
   };
 
   const handleBackToMainCategories = () => {

@@ -127,6 +127,18 @@ strong::-moz-selection {
   scrollbar-color: #7a8471 rgba(182, 192, 186, 0.15);
 }
 
+/* Scroll lock — applied via JS when modal/menu is open */
+html.scroll-locked {
+  overflow: hidden;
+}
+
+html.scroll-locked body {
+  /* Prevent iOS Safari from scrolling (overflow:hidden on html alone doesn't work there) */
+  touch-action: none;
+  /* Compensate for disappearing scrollbar — prevents layout shift on all screen sizes */
+  padding-right: var(--scrollbar-width, 0px);
+}
+
 /* Layout visibility control */
 /* Desktop layout is visible by default */
 .desktop-layout {
