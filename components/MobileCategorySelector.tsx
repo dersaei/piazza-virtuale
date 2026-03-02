@@ -153,7 +153,7 @@ export default function MobileCategorySelector() {
                       pathname.startsWith(category.href + '/')
                         ? styles.active
                         : ''
-                    }`}
+                    } ${category.id === 'frutta-secca' ? styles.fullWidth : ''}`}
                   >
                     <span className={styles.categoryText}>{category.label}</span>
                     <svg
@@ -196,7 +196,7 @@ export default function MobileCategorySelector() {
                     pathname.startsWith(category.href + '/')
                       ? styles.active
                       : ''
-                  }`}
+                  } ${category.id === 'frutta-secca' ? styles.fullWidth : ''}`}
                 >
                   <span className={styles.categoryText}>{category.label}</span>
                 </Link>

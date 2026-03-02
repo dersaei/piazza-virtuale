@@ -143,6 +143,10 @@
 }
 
 /* Back button styles */
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
 .backButton {
   grid-column: 1 / -1; /* Span full width */
   background: var(--vertical-header-bg);
