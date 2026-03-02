@@ -5,7 +5,7 @@ import styles from "@/styles/ChiSiamoPage.module.css";
 import italia from "@/public/territorio-italiano.png";
 import { getPageSeo } from "@/lib/api/pages";
 
-const FALLBACK_TITLE = "Chi Siamo | Piazza Virtuale";
+const FALLBACK_TITLE = "Chi Siamo";
 const FALLBACK_DESCRIPTION =
   "Scopri chi siamo e la nostra missione: connettere i consumatori con i migliori produttori italiani di cibo e bevande attraverso la vendita diretta online.";
 const PAGE_URL = "https://piazzavirtuale.it/chi-siamo";

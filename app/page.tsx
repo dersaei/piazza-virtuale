@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const ogImageUrl = seo?.og_image ?? "/opengraph-image";
 
   return {
-    title,
+    title: { absolute: title },
     description,
     robots: seo?.no_index ? { index: false, follow: true } : undefined,
     openGraph: {

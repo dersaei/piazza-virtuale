@@ -4,7 +4,7 @@ import ContactForm from "@/components/ContactForm";
 import styles from "@/styles/ContattiPage.module.css";
 import { getPageSeo } from "@/lib/api/pages";
 
-const FALLBACK_TITLE = "Contatti | Piazza Virtuale";
+const FALLBACK_TITLE = "Contatti";
 const FALLBACK_DESCRIPTION = "Contatta il team di Piazza Virtuale per domande sul catalogo, per segnalare un produttore italiano o per informazioni sui servizi premium riservati agli e-shop.";
 const PAGE_URL = "https://piazzavirtuale.it/contatti";
 

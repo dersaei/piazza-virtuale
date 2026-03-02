@@ -9,7 +9,7 @@ import styles from "@/styles/ComeFunziona.module.css";
 import type { Metadata } from "next";
 import { getPageSeo } from "@/lib/api/pages";
 
-const FALLBACK_TITLE = "Come Funziona | Piazza Virtuale";
+const FALLBACK_TITLE = "Come Funziona";
 const FALLBACK_DESCRIPTION = "Scopri come funziona Piazza Virtuale: aggiungi gratuitamente il tuo e-shop al catalogo dei produttori italiani di alimenti e bevande o richiedi il servizio premium per una maggiore visibilità.";
 const PAGE_URL = "https://piazzavirtuale.it/come-funziona";
 
