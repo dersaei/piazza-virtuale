@@ -13,11 +13,13 @@ interface AddShopModalProps {
 }
 
 const CLOSE_DURATION = 200; // ms — match CSS animation duration
+const OPEN_DURATION = 400;  // ms — match scaleOpen animation duration
 
 export default function AddShopModal({ isOpen, onClose }: AddShopModalProps) {
   const [state, formAction] = useActionState(submitQuickForm, null);
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(false);
 
   // Sync visibility with isOpen — open immediately, close with animation
   useEffect(() => {
@@ -27,6 +29,8 @@ export default function AddShopModal({ isOpen, onClose }: AddShopModalProps) {
       document.documentElement.classList.add("scroll-locked");
       setIsVisible(true);
       setIsClosing(false);
+      setIsOpening(true);
+      setTimeout(() => setIsOpening(false), OPEN_DURATION);
     }
     // No cleanup here — scroll restore is handled explicitly in handleClose
   }, [isOpen]);
@@ -58,12 +62,12 @@ export default function AddShopModal({ isOpen, onClose }: AddShopModalProps) {
     <>
       <div
         className={`${styles.backdrop} ${isClosing ? styles.closing : ""}`}
-        onClick={handleClose}
+        onClick={isOpening ? undefined : handleClose}
         aria-hidden="true"
       />
 
       <div
-        className={`${styles.modal} ${isClosing ? styles.closing : ""}`}
+        className={`${styles.modal} ${isClosing ? styles.closing : ""} ${isOpening ? styles.opening : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="add-shop-title"

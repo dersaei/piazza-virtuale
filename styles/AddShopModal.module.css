@@ -27,13 +27,17 @@
   border: 10px solid whitesmoke;
   box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 110px inset;
   transform: translate3d(-50%, -50%, 0);
-  animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scaleOpen 0.4s cubic-bezier(0.6, 0, 0.4, 1);
   will-change: transform;
   backface-visibility: hidden;
 }
 
 .modal.closing {
-  animation: slideUp 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: scaleClose 0.2s ease-out forwards;
+}
+
+.modal.opening {
+  overflow-y: hidden;
 }
 
 .modalInner {
@@ -246,25 +250,25 @@
   to { opacity: 0; }
 }
 
-@keyframes slideDown {
-  from {
-    transform: translate3d(-50%, calc(-50% - 60px), 0);
+@keyframes scaleOpen {
+  0% {
     opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 1);
   }
-  to {
-    transform: translate3d(-50%, -50%, 0);
+  100% {
     opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
   }
 }
 
-@keyframes slideUp {
-  from {
-    transform: translate3d(-50%, -50%, 0);
+@keyframes scaleClose {
+  0% {
     opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
   }
-  to {
-    transform: translate3d(-50%, calc(-50% - 40px), 0);
+  100% {
     opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale3d(0.5, 0.5, 1);
   }
 }
 

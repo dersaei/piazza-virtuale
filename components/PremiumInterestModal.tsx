@@ -14,6 +14,7 @@ interface PremiumInterestModalProps {
 }
 
 const CLOSE_DURATION = 200; // ms — match CSS animation duration
+const OPEN_DURATION = 400;  // ms — match scaleOpen animation duration
 
 export default function PremiumInterestModal({
   isOpen,
@@ -22,6 +23,7 @@ export default function PremiumInterestModal({
   const [state, formAction] = useActionState(submitPremiumInterestForm, null);
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(false);
 
   // Sync visibility with isOpen — open immediately, close with animation
   useEffect(() => {
@@ -31,6 +33,8 @@ export default function PremiumInterestModal({
       document.documentElement.classList.add("scroll-locked");
       setIsVisible(true);
       setIsClosing(false);
+      setIsOpening(true);
+      setTimeout(() => setIsOpening(false), OPEN_DURATION);
     }
     // No cleanup here — scroll restore is handled explicitly in handleClose
   }, [isOpen]);
@@ -62,12 +66,12 @@ export default function PremiumInterestModal({
     <>
       <div
         className={`${styles.backdrop} ${isClosing ? styles.closing : ""}`}
-        onClick={handleClose}
+        onClick={isOpening ? undefined : handleClose}
         aria-hidden="true"
       />
 
       <div
-        className={`${styles.modal} ${isClosing ? styles.closing : ""}`}
+        className={`${styles.modal} ${isClosing ? styles.closing : ""} ${isOpening ? styles.opening : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="premium-interest-title"
