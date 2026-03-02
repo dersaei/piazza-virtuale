@@ -1,10 +1,10 @@
 // app/come-funziona/page.tsx
 import Image from "next/image";
+import Link from "next/link";
 import logotest from "@/public/android-chrome-192x192.png";
-import slowFoodItalia from "@/public/slow-food-italia-white.png";
+import slowFoodItalia from "@/public/slow-food-italia.png";
 import gamberoRosso from "@/public/gambero-rosso.png";
 import aopIt from "@/public/aop-it.png";
-import pastaImg from "@/public/pasta.jpg";
 import styles from "@/styles/ComeFunziona.module.css";
 import type { Metadata } from "next";
 import { getPageSeo } from "@/lib/api/pages";
@@ -178,45 +178,59 @@ export default function ComeFunzionaPage() {
       <section className={styles.premiumCardPrototype}>
         <h2 className={styles.prototypeTitle}>Anteprima Scheda Premium</h2>
         <article className={styles.premiumCard}>
-          {/* Left column — content */}
-          <div className={styles.premiumCardLeft}>
-            <div>
-              <span className={styles.featuredLabel}>
-                <span>Puglia</span>
-                <span>Pasta</span>
-              </span>
-              <h3 className={styles.premiumProducerName}>
-                Pastificio Artigianale
-              </h3>
-              <div className={styles.premiumLogoContainer}>
-                <Image src={logotest} alt="Logo Pastificio Artigianale" />
-              </div>
-              <a className={styles.premiumCtaButton}>
-                <div className={styles.premiumButtonInner}>
-                  <span className={styles.premiumButtonText}>
-                    Visita lo Shop
-                  </span>
-                </div>
-              </a>
-            </div>
-            <div className={styles.premiumCertificationsContainer}>
-              <Image src={slowFoodItalia} alt="Slow Food Italia" />
-              <Image src={aopIt} alt="AOP Italia" />
-              <Image src={gamberoRosso} alt="Gambero Rosso" />
+          {/* Categoria + Region */}
+          <div className={styles.pcMeta}>
+            <span className={styles.pcRegion}>Puglia</span>
+            <span className={styles.pcSep}>·</span>
+            <span className={styles.pcCategory}>Pasta</span>
+          </div>
+
+          {/* Nome */}
+          <h3 className={styles.pcName}>Pastificio Artigianale</h3>
+
+          {/* Logo */}
+          <div className={styles.pcLogo}>
+            <Image src={logotest} alt="Logo Pastificio Artigianale" />
+          </div>
+
+          {/* Divisore */}
+          <hr className={styles.pcDivider} />
+
+          {/* Descrizione premium */}
+          <div className={styles.pcPremiumInfo}>
+            <p className={styles.pcPremiumLabel}>In questo negozio troverai</p>
+            <ul className={styles.pcPremiumFeatures}>
+              <li>
+                <span className={styles.pcFeatureIcon}>✦</span>
+                Spedizione gratuita disponibile
+              </li>
+              <li>
+                <span className={styles.pcFeatureIcon}>✦</span>
+                Riconoscimenti: Slow Food, Gambero Rosso, AOP
+              </li>
+              <li>
+                <span className={styles.pcFeatureIcon}>✦</span>
+                Pasta trafilata al bronzo, essiccazione lenta a bassa
+                temperatura, grano duro locale
+              </li>
+            </ul>
+            <div className={styles.pcCertifications}>
+              <Link href="https://www.slowfood.it" target="_blank" rel="noopener noreferrer">
+                <Image src={slowFoodItalia} alt="Slow Food Italia" />
+              </Link>
+              <Link href="https://culturaeconsapevolezza.mase.gov.it/news/dop-doc-e-igp-cibi-sicuri-autentici-e-di-qualita" target="_blank" rel="noopener noreferrer">
+                <Image src={aopIt} alt="AOP Italia" />
+              </Link>
+              <Link href="https://www.gamberorosso.it" target="_blank" rel="noopener noreferrer">
+                <Image src={gamberoRosso} alt="Gambero Rosso" />
+              </Link>
             </div>
           </div>
 
-          {/* Right column — photo */}
-          <div className={styles.premiumCardImageCol}>
-            <Image
-              className={styles.premiumCardImage}
-              src={pastaImg}
-              alt="Pasta artigianale"
-              fill
-              sizes="320px"
-              priority
-            />
-          </div>
+          {/* CTA */}
+          <a className={styles.pcCtaButton}>
+            <span className={styles.pcCtaText}>Visita lo Shop</span>
+          </a>
         </article>
       </section>
     </div>
