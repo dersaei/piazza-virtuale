@@ -16,7 +16,7 @@
     opacity 0.25s ease,
     border-color 0.25s ease;
   text-align: center;
-  border: 12px solid whitesmoke;
+  border: 10px solid whitesmoke;
 }
 
 .addShopButton:hover {

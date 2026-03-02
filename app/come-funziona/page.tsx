@@ -141,7 +141,7 @@ export default function ComeFunzionaPage() {
                       <br /> illimitate
                     </strong>
                   </p>
-                  <p className={styles.price}>&euro;300</p>
+                  <p className={styles.price}>&euro;320</p>
                   <p className={styles.priceNote}>all&apos;anno + IVA</p>
                   <ul className={styles.benefitList}>
                     <li>
@@ -215,13 +215,25 @@ export default function ComeFunzionaPage() {
               </li>
             </ul>
             <div className={styles.pcCertifications}>
-              <Link href="https://www.slowfood.it" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://www.slowfood.it"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Image src={slowFoodItalia} alt="Slow Food Italia" />
               </Link>
-              <Link href="https://culturaeconsapevolezza.mase.gov.it/news/dop-doc-e-igp-cibi-sicuri-autentici-e-di-qualita" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://culturaeconsapevolezza.mase.gov.it/news/dop-doc-e-igp-cibi-sicuri-autentici-e-di-qualita"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Image src={aopIt} alt="AOP Italia" />
               </Link>
-              <Link href="https://www.gamberorosso.it" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://www.gamberorosso.it"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Image src={gamberoRosso} alt="Gambero Rosso" />
               </Link>
             </div>
