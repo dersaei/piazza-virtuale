@@ -66,6 +66,25 @@ export const quickSubmissionSchema = z.object({
 export type QuickSubmissionInput = z.infer<typeof quickSubmissionSchema>;
 
 /**
+ * Premium Interest Schema (modal on come-funziona page)
+ */
+export const premiumInterestSchema = z.object({
+  full_name: z
+    .string()
+    .min(1, { error: "Nome e cognome sono obbligatori." })
+    .max(200, { error: "Nome e cognome troppo lungo (max 200 caratteri)." }),
+
+  email: emailSchema,
+
+  privacy_accepted: z.string().refine((val) => val === "on", {
+    message:
+      "Devi accettare l'Informativa Privacy per poter inviare la richiesta.",
+  }),
+});
+
+export type PremiumInterestInput = z.infer<typeof premiumInterestSchema>;
+
+/**
  * Helper function to format Zod errors into user-friendly messages
  */
 export function formatZodError(error: z.ZodError): string {

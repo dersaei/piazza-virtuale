@@ -11,14 +11,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: BASE_URL,
       lastModified: new Date(),
-      changeFrequency: "daily",
+      changeFrequency: "monthly",
       priority: 1.0,
     },
     {
       url: `${BASE_URL}/chi-siamo`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
+      lastModified: new Date("2026-03-02"),
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
     {
       url: `${BASE_URL}/come-funziona`,
@@ -28,31 +28,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/contatti`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      lastModified: new Date("2026-03-02"),
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
     {
       url: `${BASE_URL}/magazine`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${BASE_URL}/informativa-privacy`,
-      lastModified: new Date(),
+      lastModified: new Date("2026-03-02s"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${BASE_URL}/informativa-cookie`,
-      lastModified: new Date(),
+      lastModified: new Date("2026-03-02"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${BASE_URL}/note-legali`,
-      lastModified: new Date(),
+      lastModified: new Date("2026-03-02"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -65,7 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: category.parent ? 0.7 : 0.8, // Main categories have higher priority
-    })
+    }),
   );
 
   // Dynamic magazine articles

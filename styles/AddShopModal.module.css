@@ -65,6 +65,7 @@
   margin: 0 0 var(--space-sm);
   padding-right: var(--space-xl);
   line-height: 1.3;
+  text-align: left;
 }
 
 .description {
@@ -73,6 +74,7 @@
   color: #555;
   line-height: 1.6;
   margin: 0 0 var(--space-xl);
+  text-align: left;
 }
 
 .form {
@@ -93,6 +95,7 @@
   color: #2c2f2a;
   font-family: var(--font-sans);
   letter-spacing: 0.02em;
+  text-align: left;
 }
 
 .required {
@@ -167,6 +170,39 @@
 .submitButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.checkboxGroup input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #7a8471;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-size: 0.88rem;
+  color: #555;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.checkboxLabel a {
+  color: #7a8471;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.checkboxLabel a:hover {
+  color: #b8a281;
 }
 
 .statusMessage {

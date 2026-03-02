@@ -42,8 +42,10 @@ export {
 export {
   createContactMessage,
   createQuickSubmission,
+  createPremiumInterest,
   type ContactMessageDTO,
   type QuickSubmissionDTO,
+  type PremiumInterestDTO,
 } from "./submissions";
 
 export {

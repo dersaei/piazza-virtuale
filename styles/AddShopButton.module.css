@@ -1,0 +1,29 @@
+/* styles/AddShopButton.module.css */
+
+.addShopButton {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: #18222f;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-didot);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fdfbf7;
+  opacity: 0.85;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+  text-align: center;
+  border: 12px solid whitesmoke;
+}
+
+.addShopButton:hover {
+  opacity: 1;
+}
+@media (max-width: 400px) {
+  .addShopButton {
+    font-size: 0.75rem;
+  }
+}

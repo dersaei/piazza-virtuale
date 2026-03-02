@@ -3,10 +3,12 @@
 import {
   createContactMessage,
   createQuickSubmission,
+  createPremiumInterest,
 } from "@/lib/data";
 import {
   contactFormSchema,
   quickSubmissionSchema,
+  premiumInterestSchema,
   formatZodError,
 } from "@/lib/validation/schemas";
 
@@ -77,6 +79,60 @@ export async function submitContactForm(
       success: false,
       message:
         "Si è verificato un errore durante l'invio del messaggio. Per favore riprova più tardi.",
+    };
+  }
+}
+
+/**
+ * Server Action for Premium Interest Form (modal on come-funziona page)
+ */
+export async function submitPremiumInterestForm(
+  _prevState: FormSubmissionState,
+  formData: FormData
+): Promise<FormSubmissionState> {
+  try {
+    const full_name = formData.get("full_name") as string;
+    const email = formData.get("email") as string;
+    const privacy_accepted = formData.get("privacy_accepted") as string;
+
+    const validationResult = premiumInterestSchema.safeParse({
+      full_name,
+      email,
+      privacy_accepted,
+    });
+
+    if (!validationResult.success) {
+      return {
+        success: false,
+        message: formatZodError(validationResult.error),
+        formData: { full_name, email },
+      };
+    }
+
+    const result = await createPremiumInterest({
+      full_name: validationResult.data.full_name,
+      email: validationResult.data.email,
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        message: result.error || "Errore sconosciuto.",
+      };
+    }
+
+    return {
+      success: true,
+      message:
+        "Grazie per il tuo interesse! Ti contatteremo al più presto con tutti i dettagli.",
+      submissionId: Date.now(),
+    };
+  } catch (error) {
+    console.error("Premium interest form error:", error);
+    return {
+      success: false,
+      message:
+        "Si è verificato un errore durante l'invio. Per favore riprova più tardi.",
     };
   }
 }

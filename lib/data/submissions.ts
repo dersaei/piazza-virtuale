@@ -15,11 +15,45 @@ export interface ContactMessageDTO {
 }
 
 /**
+ * Premium Interest DTO
+ */
+export interface PremiumInterestDTO {
+  full_name: string;
+  email: string;
+}
+
+/**
  * Quick Submission DTO
  */
 export interface QuickSubmissionDTO {
   company_name?: string | null;
   shop_url: string;
+}
+
+/**
+ * Create premium interest submission
+ */
+export async function createPremiumInterest(
+  data: PremiumInterestDTO
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    await directusClient.request(
+      createItem("premium_interests", {
+        full_name: sanitizeText(data.full_name),
+        email: data.email.trim().toLowerCase(),
+        status: "pending",
+        submitted_at: new Date().toISOString(),
+      })
+    );
+
+    return { success: true };
+  } catch (error) {
+    console.error("Premium interest error:", error);
+    return {
+      success: false,
+      error: "Errore durante l'invio. Riprova più tardi.",
+    };
+  }
 }
 
 /**

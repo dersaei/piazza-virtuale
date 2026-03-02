@@ -8,9 +8,12 @@ import pastaImg from "@/public/pasta.jpg";
 import styles from "@/styles/ComeFunziona.module.css";
 import type { Metadata } from "next";
 import { getPageSeo } from "@/lib/api/pages";
+import PremiumCta from "@/components/PremiumCta";
+import AddShopButton from "@/components/AddShopButton";
 
 const FALLBACK_TITLE = "Come Funziona";
-const FALLBACK_DESCRIPTION = "Scopri come funziona Piazza Virtuale: aggiungi gratuitamente il tuo e-shop al catalogo dei produttori italiani di alimenti e bevande o richiedi il servizio premium per una maggiore visibilità.";
+const FALLBACK_DESCRIPTION =
+  "Scopri come funziona Piazza Virtuale: aggiungi gratuitamente il tuo e-shop al catalogo dei produttori italiani di alimenti e bevande o richiedi il servizio premium per una maggiore visibilità.";
 const PAGE_URL = "https://piazzavirtuale.it/come-funziona";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -75,9 +78,9 @@ export default function ComeFunzionaPage() {
               <p>
                 Ogni e-shop gestito da un produttore italiano di alimenti o
                 bevande può essere aggiunto gratuitamente al nostro catalogo
-                utilizzando il pulsante &ldquo;Aggiungi Negozio&rdquo; presente
-                nella barra laterale.
+                utilizzando il pulsante &ldquo;Aggiungi Negozio&rdquo;.
               </p>
+              <AddShopButton />
             </div>
           </section>
 
@@ -92,18 +95,80 @@ export default function ComeFunzionaPage() {
                 superiore dell&apos;elenco della categoria scelta.
               </p>
 
-              <p>
-                I produttori interessati sono invitati a inviarci la loro
-                richiesta non vincolante.
-              </p>
-              <div className={styles.pricingBox}>
-                <p className={styles.pricingText}>
-                  <strong>Servizio Premium:</strong>
-                </p>
-                <p className={styles.price}>&euro;25 al mese</p>
-                <p className={styles.priceOr}>oppure</p>
-                <p className={styles.price}>&euro;250 all&apos;anno</p>
+              <div className={styles.pricingGrid}>
+                {/* Piano Base */}
+                <div className={styles.pricingBox}>
+                  <p className={styles.pricingText}>
+                    <strong>
+                      Premium
+                      <br />1 categoria
+                    </strong>
+                  </p>
+                  <p className={styles.price}>&euro;250</p>
+                  <p className={styles.priceNote}>all&apos;anno + IVA</p>
+                  <ul className={styles.benefitList}>
+                    <li>
+                      <span className={styles.benefitIcon}>✦</span>
+                      Esposizione annuale in 1 categoria
+                    </li>
+                    <li>
+                      <span className={styles.benefitIcon}>✦</span>
+                      Posizionamento nella parte superiore dell&apos;elenco
+                    </li>
+                    <li>
+                      <span className={styles.benefitIcon}>✦</span>
+                      <span>
+                        Scheda premium con info su:
+                        <ul className={styles.benefitSubList}>
+                          <li>spedizione gratuita</li>
+                          <li>premi e riconoscimenti</li>
+                          <li>
+                            caratteristiche dei prodotti e metodi di produzione
+                          </li>
+                        </ul>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Piano Completo */}
+                <div
+                  className={`${styles.pricingBox} ${styles.pricingBoxFeatured}`}
+                >
+                  <p className={styles.pricingText}>
+                    <strong>
+                      Premium
+                      <br /> illimitate
+                    </strong>
+                  </p>
+                  <p className={styles.price}>&euro;300</p>
+                  <p className={styles.priceNote}>all&apos;anno + IVA</p>
+                  <ul className={styles.benefitList}>
+                    <li>
+                      <span className={styles.benefitIcon}>✦</span>
+                      Esposizione annuale in tutte le categorie del produttore
+                    </li>
+                    <li>
+                      <span className={styles.benefitIcon}>✦</span>
+                      Posizionamento nella parte superiore dell&apos;elenco
+                    </li>
+                    <li>
+                      <span className={styles.benefitIcon}>✦</span>
+                      <span>
+                        Scheda premium con info su:
+                        <ul className={styles.benefitSubList}>
+                          <li>spedizione gratuita</li>
+                          <li>premi e riconoscimenti</li>
+                          <li>
+                            caratteristiche dei prodotti e metodi di produzione
+                          </li>
+                        </ul>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
+              <PremiumCta />
             </div>
           </section>
         </div>
