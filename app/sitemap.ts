@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages with high priority
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: BASE_URL,
+      url: `${BASE_URL}/`,
       lastModified: new Date("2026-03-02"),
       changeFrequency: "monthly",
       priority: 1.0,
@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${BASE_URL}/come-funziona`,
       lastModified: new Date("2026-03-02"),
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/contatti`,
@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/magazine`,
-      lastModified: new Date(),
+      lastModified: new Date("2026-03-01"),
       changeFrequency: "monthly",
       priority: 0.6,
     },
