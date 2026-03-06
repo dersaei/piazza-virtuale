@@ -150,7 +150,7 @@ export async function getAllPublishedArticles(): Promise<MagazineArticleDTO[]> {
         filter: {
           status: { _eq: "published" },
         },
-        fields: ["id", "slug", "date_created"],
+        fields: ["id", "slug", "date_created", "date_updated"],
         sort: ["-date_created"], // Sort by date descending
         limit: -1,
       })

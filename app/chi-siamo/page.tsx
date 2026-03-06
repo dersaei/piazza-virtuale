@@ -79,7 +79,7 @@ export default function ChiSiamoPage() {
         <p className={styles.intro}>
           Il catalogo italiano di negozi online ufficiali di produttori di cibo
           e bevande dall&rsquo;Italia, rivolto ai consumatori che cercano
-          acquisti diretti dai produttori.
+          acquisti diretti dai produttori
         </p>
 
         <h2>Cos&rsquo;è questo sito</h2>

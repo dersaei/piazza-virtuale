@@ -7,8 +7,7 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       host: "piazzavirtuale.it",
       key: "3377fc8af72146d5ae48a3ae07dcbe1c",
-      keyLocation:
-        "https://piazzavirtuale.it/3377fc8af72146d5ae48a3ae07dcbe1c.txt",
+      keyLocation: "3377fc8af72146d5ae48a3ae07dcbe1c",
       urlList: urls,
     }),
   });

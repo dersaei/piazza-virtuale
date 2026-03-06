@@ -30,13 +30,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${BASE_URL}/contatti`,
       lastModified: new Date("2026-03-02"),
       changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.4,
     },
     {
       url: `${BASE_URL}/magazine`,
-      lastModified: new Date("2026-03-01"),
-      changeFrequency: "monthly",
-      priority: 0.6,
+      lastModified: new Date("2026-03-06"),
+      changeFrequency: "weekly",
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/informativa-privacy`,
@@ -78,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? new Date(article.date_updated)
         : new Date(article.date_created),
       changeFrequency: "monthly" as const,
-      priority: 0.6,
+      priority: 0.7,
     }));
   } catch (error) {
     console.error("Error fetching magazine articles for sitemap:", error);

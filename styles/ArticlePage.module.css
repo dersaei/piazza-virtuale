@@ -171,7 +171,7 @@
   margin-bottom: 28px;
   font-size: 1.2rem;
   color: #fffaf3;
-  font-weight: 300;
+  font-weight: 500;
   font-family: var(--font-serif);
 }
 
@@ -225,6 +225,8 @@
   color: #fffaf3;
   font-size: 1.1rem;
   font-family: var(--font-sans);
+  margin-bottom: 28px;
+  font-weight: 300;
 }
 
 .articleContent a {

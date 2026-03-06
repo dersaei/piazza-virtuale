@@ -15,10 +15,7 @@ import AckeeTracker from "@/components/AckeeTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://piazzavirtuale.it"),
-  title: {
-    default: "Piazza Virtuale",
-    template: "%s | Piazza Virtuale",
-  },
+  title: "Piazza Virtuale",
   description:
     "Il catalogo degli e-shop ufficiali dei produttori italiani di cibo e bevande. Scopri i migliori produttori che vendono online direttamente ai consumatori.",
   keywords: [
