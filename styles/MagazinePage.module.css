@@ -15,7 +15,7 @@
 /* Hero-Style Card */
 .articleCard {
   text-align: center;
-  padding: 60px 40px;
+  padding: 60px 0;
   position: relative;
   background-color: var(--category-color, var(--refined-text-primary));
   border: 5px solid var(--refined-accent-gold);
@@ -215,13 +215,13 @@
 }
 
 /* Responsive */
-@media (max-width: 1060px) {
+@media (max-width: 1045px) {
   .articleCard {
     width: 320px;
   }
 }
 
-@media (max-width: 990px) {
+@media (max-width: 980px) {
   .articleCard {
     width: 85%;
   }
@@ -233,7 +233,7 @@
   }
   .articleCard {
     width: 48%;
-    padding: 40px 15px;
+    padding: 40px 0;
   }
 }
 @media (max-width: 630px) {
