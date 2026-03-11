@@ -37,11 +37,11 @@ const nextConfig: NextConfig = {
     // Content Security Policy (CSP) for XSS protection
     const cspHeader = `
       default-src 'self';
-      script-src 'self' 'unsafe-eval' 'unsafe-inline' https://ackee.piazzavirtuale.it;
+      script-src 'self' 'unsafe-eval' 'unsafe-inline' https://ackee.spizarniaregio.work/;
       style-src 'self' 'unsafe-inline';
       img-src 'self' blob: data: https:;
       font-src 'self';
-      connect-src 'self' https://ackee.piazzavirtuale.it;
+      connect-src 'self' https://ackee.spizarniaregio.work/;
       object-src 'none';
       base-uri 'self';
       form-action 'self';

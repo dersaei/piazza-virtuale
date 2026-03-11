@@ -5,14 +5,14 @@ import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import * as ackeeTracker from "ackee-tracker";
 
-const ACKEE_SERVER = "https://ackee.piazzavirtuale.it";
+const ACKEE_SERVER = "https://ackee.spizarniaregio.work";
 const ACKEE_DOMAIN_ID = "c5a39a11-4bdf-4633-9e68-f279bb4f585f";
 
 export default function AckeeTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const instanceRef = useRef<ReturnType<typeof ackeeTracker.create> | null>(
-    null
+    null,
   );
   const stopRef = useRef<(() => void) | null>(null);
 
