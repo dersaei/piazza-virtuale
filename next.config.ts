@@ -63,28 +63,8 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Cache PWA manifest for 24 hours (instead of default max-age=0, must-revalidate)
-        source: "/manifest.webmanifest",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=604800",
-          },
-        ],
-      },
-      {
         // Cache static logo files for 1 year
         source: "/logos/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        // Cache PWA icons (android-chrome) for 1 year
-        source: "/android-chrome-:size.png",
         headers: [
           {
             key: "Cache-Control",

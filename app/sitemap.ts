@@ -10,8 +10,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/`,
-      lastModified: new Date("2026-03-02"),
-      changeFrequency: "monthly",
+      lastModified: new Date("2026-03-11"),
+      changeFrequency: "weekly",
       priority: 1.0,
     },
     {
@@ -77,7 +77,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: article.date_updated
         ? new Date(article.date_updated)
         : new Date(article.date_created),
-      changeFrequency: "monthly" as const,
+      changeFrequency: "weekly" as const,
       priority: 0.7,
     }));
   } catch (error) {
