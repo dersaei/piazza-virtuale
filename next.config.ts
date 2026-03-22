@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
+  // Forward browser errors to terminal during development (useful for AI agents)
+  logging: {
+    browserToTerminal: true,
+  },
+
   // React Compiler - automatic memoization for performance optimization
   // Note: This increases build time as it uses Babel
   reactCompiler: true,
