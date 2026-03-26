@@ -34,6 +34,14 @@ jobs:
 
             echo -e "${GREEN}🚀 Starting deployment of Piazza Virtuale...${NC}"
 
+            # Verify Node.js engine requirement for isomorphic-dompurify v3.x
+            NODE_MAJOR=$(node --version | sed 's/v\([0-9]*\).*/\1/')
+            if [ "$NODE_MAJOR" -lt 20 ]; then
+              echo -e "${RED}❌ Node.js >=20.19.0 required, found $(node --version)${NC}"
+              exit 1
+            fi
+            echo -e "${GREEN}✅ Node.js $(node --version) OK${NC}"
+
             # Step 1: Setup workspace and repository structure
             echo -e "${YELLOW}📦 Managing workspace and repository...${NC}"
 
