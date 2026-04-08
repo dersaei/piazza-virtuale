@@ -25,7 +25,7 @@ export default function VerticalHeader() {
       <header className={styles.verticalHeader}>
         <div className={styles.logo}>
           <Link href="/">
-            <Image loading="eager" src={logo} alt="Piazza Virtuale" />
+            <Image loading="eager" src={logo} alt="Logo Piazza Virtuale" />
           </Link>
         </div>
 

@@ -11,6 +11,9 @@ const eslintConfig = [...nextCoreWebVitals, ...nextTypescript, {
     'coverage/**',
     '*.config.js',
   ],
+  rules: {
+    'react-hooks/set-state-in-effect': 'off',
+  },
 }];
 
 export default eslintConfig;

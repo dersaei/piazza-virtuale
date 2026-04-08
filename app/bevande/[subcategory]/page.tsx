@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getCategoryBySlug } from '@/lib/constants/categories';
 import ProducerCard from '@/components/ProducerCard';
+import PremiumProducerCard from '@/components/PremiumProducerCard';
 import styles from '@/styles/CategoryPage.module.css';
 import { getProducersByCategory } from '@/lib/api/producers';
+import { getPremiumProducersByCategory } from '@/lib/api/premium-producers';
 import { getPageSeo } from '@/lib/api/pages';
 
 const VALID_SUBCATEGORIES = ['birre', 'vini', 'distillati', 'caffe', 'succhi'];
@@ -102,10 +104,20 @@ export default async function BevandaSubcategoryPage({
     notFound();
   }
 
-  const producers = await getProducersByCategory(fullSlug);
+  const [producers, premiumProducers] = await Promise.all([
+    getProducersByCategory(fullSlug),
+    getPremiumProducersByCategory(fullSlug),
+  ]);
 
   return (
     <section className={styles.categorySection}>
+      {premiumProducers.length > 0 && (
+        <div className={styles.premiumSection}>
+          {premiumProducers.map(producer => (
+            <PremiumProducerCard key={producer.id} producer={producer} />
+          ))}
+        </div>
+      )}
       <div className={styles.shopsGrid}>
         {producers.length > 0 ? (
           producers.map(producer => (

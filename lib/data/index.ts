@@ -52,4 +52,11 @@ export {
   getPageSeo,
 } from "./pages";
 
+export {
+  getPremiumProducers,
+  getPremiumProducersByCategory,
+  type PremiumProducerDTO,
+  type PremiumProducerFileDTO,
+} from "./premium-producers";
+
 // DO NOT export directusClient - it should only be used within this layer

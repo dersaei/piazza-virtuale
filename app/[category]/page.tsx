@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CATEGORIES, getCategoryBySlug } from '@/lib/constants/categories';
 import ProducerCard from '@/components/ProducerCard';
+import PremiumProducerCard from '@/components/PremiumProducerCard';
 import styles from '@/styles/CategoryPage.module.css';
 import { getProducersByCategory } from '@/lib/api/producers';
+import { getPremiumProducersByCategory } from '@/lib/api/premium-producers';
 import { getPageSeo } from '@/lib/api/pages';
 
 export async function generateMetadata({
@@ -85,10 +87,20 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const producers = await getProducersByCategory(categorySlug);
+  const [producers, premiumProducers] = await Promise.all([
+    getProducersByCategory(categorySlug),
+    getPremiumProducersByCategory(categorySlug),
+  ]);
 
   return (
     <section className={styles.categorySection}>
+      {premiumProducers.length > 0 && (
+        <div className={styles.premiumSection}>
+          {premiumProducers.map(producer => (
+            <PremiumProducerCard key={producer.id} producer={producer} />
+          ))}
+        </div>
+      )}
       <div className={styles.shopsGrid}>
         {producers.length > 0 ? (
           producers.map(producer => (

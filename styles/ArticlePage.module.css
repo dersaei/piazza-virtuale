@@ -229,6 +229,14 @@
   font-weight: 300;
 }
 
+.articleContent img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: var(--space-lg) auto;
+  border-radius: 4px;
+}
+
 .articleContent a {
   color: var(--refined-accent-gold);
   text-decoration: none;

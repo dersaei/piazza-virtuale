@@ -13,8 +13,15 @@
   align-items: stretch;
   gap: var(--space-lg);
 }
+
 .nessunTrovato {
   text-align: center;
   padding: 2rem;
   color: #666;
+}
+
+@media (max-width: 500px) {
+  .categorySection {
+    padding: var(--space-md) var(--space-xs);
+  }
 }
