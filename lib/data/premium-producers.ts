@@ -3,12 +3,6 @@ import "server-only";
 import { directusClient } from "./directus-client";
 import { readItems } from "@directus/sdk";
 
-export interface PremiumProducerFileDTO {
-  id: string;
-  width?: number | null;
-  height?: number | null;
-}
-
 export interface PremiumProducerDTO {
   id: string;
   nome: string;
@@ -18,11 +12,9 @@ export interface PremiumProducerDTO {
     name: string;
     slug: string;
   };
-  logo: PremiumProducerFileDTO | null;
   titolo: string;
   caratteristiche: string[];
   shop_url: string;
-  galleria: PremiumProducerFileDTO[];
 }
 
 type RawPremiumProducer = {
@@ -30,13 +22,9 @@ type RawPremiumProducer = {
   nome: string;
   regioni: string;
   categorie: { id: number; name: string; slug: string } | null;
-  logo: { id: string; width?: number | null; height?: number | null } | null;
   titolo: string;
   caratteristiche_del_negozio: Array<{ caratteristica: string }>;
   indirizzo_del_sito_web_del_negozio_online: string;
-  galleria: Array<{
-    directus_files_id: { id: string; width?: number | null; height?: number | null } | null;
-  }>;
 };
 
 function toDTO(raw: RawPremiumProducer): PremiumProducerDTO | null {
@@ -47,22 +35,14 @@ function toDTO(raw: RawPremiumProducer): PremiumProducerDTO | null {
     nome: raw.nome,
     regioni: raw.regioni,
     categorie: raw.categorie,
-    logo: raw.logo ? { id: raw.logo.id, width: raw.logo.width, height: raw.logo.height } : null,
     titolo: raw.titolo,
     caratteristiche: raw.caratteristiche_del_negozio.map((c) => c.caratteristica),
     shop_url: raw.indirizzo_del_sito_web_del_negozio_online,
-    galleria: raw.galleria
-      .filter((g) => g.directus_files_id !== null)
-      .map((g) => ({
-        id: g.directus_files_id!.id,
-        width: g.directus_files_id!.width,
-        height: g.directus_files_id!.height,
-      })),
   };
 }
 
 /**
- * Fetch all published premium producers, sorted by sort field (ascending).
+ * Fetch all published premium producers.
  */
 export async function getPremiumProducers(): Promise<PremiumProducerDTO[]> {
   try {
@@ -74,11 +54,9 @@ export async function getPremiumProducers(): Promise<PremiumProducerDTO[]> {
           "nome",
           "regioni",
           { categorie: ["id", "name", "slug"] },
-          { logo: ["id", "width", "height"] },
           "titolo",
           "caratteristiche_del_negozio",
           "indirizzo_del_sito_web_del_negozio_online",
-          { galleria: [{ directus_files_id: ["id", "width", "height"] }] },
         ],
         limit: -1,
       })
@@ -113,11 +91,9 @@ export async function getPremiumProducersByCategory(
           "nome",
           "regioni",
           { categorie: ["id", "name", "slug"] },
-          { logo: ["id", "width", "height"] },
           "titolo",
           "caratteristiche_del_negozio",
           "indirizzo_del_sito_web_del_negozio_online",
-          { galleria: [{ directus_files_id: ["id", "width", "height"] }] },
         ],
         limit: -1,
       })

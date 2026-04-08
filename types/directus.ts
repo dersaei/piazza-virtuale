@@ -123,26 +123,6 @@ export interface PageItem {
 }
 
 /**
- * Premium Producer gallery junction
- */
-export interface PremiumProducerFile {
-  id: number;
-  produttori_premium_id: string;
-  directus_files_id: string | DirectusFile;
-}
-
-/**
- * Directus File (subset of directus_files fields used in this project)
- */
-export interface DirectusFile {
-  id: string;
-  filename_disk: string;
-  storage: string;
-  width?: number | null;
-  height?: number | null;
-}
-
-/**
  * Premium Producer
  */
 export interface PremiumProducer {
@@ -153,11 +133,9 @@ export interface PremiumProducer {
   regioni: string;
   categorie: Category | number | null;
   nome: string;
-  logo: DirectusFile | string | null;
   titolo: string;
   caratteristiche_del_negozio: Array<{ caratteristica: string }>;
   indirizzo_del_sito_web_del_negozio_online: string;
-  galleria: PremiumProducerFile[] | number[];
 }
 
 /**
@@ -194,5 +172,4 @@ export interface DirectusSchema {
   seo: SeoItem[];
   pages: PageItem[];
   produttori_premium: PremiumProducer[];
-  produttori_premium_files: PremiumProducerFile[];
 }
