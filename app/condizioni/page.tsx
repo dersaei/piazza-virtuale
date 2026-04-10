@@ -1,10 +1,9 @@
 // app/condizioni/page.tsx
+import { connection } from "next/server";
 import ReactMarkdown from "react-markdown";
 import styles from "@/styles/LegalPage.module.css";
 import { getCondizioni } from "@/lib/api/condizioni";
 import type { Metadata } from "next";
-
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Condizioni Generali del Servizio Premium",
@@ -16,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CondizioniPage() {
+  await connection();
   const data = await getCondizioni();
 
   const lastUpdate = data?.date_updated
