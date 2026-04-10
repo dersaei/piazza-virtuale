@@ -208,7 +208,7 @@
   text-align: center;
   margin: 0 auto;
   background-color: #fdfbf7;
-  border: 10px solid whitesmoke;
+  border-top: 20px solid #f5f5f5;
   box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 310px inset;
 }
 

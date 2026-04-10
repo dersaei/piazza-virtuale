@@ -468,7 +468,7 @@
   align-items: center;
   width: 100%;
   background: #fdfbf7;
-  border: 10px solid whitesmoke;
+  border: 10px solid #f5f5f5;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   padding: var(--space-xl) var(--space-xl) var(--space-lg);
   gap: var(--space-md);
@@ -635,7 +635,7 @@
   margin-top: var(--space-sm);
   padding: var(--space-sm) var(--space-xl);
   border: 1px solid rgba(184, 162, 129, 0.55);
-  background-color: whitesmoke;
+  background-color: #f5f5f5;
   text-decoration: none;
   cursor: pointer;
   position: relative;

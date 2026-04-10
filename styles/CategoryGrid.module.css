@@ -11,7 +11,7 @@
 
 .categoryCard {
   display: block;
-  background: #fff;
+  background-color: #fff;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
   padding: 2rem;
@@ -27,6 +27,7 @@
   transform: translateY(-4px);
   border-color: #009246;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5dc;
 }
 
 .categoryCard:active {
