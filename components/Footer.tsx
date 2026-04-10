@@ -15,6 +15,9 @@ export default function Footer() {
         </span>
 
         <nav className={styles.footerNav}>
+          <Link href="/condizioni" className={styles.footerLink}>
+            Condizioni
+          </Link>
           <Link href="/informativa-privacy" className={styles.footerLink}>
             Privacy
           </Link>

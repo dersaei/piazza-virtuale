@@ -290,6 +290,22 @@
   padding-bottom: var(--space-lg);
 }
 
+.condizioniLink {
+  display: block;
+  margin-top: var(--space-xs);
+  text-align: center;
+  font-size: 0.9rem;
+  color: #7a8471;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: color 0.2s ease;
+  font-weight: 400;
+}
+
+.condizioniLink:hover {
+  color: #b8a281;
+}
+
 .ctaWrapper {
   text-align: center;
   margin: var(--space-xl) var(--space-sm);

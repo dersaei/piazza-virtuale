@@ -169,6 +169,9 @@ export default function ComeFunzionaPage() {
                 </div>
               </div>
               <PremiumCta />
+              <Link href="/condizioni" className={styles.condizioniLink}>
+                Leggi Condizioni Generali del Servizio Premium
+              </Link>
             </div>
           </section>
         </div>
