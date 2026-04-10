@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 async function CondizioniContent() {
   const data = await getCondizioni();
+  console.log("[condizioni] data:", JSON.stringify(data)?.slice(0, 200));
 
   const lastUpdate = data?.date_updated
     ? new Date(data.date_updated).toLocaleDateString("it-IT", {
