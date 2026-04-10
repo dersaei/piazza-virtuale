@@ -22,15 +22,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/come-funziona`,
-      lastModified: new Date("2026-03-02"),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      lastModified: new Date("2026-04-09"),
+      changeFrequency: "yearly",
+      priority: 0.4,
     },
     {
       url: `${BASE_URL}/contatti`,
       lastModified: new Date("2026-03-02"),
       changeFrequency: "yearly",
-      priority: 0.4,
+      priority: 0.3,
     },
     {
       url: `${BASE_URL}/magazine`,
@@ -53,6 +53,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${BASE_URL}/note-legali`,
       lastModified: new Date("2026-03-02"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/condizioni`,
+      lastModified: new Date("2026-04-10"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
