@@ -18,6 +18,7 @@ export async function getCondizioni(): Promise<CondizioniDTO | null> {
     const items = await directusClient.request(
       readItems("condizioni", {
         fields: ["content", "date_updated"],
+        filter: { status: { _eq: "published" } },
         limit: 1,
       })
     );
