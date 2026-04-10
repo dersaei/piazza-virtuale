@@ -1,5 +1,5 @@
 // app/condizioni/page.tsx
-import { connection } from "next/server";
+import { Suspense } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "@/styles/LegalPage.module.css";
 import { getCondizioni } from "@/lib/api/condizioni";
@@ -14,8 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function CondizioniPage() {
-  await connection();
+async function CondizioniContent() {
   const data = await getCondizioni();
 
   const lastUpdate = data?.date_updated
@@ -27,45 +26,53 @@ export default async function CondizioniPage() {
     : null;
 
   return (
-    <div className={styles.legalPage}>
-      <article className={styles.legalContent}>
-        <header className={styles.header}>
-          <h1>Condizioni Generali del Servizio Premium</h1>
-          {lastUpdate && (
-            <p className={styles.lastUpdate}>
-              Ultimo aggiornamento: {lastUpdate}
-            </p>
-          )}
-        </header>
-
-        {data?.content ? (
-          <div className={styles.section}>
-            <ReactMarkdown
-              components={{
-                a: ({ href, children }) => (
-                  <a href={href} target="_blank" rel="noopener noreferrer">
-                    {children}
-                  </a>
-                ),
-                blockquote: ({ children }) => (
-                  <div className={styles.highlight}>{children}</div>
-                ),
-                table: ({ children }) => (
-                  <div className={styles.table}>
-                    <table>{children}</table>
-                  </div>
-                ),
-              }}
-            >
-              {data.content}
-            </ReactMarkdown>
-          </div>
-        ) : (
-          <div className={styles.section}>
-            <p>Contenuto non disponibile.</p>
-          </div>
+    <article className={styles.legalContent}>
+      <header className={styles.header}>
+        <h1>Condizioni Generali del Servizio Premium</h1>
+        {lastUpdate && (
+          <p className={styles.lastUpdate}>
+            Ultimo aggiornamento: {lastUpdate}
+          </p>
         )}
-      </article>
+      </header>
+
+      {data?.content ? (
+        <div className={styles.section}>
+          <ReactMarkdown
+            components={{
+              a: ({ href, children }) => (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  {children}
+                </a>
+              ),
+              blockquote: ({ children }) => (
+                <div className={styles.highlight}>{children}</div>
+              ),
+              table: ({ children }) => (
+                <div className={styles.table}>
+                  <table>{children}</table>
+                </div>
+              ),
+            }}
+          >
+            {data.content}
+          </ReactMarkdown>
+        </div>
+      ) : (
+        <div className={styles.section}>
+          <p>Contenuto non disponibile.</p>
+        </div>
+      )}
+    </article>
+  );
+}
+
+export default function CondizioniPage() {
+  return (
+    <div className={styles.legalPage}>
+      <Suspense fallback={<div className={styles.legalContent} />}>
+        <CondizioniContent />
+      </Suspense>
     </div>
   );
 }
