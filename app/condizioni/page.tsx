@@ -1,5 +1,6 @@
 // app/condizioni/page.tsx
 import { Suspense } from "react";
+import ReactMarkdown from "react-markdown";
 import styles from "@/styles/LegalPage.module.css";
 import { getCondizioni } from "@/lib/data";
 import type { Metadata } from "next";
@@ -15,7 +16,6 @@ export const metadata: Metadata = {
 
 async function CondizioniContent() {
   const data = await getCondizioni();
-  console.log("[condizioni] data:", JSON.stringify(data)?.slice(0, 200));
 
   const lastUpdate = data?.date_updated
     ? new Date(data.date_updated).toLocaleDateString("it-IT", {
@@ -37,10 +37,27 @@ async function CondizioniContent() {
       </header>
 
       {data?.content ? (
-        <div
-          className={styles.section}
-          dangerouslySetInnerHTML={{ __html: data.content }}
-        />
+        <div className={styles.section}>
+          <ReactMarkdown
+            components={{
+              a: ({ href, children }) => (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  {children}
+                </a>
+              ),
+              blockquote: ({ children }) => (
+                <div className={styles.highlight}>{children}</div>
+              ),
+              table: ({ children }) => (
+                <div className={styles.table}>
+                  <table>{children}</table>
+                </div>
+              ),
+            }}
+          >
+            {data.content}
+          </ReactMarkdown>
+        </div>
       ) : (
         <div className={styles.section}>
           <p>Contenuto non disponibile.</p>
