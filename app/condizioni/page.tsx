@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "@/styles/LegalPage.module.css";
-import { getCondizioni } from "@/lib/api/condizioni";
+import { getCondizioni } from "@/lib/data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
