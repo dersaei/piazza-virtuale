@@ -1,8 +1,10 @@
 // app/condizioni/page.tsx
 import ReactMarkdown from "react-markdown";
 import styles from "@/styles/LegalPage.module.css";
-import { getCondizioni } from "@/lib/data";
+import { getCondizioni } from "@/lib/api/condizioni";
 import type { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Condizioni Generali del Servizio Premium",
