@@ -105,6 +105,18 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    if (collection === 'condizioni') {
+      revalidateTag('condizioni', 'max');
+      console.log('✅ Revalidated tag: condizioni');
+
+      return NextResponse.json({
+        revalidated: true,
+        collection: 'condizioni',
+        tags: ['condizioni'],
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     return NextResponse.json(
       { error: 'Invalid request: missing tags or collection' },
       { status: 400 }
