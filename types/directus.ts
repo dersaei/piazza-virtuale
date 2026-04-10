@@ -165,7 +165,8 @@ export interface PremiumInterest {
  */
 export interface Condizioni {
   id: string;
-  content: string;
+  content?: string | null;
+  text?: string | null;
   status: 'published' | 'draft' | 'archived';
   date_updated?: string | null;
 }

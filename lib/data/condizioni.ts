@@ -17,7 +17,7 @@ export async function getCondizioni(): Promise<CondizioniDTO | null> {
   try {
     const items = await directusClient.request(
       readItems("condizioni", {
-        fields: ["content", "date_updated"],
+        fields: ["text", "date_updated"],
         filter: { status: { _eq: "published" } },
         limit: 1,
       })
@@ -30,10 +30,10 @@ export async function getCondizioni(): Promise<CondizioniDTO | null> {
       return null;
     }
 
-    const item = items[0] as unknown as { content: string; date_updated?: string | null };
+    const item = items[0] as unknown as { text: string; date_updated?: string | null };
 
     return {
-      content: item.content ?? "",
+      content: item.text ?? "",
       date_updated: item.date_updated ?? null,
     };
   } catch (error) {
