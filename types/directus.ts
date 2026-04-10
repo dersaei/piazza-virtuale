@@ -182,5 +182,5 @@ export interface DirectusSchema {
   seo: SeoItem[];
   pages: PageItem[];
   produttori_premium: PremiumProducer[];
-  condizioni: Condizioni;
+  condizioni: Condizioni[];
 }

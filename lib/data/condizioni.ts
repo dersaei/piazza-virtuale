@@ -1,7 +1,7 @@
 // lib/data/condizioni.ts
 import "server-only";
 import { directusClient } from "./directus-client";
-import { readSingleton } from "@directus/sdk";
+import { readItems } from "@directus/sdk";
 
 export interface CondizioniDTO {
   content: string;
@@ -11,32 +11,29 @@ export interface CondizioniDTO {
 /**
  * Get the condizioni generali del servizio content
  *
- * condizioni is a Directus singleton collection with one content field: `content` (Markdown).
+ * Reads the first published item from the condizioni collection.
  */
 export async function getCondizioni(): Promise<CondizioniDTO | null> {
   try {
-    console.log("[condizioni] Fetching from Directus...");
-
-    const item = await directusClient.request(
-      readSingleton("condizioni", {
+    const items = await directusClient.request(
+      readItems("condizioni", {
         fields: ["content", "date_updated"],
+        limit: 1,
       })
     );
 
-    console.log("[condizioni] Raw response:", JSON.stringify(item));
+    console.log("[condizioni] items count:", items.length);
+    console.log("[condizioni] first item:", JSON.stringify(items[0])?.slice(0, 200));
 
-    if (!item) {
-      console.log("[condizioni] item is falsy, returning null");
+    if (!items || items.length === 0) {
       return null;
     }
 
-    const data = item as { content: string; date_updated?: string | null };
-
-    console.log("[condizioni] content length:", data.content?.length ?? 0);
+    const item = items[0] as unknown as { content: string; date_updated?: string | null };
 
     return {
-      content: data.content ?? "",
-      date_updated: data.date_updated ?? null,
+      content: item.content ?? "",
+      date_updated: item.date_updated ?? null,
     };
   } catch (error) {
     console.error("[condizioni] Error fetching:", error);
