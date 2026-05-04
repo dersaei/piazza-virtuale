@@ -160,15 +160,6 @@ export interface PremiumInterest {
   date_created: string;
 }
 
-/**
- * Condizioni generali del servizio Premium (singleton)
- */
-export interface Condizioni {
-  id: string;
-  content: string;
-  status: 'published' | 'draft' | 'archived';
-  date_updated?: string | null;
-}
 
 export interface DirectusSchema {
   categories: Category[];
@@ -182,5 +173,4 @@ export interface DirectusSchema {
   seo: SeoItem[];
   pages: PageItem[];
   produttori_premium: PremiumProducer[];
-  condizioni: Condizioni;
 }

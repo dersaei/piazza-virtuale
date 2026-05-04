@@ -104,7 +104,7 @@ export default function ComeFunzionaPage() {
                       <br />1 categoria
                     </strong>
                   </p>
-                  <p className={styles.price}>&euro;250</p>
+                  <p className={styles.price}>&euro;50</p>
                   <p className={styles.priceNote}>all&apos;anno + IVA</p>
                   <ul className={styles.benefitList}>
                     <li>
@@ -141,7 +141,7 @@ export default function ComeFunzionaPage() {
                       <br /> illimitate
                     </strong>
                   </p>
-                  <p className={styles.price}>&euro;325</p>
+                  <p className={styles.price}>&euro;75</p>
                   <p className={styles.priceNote}>all&apos;anno + IVA</p>
                   <ul className={styles.benefitList}>
                     <li>

@@ -58,9 +58,5 @@ export {
   type PremiumProducerDTO,
 } from "./premium-producers";
 
-export {
-  getCondizioni,
-  type CondizioniDTO,
-} from "./condizioni";
 
 // DO NOT export directusClient - it should only be used within this layer
