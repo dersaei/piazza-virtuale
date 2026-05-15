@@ -126,6 +126,9 @@ export default function HorizontalHeader() {
           {categoriesToShow.map((category) => {
             const hasSubcategories =
               category.id === "bevande" || category.id === "condimenti";
+            const isActive =
+              pathname === category.href ||
+              pathname.startsWith(category.href + "/");
 
             return (
               <Link
@@ -138,11 +141,9 @@ export default function HorizontalHeader() {
                     : undefined
                 }
                 className={`${styles.categoryButton} ${
-                  pathname === category.href ||
-                  pathname.startsWith(category.href + "/")
-                    ? styles.active
-                    : ""
+                  isActive ? styles.active : ""
                 }`}
+                aria-current={isActive ? "page" : undefined}
               >
                 <span className={styles.categoryText}>{category.label}</span>
               </Link>
