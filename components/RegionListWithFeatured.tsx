@@ -48,6 +48,7 @@ export async function RegionListWithFeatured() {
                     src={`/${featuredProducer.logo}`}
                     alt={featuredProducer.name_alt}
                     fill
+                    sizes="(max-width: 650px) 80px, (max-width: 888px) 100px, 120px"
                     className={styles.logo}
                   />
                 </div>

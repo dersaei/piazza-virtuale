@@ -24,7 +24,7 @@
     border-color 0.5s ease-in-out;
 }
 
-.regionRow:hover {
+.regionRow:has(.stretchedLink):hover {
   box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 30px inset;
   border-color: var(--italian-green);
   cursor: pointer;
@@ -61,7 +61,7 @@
   transition: color 0.5s ease;
 }
 
-.regionRow:hover .regionName {
+.regionRow:has(.stretchedLink):hover .regionName {
   color: var(--italian-green);
 }
 
@@ -109,7 +109,7 @@
   transition: transform 1s ease-in-out;
 }
 
-.regionRow:hover .logoLink {
+.regionRow:has(.stretchedLink):hover .logoLink {
   transform: scale(1.05);
 }
 
@@ -119,7 +119,7 @@
   transition: filter 0.3s ease;
 }
 
-.regionRow:hover .logo {
+.regionRow:has(.stretchedLink):hover .logo {
   filter: grayscale(0%) opacity(1);
 }
 
