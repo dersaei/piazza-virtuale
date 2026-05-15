@@ -22,12 +22,10 @@ function cleanHtmlText(html: string): string {
   return text.replace(/\s+/g, ' ').trim();
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata(
+  props: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await props.params;
   const article = await getArticleBySlug(slug);
 
   if (!article) {

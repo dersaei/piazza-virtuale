@@ -53,12 +53,15 @@ export default function HomePage() {
           Vetrina dei negozi online di produttori italiani enogastronomici
         </h1>
       </section>
-      <h2 className={styles.heroHeading}>
-        Scopri con noi i produttori italiani&nbsp;
-        <span className={styles.highlight}>di cibo e bevande</span>
-        che vendono direttamente&nbsp;
-        <span className={styles.highlight}>online</span>
-      </h2>
+
+      <div className={styles.heroWrapper}>
+        <h2 className={styles.heroHeading}>
+          Scopri con noi i produttori italiani&nbsp;
+          <span className={styles.highlight}>di cibo e bevande</span>
+          che vendono direttamente&nbsp;
+          <span className={styles.highlight}>online</span>
+        </h2>
+      </div>
 
       {/* Categories Grid Section */}
       <section className={styles.categoriesSection}>

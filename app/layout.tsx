@@ -80,10 +80,11 @@ export default function RootLayout({
       lang="it"
       data-scroll-behavior="smooth"
       className={`${fontSerif.variable} ${fontSans.variable} ${fontFutura.variable} ${fontDidot.variable}`}
+      suppressHydrationWarning
     >
       {/* Note: Hydration warnings from browser extensions (e.g., Grammarly) are expected.
-          We intentionally do NOT use suppressHydrationWarning to ensure all real
-          hydration errors are visible during development. */}
+          We use suppressHydrationWarning on the html tag specifically to allow extensions
+          to modify attributes like data-gramm without throwing fatal React 15 hydration errors. */}
       <body>
         <Suspense fallback={null}>
           <AckeeTracker />
