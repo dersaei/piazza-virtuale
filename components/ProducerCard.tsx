@@ -35,7 +35,8 @@ export default function ShopCard({
           <Image
             src={`/${logoPath}`}
             alt={producerNameAlt}
-            fill={true}
+            fill
+            sizes="150px"
             className={styles.logo}
           />
         </div>

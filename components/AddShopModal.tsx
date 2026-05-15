@@ -16,7 +16,7 @@ const CLOSE_DURATION = 200; // ms — match CSS animation duration
 const OPEN_DURATION = 400;  // ms — match scaleOpen animation duration
 
 export default function AddShopModal({ isOpen, onClose }: AddShopModalProps) {
-  const [state, formAction] = useActionState(submitQuickForm, null);
+  const [state, formAction, isPending] = useActionState(submitQuickForm, null);
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
@@ -150,8 +150,8 @@ export default function AddShopModal({ isOpen, onClose }: AddShopModalProps) {
                 )}
 
                 {/* Submit */}
-                <button type="submit" className={styles.submitButton}>
-                  Invia richiesta
+                <button type="submit" className={styles.submitButton} disabled={isPending}>
+                  {isPending ? "Invio in corso..." : "Invia richiesta"}
                 </button>
               </form>
             </>
