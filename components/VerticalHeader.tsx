@@ -25,26 +25,32 @@ export default function VerticalHeader() {
       <header className={styles.verticalHeader}>
         <div className={styles.logo}>
           <Link href="/">
-            <Image loading="eager" src={logo} alt="Logo Piazza Virtuale" />
+            <Image priority src={logo} alt="Logo Piazza Virtuale" />
           </Link>
         </div>
 
         <nav className={styles.nav}>
-          {NAVIGATION_ITEMS.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              className={`${styles.navButton} ${
-                pathname === item.href ? styles.active : ""
-              }`}
-            >
-              <div className={styles.buttonFrame}>
-                <div className={styles.buttonInnerFrame}>
-                  <span className={styles.buttonText}>{item.label}</span>
+          {NAVIGATION_ITEMS.map((item) => {
+            const isActive =
+              pathname === item.href || pathname?.startsWith(`${item.href}/`);
+
+            return (
+              <Link
+                key={item.id}
+                href={item.href}
+                className={`${styles.navButton} ${
+                  isActive ? styles.active : ""
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <div className={styles.buttonFrame}>
+                  <div className={styles.buttonInnerFrame}>
+                    <span className={styles.buttonText}>{item.label}</span>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className={styles.addShopSection}>
