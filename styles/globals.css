@@ -159,7 +159,7 @@ html.scroll-locked body {
   display: none;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 900px) {
   .main-content-area {
     margin-left: var(--vertical-tablet-header-width);
   }

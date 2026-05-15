@@ -97,10 +97,13 @@ export default function MobileHeader() {
 
       {/* Backdrop overlay - clicking closes menu */}
       {isMenuOpen && (
-        <div
+        <button
+          type="button"
           className={styles.backdrop}
           onClick={handleBackdropClick}
           aria-hidden="true"
+          aria-label="Chiudi menu"
+          tabIndex={-1}
         />
       )}
 
@@ -109,22 +112,24 @@ export default function MobileHeader() {
         className={`${styles.menuOverlay} ${isMenuOpen ? styles.menuOpen : ""}`}
       >
         <nav className={styles.nav}>
-          {NAVIGATION_ITEMS.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              onClick={handleLinkClick}
-              className={`${styles.navButton} ${
-                pathname === item.href ? styles.active : ""
-              }`}
-            >
-              <div className={styles.buttonFrame}>
-                <div className={styles.buttonInnerFrame}>
-                  <span className={styles.buttonText}>{item.label}</span>
+          {NAVIGATION_ITEMS.map((item) => {
+            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            return (
+              <Link
+                key={item.id}
+                href={item.href}
+                onClick={handleLinkClick}
+                className={`${styles.navButton} ${isActive ? styles.active : ""}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <div className={styles.buttonFrame}>
+                  <div className={styles.buttonInnerFrame}>
+                    <span className={styles.buttonText}>{item.label}</span>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </>

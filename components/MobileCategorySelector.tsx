@@ -96,9 +96,13 @@ export default function MobileCategorySelector() {
       {/* Category overlay */}
       {isOverlayOpen && (
         <>
-          <div
+          <button
+            type="button"
             className={`${styles.overlay} ${isClosing ? styles.overlayClosing : styles.overlayOpen}`}
             onClick={toggleOverlay}
+            aria-hidden="true"
+            aria-label="Chiudi overlay"
+            tabIndex={-1}
           />
           <div className={`${styles.categoryGrid} ${isClosing ? styles.gridClosing : styles.gridOpen}`}>
             {/* Back button when viewing subcategories */}

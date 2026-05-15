@@ -176,7 +176,7 @@
   border-color: rgba(184, 162, 129, 0.6);
 }
 
-@media (max-width: 880px) {
+@media (max-width: 900px) {
   .addShopSection {
     padding: 0 var(--space-md) var(--space-md);
   }
