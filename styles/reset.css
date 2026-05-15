@@ -1,95 +1,29 @@
-/* Enhanced CSS Reset for Next.js App */
+/* Enhanced Modern CSS Reset for Next.js App */
 html {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Prevent iOS text size adjust after orientation change */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
-/* Reset margins, paddings, and borders */
-html,
-body,
-div,
-span,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-abbr,
-address,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-samp,
-small,
-strong,
-sub,
-sup,
-var,
-b,
-i,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+/* Modern reset: Remove margins and paddings using a simpler selector, preserving semantic meaning without the massive list */
+* {
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline;
+  font: inherit; /* Shorthand to inherit font properties naturally */
 }
 
-/* HTML5 display-role reset */
+/* HTML5 display-role reset is largely obsolete in modern browsers, but keep block display for standard semantics */
 article,
 aside,
 details,
@@ -107,6 +41,11 @@ section {
 /* Body defaults */
 body {
   line-height: 1.5;
+  min-height: 100vh;
+  /* Prevent font size inflation */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* List styles */
@@ -123,12 +62,12 @@ q {
 
 /* Link styles */
 a {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
+  color: inherit;
   text-decoration: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
 }
 
 a[data-nextjs-scroll-focus-boundary] {
@@ -140,21 +79,29 @@ input,
 select,
 textarea,
 button {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0;
+  background: transparent;
+  border: none;
+}
+
+/* Modern responsive textarea/inputs */
+textarea {
+  min-height: 3em; /* Fallback using standard em units */
+}
+
+/* Use field-sizing only where supported (Progressive Enhancement) */
+@supports (field-sizing: content) {
+  textarea {
+    field-sizing: content;
+    min-height: 3lh; /* Use line-height unit if supported */
+  }
 }
 
 button,
-html input[type="button"],
+input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  appearance: button;
+  appearance: none;
   cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
 }
 
 /* Text elements */
@@ -177,7 +124,7 @@ del {
 
 abbr[title],
 dfn[title] {
-  border-bottom: 1px dotted;
+  border-block-end: 1px dotted; /* Logical property */
   cursor: help;
 }
 
@@ -190,18 +137,11 @@ table {
 /* HR styles */
 hr {
   display: block;
-  height: 1px;
+  block-size: 1px; /* Logical property for height */
   border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-  width: 100%;
-}
-
-/* Input alignment */
-input,
-select {
-  vertical-align: middle;
+  border-block-start: 1px solid #ccc; /* Logical property */
+  margin-block: 1em; /* Logical property */
+  inline-size: 100%; /* Logical property for width */
 }
 
 /* Typography improvements */
@@ -215,8 +155,13 @@ p {
   overflow-wrap: break-word;
 }
 
-/* Image optimization */
-img {
+/* Image optimization & media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
   max-width: 100%;
   height: auto;
 }
@@ -232,8 +177,8 @@ img {
 
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  inline-size: 1px;
+  block-size: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;
@@ -249,7 +194,6 @@ img {
 }
 
 /* Keyboard focus styles for links and buttons — outline only when navigating by keyboard */
-body.using-mouse a:focus,
-body.using-mouse button:focus {
+body.using-mouse :is(a, button):focus {
   outline: none;
 }
